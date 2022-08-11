@@ -9,3 +9,5 @@ I created SDA-Flow to allow non-coders to use another open source project of min
 If you use this project, show off your work and tag me on [Twitter](https://twitter.com/NaelShiab) or [LinkedIn](https://www.linkedin.com/in/naelshiab/)!
 
 Feel to start a conversation, raise an issue or contribute to the code. :)
+
+PS: I used the wonderful [React Flow](https://github.com/wbkd/react-flow) library to build this project.
