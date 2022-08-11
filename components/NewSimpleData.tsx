@@ -1,7 +1,8 @@
+// @ts-nocheck
 import { useState, useRef, useEffect } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { SimpleData } from 'simple-data-analysis';
-import useStore from '../pages/store';
+import useStore from './store';
 
 const width = 200
 
