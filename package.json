@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export -o docs/"
+    "export": "next build && next export -o docs/ && touch docs/.nojekyll"
   },
   "dependencies": {
     "next": "12.2.4",
