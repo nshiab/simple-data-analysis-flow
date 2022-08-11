@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactFlow, { Controls, Background } from 'react-flow-renderer';
-import useStore from './store';
+import useStore from '../components/store';
 import NewSimpleData from "../components/NewSimpleData"
 import SimpleDataMethod from '../components/SimpleDataMethod';
 
@@ -17,7 +17,7 @@ export default function Flow() {
   return (
     <>
       <div style={{ position: "absolute", top: 0, left: 5, zIndex: 10 }} >
-        <div style={{ padding: 5, fontSize: 12, backgroundColor: "white" }}>Welcome on the open source project <a href="https://github.com/nshiab/simple-data-analysis-flow" target="_blank">Simple Data Analysis Flow</a>! I created SDA-Flow to allow non-coders to use another open source project of mine - <a href="https://github.com/nshiab/simple-data-analysis.js" target="_blank">simple-data-analysis.js</a> - without code. If you use this project, show off your work and tag me on <a href="https://twitter.com/NaelShiab" target="_blank">Twitter</a> or <a href="https://www.linkedin.com/in/naelshiab/" target="_blank">LinkedIn</a>! Feel to start a conversation, raise an issue or contribute to the <a href="https://github.com/nshiab/simple-data-analysis-flow" target="_blank">code on Github</a>. :)</div>
+        <div style={{ padding: 5, fontSize: 12, backgroundColor: "white" }}>Welcome on the open source project <a href="https://github.com/nshiab/simple-data-analysis-flow" >Simple Data Analysis Flow</a>! I created SDA-Flow to allow non-coders to use another open source project of mine - <a href="https://github.com/nshiab/simple-data-analysis.js" >simple-data-analysis.js</a> - without code. If you use this project, show off your work and tag me on <a href="https://twitter.com/NaelShiab" >Twitter</a> or <a href="https://www.linkedin.com/in/naelshiab/" >LinkedIn</a>! Feel to start a conversation, raise an issue or contribute to the <a href="https://github.com/nshiab/simple-data-analysis-flow" >code on Github</a>. :)</div>
         <button onClick={() => addCustomNode(`${++nodeId}`)}>Add node</button>
       </div>
       <div style={{ position: "relative" }}>

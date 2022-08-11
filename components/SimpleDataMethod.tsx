@@ -1,7 +1,8 @@
+// @ts-nocheck
 import React, { useCallback, useEffect, useState } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import Table from './Table';
-import useStore from '../pages/store';
+import useStore from './store';
 import methods from './methods';
 
 const width = 200

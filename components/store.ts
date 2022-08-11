@@ -1,3 +1,4 @@
+// @ts-nocheck
 import create from 'zustand';
 import {
     Connection,
@@ -13,8 +14,8 @@ import {
     applyEdgeChanges,
 } from 'react-flow-renderer';
 
-import initialNodes from '../components/nodes';
-import initialEdges from '../components/edges';
+import initialNodes from './nodes';
+import initialEdges from './edges';
 import { SimpleData } from 'simple-data-analysis';
 
 type RFState = {
