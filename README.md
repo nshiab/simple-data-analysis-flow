@@ -19,7 +19,7 @@ These project's goal are:
 Check the demo by clicking on the image below. It redirects to YouTube.
 
 <a href="https://www.youtube.com/watch?v=obojThKspQw" target="_blank">
- <img src="./assets/video.jpg" alt="Watch the video" style="display:block;width:100%;max-width:400px;"/>
+ <img src="./assets/video.jpg" alt="Watch the video" width="400px"/>
 </a>
 
 Here's the final result of the demo. It's an example from the [simple-data-analysis.js library inside an Observable notebook](https://observablehq.com/@nshiab/simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript), with the equivalent made with SDA-Flow.
