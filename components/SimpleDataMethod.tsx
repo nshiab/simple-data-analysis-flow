@@ -2,8 +2,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import Table from './Table';
-import useStore from './store';
-import methods from './methods';
+import Keys from './Keys';
+import MultipleKeys from './MultipleKeys';
+import useStore from '../flow/store';
+import methods from '../flow/methods';
+
 
 const width = 200
 
@@ -24,11 +27,19 @@ export default function SimpleDataMethod({ id, data }) {
 
             for (let i = 0; i < methods[method].arguments.length; i++) {
 
-                if (["text", "keys", "select"].includes(methods[method].arguments[i].type)) {
-                    const val = document.querySelector(`#${generateArgId(id, i, method)}`).value
+                if (["text", "number", "keys", "select"].includes(methods[method].arguments[i].type)) {
+                    let val = document.querySelector(`#${generateArgId(id, i, method)}`).value
+
+                    if (methods[method].arguments[i].type === "number") {
+                        val = parseInt(val)
+                    }
+
                     args[methods[method].arguments[i].name] = val === "" ? undefined : val
+
                 } else if (methods[method].arguments[i].type === "checkbox") {
                     args[methods[method].arguments[i].name] = document.querySelector(`#${generateArgId(id, i, method)}`).checked
+                } else if (methods[method].arguments[i].type === "multipleKeys") {
+                    args[methods[method].arguments[i].name] = Array.from(document.querySelectorAll(`.${generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
                 }
 
             }
@@ -90,7 +101,7 @@ export default function SimpleDataMethod({ id, data }) {
 
     return <div>
         <Handle type="target" position={Position.Top} id="a" />
-        <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10 }}>
+        <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10, maxWidth: ["showTable", "getChart"].includes(method) ? 1000 : 300 }}>
             <select onChange={d => {
                 setMethod(d.target.value)
                 setArguments({})
@@ -109,13 +120,15 @@ export default function SimpleDataMethod({ id, data }) {
                         let type
                         if (d.type === "text") {
                             type = <input id={generateArgId(id, i, method)} onChange={() => updateArgs()} defaultValue={d.defaultValue}></input>
+                        } else if (d.type === "number") {
+                            type = <input id={generateArgId(id, i, method)} onChange={() => updateArgs()} type="number" defaultValue={d.defaultValue}></input>
                         } else if (d.type === "checkbox") {
                             type = <input type={"checkbox"} id={generateArgId(id, i, method)} onChange={() => updateArgs()} style={{ marginBottom: 0 }} defaultChecked={d.defaultValue}></input>
                         } else if (d.type === "keys") {
-                            type = <select id={generateArgId(id, i, method)} onChange={() => updateArgs()} defaultValue={d.defaultValue}>
-                                {data.sourceSimpleData ? [undefined, ...data.sourceSimpleData.getKeys()].map((opt, index) => <option key={`${method}-option-${index}`}>{opt}</option>
-                                ) : null}
-                            </select>
+                            type = <Keys id={id} method={method} generateArgId={generateArgId} updateArgs={updateArgs} d={d} i={i} simpleData={data.sourceSimpleData} />
+                        } else if (d.type === "multipleKeys") {
+                            type = <MultipleKeys id={id} method={method} generateArgId={generateArgId} updateArgs={updateArgs} d={d} i={i} simpleData={data.sourceSimpleData} />
+
                         } else if (d.type === "select") {
                             type = <select id={generateArgId(id, i, method)} onChange={() => updateArgs()} defaultValue={d.defaultValue}>
                                 {d.options.map((opt, index) => <option key={`${method}-option-${index}`}>{opt}</option>
