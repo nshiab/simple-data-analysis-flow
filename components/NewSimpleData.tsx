@@ -2,7 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { SimpleData } from 'simple-data-analysis';
-import useStore from './store';
+import useStore from '../flow/store';
 
 const width = 200
 

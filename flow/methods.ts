@@ -14,6 +14,18 @@ export default
                 }
             ]
         },
+        formatAllKeys: {
+            arguments: []
+        },
+        selectKeys: {
+            arguments: [
+                {
+                    name: "keys",
+                    type: "multipleKeys",
+                    optional: false
+                }
+            ]
+        },
         removeDuplicates: {
             arguments: [],
         },
@@ -62,6 +74,16 @@ export default
                     defaultValue: undefined,
                     options: [undefined, "dot", "line", "bar", "barVertical", "barHorizontal", "box", "boxVertical", "boxHorizontal"],
                     optional: false
+                },
+                {
+                    name: "color",
+                    type: "keys",
+                    defaultValue: undefined
+                },
+                {
+                    name: "marginLeft",
+                    type: "number",
+                    defaultValue: undefined
                 }
 
             ]
