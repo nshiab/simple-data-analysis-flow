@@ -24,7 +24,7 @@ type RFState = {
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
-    addCustomNode: (nodeId: string) => void,
+    addCustomNode: (evt: any, nodeId: string) => void,
     updateNodeSimpleData: (nodeId: string, simpleData: SimpleData) => void;
 };
 
@@ -78,17 +78,32 @@ const useStore = create<RFState>((set, get) => ({
             }),
         });
     },
-    addCustomNode: (nodeId: string) => {
+    addCustomNode: (evt, nodeId: string, cat) => {
+        const method = evt.target.value
+        evt.target.value = cat
         const nodes = get().nodes
         const lastNode = nodes[nodes.length - 1]
-        set({
-            nodes: [...nodes, {
-                id: nodeId,
-                type: 'simpleDataMethod',
-                data: { sourceSimpleData: null, simpleData: null },
-                position: { x: lastNode.position.x, y: lastNode.position.y + lastNode.height + 20 }
-            }]
-        })
+
+        if (method === "newSimpleData") {
+            set({
+                nodes: [...nodes, {
+                    id: nodeId,
+                    type: 'newSimpleData',
+                    data: { method: method, simpleData: new SimpleData() },
+                    position: { x: lastNode.position.x, y: lastNode.position.y + lastNode.height + 20 }
+                }]
+            })
+        } else {
+            set({
+                nodes: [...nodes, {
+                    id: nodeId,
+                    type: 'simpleDataMethod',
+                    data: { method: method, sourceSimpleData: null, simpleData: null },
+                    position: { x: lastNode.position.x, y: lastNode.position.y + lastNode.height + 20 }
+                }]
+            })
+        }
+
     },
     updateNodeSimpleData: (nodeId: string, simpleData: SimpleData) => {
 

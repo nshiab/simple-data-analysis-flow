@@ -11,6 +11,14 @@ import {
 
 const cellStyle = { fontSize: "10px", padding: "5px" }
 
+function pickColor(value) {
+  if (typeof value === "number") {
+    return "blue"
+  } else {
+    return "black"
+  }
+}
+
 export default function T({ keys, data }: {
   keys: string[];
   data: { [key: string]: any }[];
@@ -29,7 +37,9 @@ export default function T({ keys, data }: {
           {data.map((d, i) => (
             <TableRow key={"tb-" + i}>
               {keys.map((key, j) => (
-                <TableCell key={"tc-" + i + "-" + j} sx={cellStyle}>{String(d[key])}</TableCell>
+                <TableCell key={"tc-" + i + "-" + j} sx={{
+                  ...cellStyle, color: pickColor(d[key])
+                }}>{String(d[key])}</TableCell>
               ))}
             </TableRow>
           ))}
