@@ -1,3 +1,4 @@
+// @ts-nocheck
 export default function MultipleKeys({ id, method, generateArgId, updateArgs, d, i, simpleData }) {
     return (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
