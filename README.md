@@ -14,6 +14,16 @@ These project's goal are:
 
 - To create a node-based editor for data analysis running in the browser.
 
+## Example
+
+Here's an example from the [simple-data-analysis.js library inside an Observable notebook](https://observablehq.com/@nshiab/simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript).
+
+<img src="./assets/sdaExample.png" alt="An Observable notebook using simple-data-analysis" style="display:block;width: 100%; max-width:600px;margin-left:auto;margin-right: auto;margin-bottom: 20px;border-radius: 5px;"/>
+
+And here's the equivalent with SDA-Flow!
+
+<img src="./assets/sdaFlowExample.png" alt="An Observable notebook using simple-data-analysis" style="display:block;width: 100%; max-width:600px;margin-left:auto;margin-right: auto;margin-bottom: 20px;border-radius: 5px;"/>
+
 ## Core principles
 
 The editor is built as a [NextJS app](https://nextjs.org/), with [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis) and [React Flow](https://github.com/wbkd/react-flow).
