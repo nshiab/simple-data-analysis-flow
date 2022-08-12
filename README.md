@@ -16,13 +16,11 @@ These project's goal are:
 
 ## Example
 
-Here's an example from the [simple-data-analysis.js library inside an Observable notebook](https://observablehq.com/@nshiab/simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript).
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/obojThKspQw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<img src="./assets/sdaExample.png" alt="An Observable notebook using simple-data-analysis" style="display:block;width: 100%; max-width:600px;margin-left:auto;margin-right: auto;margin-bottom: 20px;border-radius: 5px;"/>
+Here's an example from the [simple-data-analysis.js library inside an Observable notebook](https://observablehq.com/@nshiab/simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript), with the equivalent with SDA-Flow.
 
-And here's the equivalent with SDA-Flow!
-
-<img src="./assets/sdaFlowExample.png" alt="An Observable notebook using simple-data-analysis" style="display:block;width: 100%; max-width:600px;margin-left:auto;margin-right: auto;margin-bottom: 20px;border-radius: 5px;"/>
+<img src="./assets/SDA-Flow.png" alt="An Observable notebook using simple-data-analysis" style="display:block;width: 100%;margin-left:auto;margin-right: auto;margin-bottom: 20px;border-radius: 5px;"/>
 
 ## Core principles
 
