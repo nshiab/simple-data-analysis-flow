@@ -8,7 +8,7 @@ This repository is maintained by [Nael Shiab](http://naelshiab.com/), senior dat
 
 If you use the library, show off your work and tag me on [Twitter](https://twitter.com/NaelShiab) or [LinkedIn](https://www.linkedin.com/in/naelshiab/)! :)
 
-These project's goal are:
+These project's goals are:
 
 - To allow non-coders to use the open source library [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis).
 
@@ -16,7 +16,7 @@ These project's goal are:
 
 ## Example
 
-Check the demo by clicking on the image below. It redirects to YouTube.
+Watch the demo by clicking on the image below. It redirects to YouTube.
 
 <a href="https://www.youtube.com/watch?v=obojThKspQw" target="_blank">
  <img src="./assets/video.jpg" alt="Watch the video" width="400px"/>
