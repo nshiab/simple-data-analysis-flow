@@ -2,12 +2,22 @@
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/nshiab/simple-data-analysis-flow)
 
-Welcome on the open source project Simple Data Analysis Flow!
+You can use SDA-Flow here: https://nshiab.github.io/simple-data-analysis-flow/
 
-I created SDA-Flow to allow non-coders to use another open source project of mine - [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis) - without code.
+This repository is maintained by [Nael Shiab](http://naelshiab.com/), senior data producer at [CBC/Radio-Canada](https://cbc.radio-canada.ca/).
 
-If you use this project, show off your work and tag me on [Twitter](https://twitter.com/NaelShiab) or [LinkedIn](https://www.linkedin.com/in/naelshiab/)!
+If you use the library, show off your work and tag me on [Twitter](https://twitter.com/NaelShiab) or [LinkedIn](https://www.linkedin.com/in/naelshiab/)! :)
 
-Feel to start a conversation, raise an issue or contribute to the code. :)
+These project's goal are:
 
-PS: I used the wonderful [React Flow](https://github.com/wbkd/react-flow) library to build this project.
+- To allow non-coders to use the open source library [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis) without code.
+
+- To create a node-based editor for data analysis.
+
+## Core principles
+
+The editor is built as a [NextJS app](https://nextjs.org/), with [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis) and [React Flow](https://github.com/wbkd/react-flow).
+
+All of the computations are ran in the browser.
+
+Feel free to start a conversation or create a new issue. If you want to contribute to the code, let's talk! :)
