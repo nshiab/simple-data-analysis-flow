@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import {
   Table,
@@ -14,6 +15,8 @@ const cellStyle = { fontSize: "10px", padding: "5px" }
 function pickColor(value) {
   if (typeof value === "number") {
     return "blue"
+  } else if (value instanceof Date) {
+    return "green"
   } else {
     return "black"
   }

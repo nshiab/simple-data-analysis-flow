@@ -56,10 +56,6 @@ export default
                 }
             ]
         },
-        removeDuplicates: {
-            category: "Cleaning",
-            arguments: [],
-        },
         summarize: {
             category: "Analyzing",
             arguments: [
@@ -97,7 +93,7 @@ export default
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys" },
-                { name: "nbToKeep", type: "number" }
+                { name: "nbToKeep", type: "number", defaultValue: 1 }
             ]
         },
         keepDuplicates: {
@@ -109,7 +105,83 @@ export default
         valuesToString: {
             category: "Cleaning",
             arguments: [
-                { name: "key", type: "keys", optional: false }
+                { name: "key", type: "keys", optional: false },
+            ]
+        },
+        valuesToInteger: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "thousandSeparator", type: "text", defaultValue: ",", width: 10 },
+                { name: "decimalSeparator", type: "text", defaultValue: ".", width: 10 },
+                { name: "skipErrors", type: "checkbox" }
+            ]
+        },
+        valuesToFloat: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "thousandSeparator", type: "text", defaultValue: ",", width: 10 },
+                { name: "decimalSeparator", type: "text", defaultValue: ".", width: 10 },
+                { name: "skipErrors", type: "checkbox" }
+            ]
+        },
+        valuesToDate: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "format", type: "text", optional: false },
+                { name: "skipErrors", type: "checkbox" }
+            ]
+        },
+        datesToString: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "format", type: "text", optional: false },
+                { name: "skipErrors", type: "checkbox" }
+            ]
+        },
+        replaceValues: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "oldValue", type: "text", optional: false, jsOption: true },
+                { name: "newValue", type: "text", optional: false, jsOption: true },
+                { name: "method", type: "select", defaultValue: undefined, options: [undefined, "entireString", "partialString"] },
+            ]
+        },
+        roundValues: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "nbDigits", type: "number", defaultValue: 1 }
+            ]
+        },
+        modifyValues: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                {
+                    name: "valueGenerator", type: "javascript", optional: false, defaultValue: `(value) => {
+    
+    const modifiedValue = value
+    
+    return modifiedValue
+}` }
+            ]
+        },
+        modifyItems: {
+            category: "Cleaning",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                {
+                    name: "itemGenerator", type: "javascript", optional: false, defaultValue: `(item) => {
+    
+    const modifiedValue = "Change me!"
+    
+    return modifiedValue
+}` }
             ]
         },
         getChart: {

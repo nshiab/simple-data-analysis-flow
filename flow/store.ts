@@ -19,6 +19,8 @@ import initialEdges from './edges';
 import { SimpleData } from 'simple-data-analysis';
 
 type RFState = {
+    nodeId: number;
+    getNodeId: () => number,
     nodes: Node[];
     edges: Edge[];
     onNodesChange: OnNodesChange;
@@ -30,10 +32,19 @@ type RFState = {
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
+    nodeId: 0,
+    getNodeId: () => {
+        const newNodeId = ++get().nodeId
+        set({ nodeId: newNodeId })
+        return newNodeId
+    },
+    handleStyle: {
+        source: { height: 10, width: 10, bottom: -5 },
+        target: { height: 10, width: 10, bottom: -5, borderRadius: "0" }
+    },
     nodes: initialNodes,
     edges: initialEdges,
     onNodesChange: (changes: NodeChange[]) => {
-
         const removedNodes = changes.filter(d => d.type === "remove").map(d => d.id)
 
         for (let id of removedNodes) {
@@ -68,8 +79,11 @@ const useStore = create<RFState>((set, get) => ({
         const nodes = get().nodes
         const sourceSimpleData = nodes.find(d => d.id === connection.source)?.data.simpleData
 
+        const newEdge = addEdge(connection, [])
+        newEdge[0].style = { strokeWidth: 5 }
+
         set({
-            edges: addEdge(connection, get().edges),
+            edges: [...get().edges, newEdge[0]],
             nodes: nodes.map((node) => {
                 if (node.id === connection.target) {
                     node.data = { ...node.data, sourceSimpleData: sourceSimpleData ? sourceSimpleData.clone() : null };
@@ -89,7 +103,7 @@ const useStore = create<RFState>((set, get) => ({
                 nodes: [...nodes, {
                     id: nodeId,
                     type: 'newSimpleData',
-                    data: { method: method, simpleData: new SimpleData() },
+                    data: { method: method, simpleData: new SimpleData(), args: {} },
                     position: { x: lastNode.position.x, y: lastNode.position.y + lastNode.height + 20 }
                 }]
             })
@@ -98,12 +112,25 @@ const useStore = create<RFState>((set, get) => ({
                 nodes: [...nodes, {
                     id: nodeId,
                     type: 'simpleDataMethod',
-                    data: { method: method, sourceSimpleData: null, simpleData: null },
+                    data: { method: method, sourceSimpleData: null, simpleData: null, args: {} },
                     position: { x: lastNode.position.x, y: lastNode.position.y + lastNode.height + 20 }
                 }]
             })
         }
 
+    },
+    updateNodeArgs: (nodeId, args) => {
+        const nodes = get().nodes
+
+        const updatedNodes = nodes.map((node) => {
+            if (node.id === nodeId) {
+                node.data = { ...node.data, args };
+            }
+            return node;
+        })
+        set({
+            nodes: updatedNodes
+        });
     },
     updateNodeSimpleData: (nodeId: string, simpleData: SimpleData) => {
 

@@ -19,7 +19,7 @@ export default function NewSimpleData({ id }) {
         }
     }, [manualData])
 
-    const updateNodeSimpleData = useStore((state) => state.updateNodeSimpleData)
+    const { updateNodeSimpleData, handleStyle } = useStore()
 
     return <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10 }}>
         <div style={{ fontWeight: "bold", textAlign: "center", marginBottom: 10 }}>New SimpleData</div>
@@ -38,7 +38,7 @@ export default function NewSimpleData({ id }) {
             null
         }
         {errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{errorMessage}</div> : null}
-        <Handle type="source" position={Position.Bottom} id="a" />
+        <Handle type="source" position={Position.Bottom} id="a" style={handleStyle.source} />
     </div>
 
 }
