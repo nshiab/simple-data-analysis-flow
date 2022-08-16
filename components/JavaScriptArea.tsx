@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useState } from "react"
 
-export default function JavaScriptArea({ id, method, generateArgId, updateArgs, d, i }) {
+export default function JavaScriptArea({ id, method, generateArgId, updateNodeArgs, d, i }) {
 
     const [content, setContent] = useState(d.defaultValue ? d.defaultValue : "")
     const [nbRows, setNbRows] = useState(0)
@@ -13,7 +13,7 @@ export default function JavaScriptArea({ id, method, generateArgId, updateArgs, 
 
     return <textarea id={generateArgId(id, i, method)} rows={nbRows} value={content} style={{ resize: "none", fontSize: "12px", width: "350px" }} onChange={(evt) => {
         setContent(evt.target.value)
-        updateArgs()
+        updateNodeArgs(id)
     }
     }></textarea>
 }

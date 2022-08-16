@@ -17,6 +17,10 @@ function pickColor(value) {
     return "blue"
   } else if (value instanceof Date) {
     return "green"
+  } else if (typeof value === "object") {
+    return "red"
+  } else if (typeof value === "boolean") {
+    return "orange"
   } else {
     return "black"
   }
