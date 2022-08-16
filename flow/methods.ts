@@ -46,37 +46,6 @@ export default
                 { name: "randomize", type: "checkbox" }
             ]
         },
-        selectKeys: {
-            category: "Selecting",
-            arguments: [
-                {
-                    name: "keys",
-                    type: "multipleKeys",
-                    optional: false
-                }
-            ]
-        },
-        summarize: {
-            category: "Analyzing",
-            arguments: [
-                {
-                    name: "keyValue",
-                    type: "keys",
-                    defaultValue: undefined
-                },
-                {
-                    name: "keyCategory",
-                    type: "keys",
-                    defaultValue: undefined
-                },
-                {
-                    name: "summary",
-                    type: "select",
-                    defaultValue: undefined,
-                    options: [undefined, "count", "min", "max", "sum", "mean", "median", "deviation"]
-                }
-            ]
-        },
         excludeMissingValues: {
             category: "Cleaning",
             arguments: [
@@ -182,6 +151,86 @@ export default
     
     return modifiedValue
 }` }
+            ]
+        },
+        addKey: {
+            category: "Restructuring",
+            arguments: [
+                { name: "key", type: "text", optional: false },
+                {
+                    name: "itemGenerator", type: "javascript", optional: false, defaultValue: `(item) => {
+    const newValue = "Change me!"
+
+    return newValue
+}` }
+            ]
+        },
+        removeKey: {
+            category: "Restructuring",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+            ]
+        },
+        addItems: {
+            category: "Restructuring",
+            doubleSource: true,
+            arguments: [
+                { name: "dataToBeAdded", type: "sourceB", optional: false },
+                { name: "fillMissingKeys", type: "checkbox" }
+            ]
+        },
+        mergeItems: {
+            category: "Restructuring",
+            doubleSource: true,
+            arguments: [
+                { name: "dataToBeMerged", type: "sourceB", optional: false },
+                { name: "commonKey", type: "keys", optional: false }
+            ]
+        },
+        keysToValues: {
+            category: "Restructuring",
+            arguments: [
+                { name: "keys", type: "multipleKeys", optional: false },
+                { name: "newKeyForKeys", type: "text", optional: false },
+                { name: "newKeyForValues", type: "text", optional: false }
+            ]
+        },
+        valuesToKeys: {
+            category: "Restructuring",
+            arguments: [
+                { name: "newKeys", type: "keys", optional: false },
+                { name: "newValues", type: "keys", optional: false }
+            ]
+        },
+        selectKeys: {
+            category: "Selecting",
+            arguments: [
+                {
+                    name: "keys",
+                    type: "multipleKeys",
+                    optional: false
+                }
+            ]
+        },
+        summarize: {
+            category: "Analyzing",
+            arguments: [
+                {
+                    name: "keyValue",
+                    type: "keys",
+                    defaultValue: undefined
+                },
+                {
+                    name: "keyCategory",
+                    type: "keys",
+                    defaultValue: undefined
+                },
+                {
+                    name: "summary",
+                    type: "select",
+                    defaultValue: undefined,
+                    options: [undefined, "count", "min", "max", "sum", "mean", "median", "deviation"]
+                }
             ]
         },
         getChart: {

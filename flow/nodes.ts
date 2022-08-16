@@ -5,7 +5,7 @@ export default [
     {
         id: "0",
         type: 'newSimpleData',
-        data: { simpleData: new SimpleData(), args: {} },
+        data: { simpleData: new SimpleData(), args: {}, errorMessage: null },
         position: { x: 0, y: 0 },
     }
 ] as Node[];

@@ -6,16 +6,19 @@ import useStore from '../flow/store';
 
 const width = 200
 
-export default function NewSimpleData({ id }) {
+export default function NewSimpleData({ id, data }) {
 
+    const [success, setSucces] = useState(true)
     const [manualData, setManualData] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(null)
 
     const inputRef = useRef()
 
     useEffect(() => {
         if (!manualData) {
-            updateNodeSimpleData(id, new SimpleData())
+            updateNodeSimpleData(id, new SimpleData(), "")
+            setSucces(true)
+        } else {
+            updateNodeSimpleData(id, null, null)
         }
     }, [manualData])
 
@@ -26,19 +29,20 @@ export default function NewSimpleData({ id }) {
         <button style={{ display: "block", marginLeft: "auto", marginRight: "auto" }} onClick={() => setManualData(!manualData)}>Add data manually</button>
         {manualData ?
             <div style={{ display: "flex", flexDirection: "column", marginTop: 10 }}>
-                <input ref={inputRef} style={{ width: width, textAlign: "center" }} placeholder='Paste a JSON array of objects' onChange={() => {
+                <textarea rows="10" ref={inputRef} style={{ width: width }} placeholder='Paste a JSON array of objects' onChange={() => {
                     try {
-                        updateNodeSimpleData(id, new SimpleData({ data: JSON.parse(inputRef.current.value) }))
-                        setErrorMessage(null)
+                        updateNodeSimpleData(id, new SimpleData({ data: inputRef.current.value === "" ? [] : JSON.parse(inputRef.current.value) }))
+                        setSucces(true)
                     } catch (error) {
-                        setErrorMessage(`Error: ${error.message}`)
+                        updateNodeSimpleData(id, null, error.message)
+                        setSucces(false)
                     }
-                }}></input>
+                }}></textarea>
             </div> :
             null
         }
-        {errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{errorMessage}</div> : null}
-        <Handle type="source" position={Position.Bottom} id="a" style={handleStyle.source} />
+        {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
+        <Handle type="source" position={Position.Bottom} id="a" style={{ ...handleStyle.source, backgroundColor: success ? "green" : "#ff6666" }} />
     </div>
 
 }
