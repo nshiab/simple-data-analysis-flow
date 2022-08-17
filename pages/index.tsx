@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ReactFlow, { Controls, Background } from 'react-flow-renderer';
 import useStore from '../flow/store';
 import AddNode from '../components/AddNode';
@@ -8,13 +8,13 @@ import SimpleDataMethod from '../components/SimpleDataMethod';
 import SDA from "../node_modules/simple-data-analysis/package.json"
 import SDAFlow from "../package.json"
 
-const nodeTypes = {
-  newSimpleData: NewSimpleData,
-  simpleDataMethod: SimpleDataMethod,
-};
-
 export default function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
+
+  const nodeTypes = useMemo(() => ({
+    newSimpleData: NewSimpleData,
+    simpleDataMethod: SimpleDataMethod,
+  }), [NewSimpleData, SimpleDataMethod])
 
   return (
     <>
@@ -33,7 +33,6 @@ export default function Flow() {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
-            maxZoom={2}
             fitView
           >
             <Controls />

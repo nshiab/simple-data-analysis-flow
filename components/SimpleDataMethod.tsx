@@ -4,8 +4,8 @@ import { Handle, Position } from 'react-flow-renderer';
 import Table from './Table';
 import Keys from './Keys';
 import MultipleKeys from './MultipleKeys';
+import MultipleBoxes from './MultipleBoxes';
 import useStore from '../flow/store';
-import methods from '../flow/methods';
 import JavaScriptArea from './JavaScriptArea';
 
 
@@ -27,7 +27,7 @@ export default function SimpleDataMethod({ id, data }) {
     }, [data.simpleData, data.args])
 
 
-    const { updateNodeSimpleData, updateNodeArgs, handleStyle, generateArgId, logs } = useStore()
+    const { updateNodeSimpleData, updateNodeArgs, handleStyle, generateArgId, logs, methods } = useStore()
 
 
     useEffect(() => {
@@ -42,6 +42,7 @@ export default function SimpleDataMethod({ id, data }) {
             if (methods[data.method].arguments.filter(d => d.optional === false).length === 0) {
                 argsTest = true
             } else {
+
                 for (let arg of methods[data.method].arguments.filter(d => d.optional === false)) {
                     if (data.args[arg.name]) {
                         argsTest = true
@@ -67,13 +68,13 @@ export default function SimpleDataMethod({ id, data }) {
 
                     setSucces(true)
                 } catch (error) {
-                    updateNodeSimpleData(id, null, error.message)
+                    updateNodeSimpleData(id, data.simpleData, error.message)
                     setHTMLOutput(null)
                     setSucces(false)
                 }
             } else {
                 setHTMLOutput(null)
-                updateNodeSimpleData(id, null, data.errorMessage)
+                updateNodeSimpleData(id, data.simpleData, data.errorMessage)
                 setSucces(false)
             }
 
@@ -96,7 +97,15 @@ export default function SimpleDataMethod({ id, data }) {
             <div style={{ marginTop: 10 }}>
                 {methods[data.method].arguments.map((d, i) => {
 
-                    if (d.type !== "sourceB") {
+                    let testCondition = true
+                    if (d.condition) {
+                        const index = methods[data.method].arguments.indexOf(methods[data.method].arguments.find(arg => arg.name === d.condition.name))
+                        const conditionElement = document.querySelector(`#${generateArgId(id, index, data.method)}`)
+                        testCondition = conditionElement ? conditionElement.value === d.condition.value : null
+
+                    }
+
+                    if (d.type !== "sourceB" && testCondition) {
                         const name = <div>
                             {`${d.name}: `}
                         </div>
@@ -120,6 +129,8 @@ export default function SimpleDataMethod({ id, data }) {
                         } else if (d.type === "multipleKeys") {
                             type = <MultipleKeys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} simpleData={data.sourceSimpleData} />
 
+                        } else if (d.type === "multipleBoxes") {
+                            type = <MultipleBoxes id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
                         } else if (d.type === "select") {
                             type = <select id={generateArgId(id, i, data.method)} onChange={() => updateNodeArgs(id)} defaultValue={d.defaultValue}>
                                 {d.options.map((opt, index) => <option key={`${data.method}-option-${index}`}>{opt}</option>
