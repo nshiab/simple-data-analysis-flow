@@ -11,7 +11,7 @@ export default function JavaScriptArea({ id, method, generateArgId, updateNodeAr
     }, [content])
 
 
-    return <textarea id={generateArgId(id, i, method)} rows={nbRows} value={content} style={{ resize: "none", fontSize: "12px", width: "350px" }} onChange={(evt) => {
+    return <textarea id={generateArgId(id, i, method)} rows={nbRows} value={content} style={{ resize: "none", fontSize: "12px", width: "250px" }} onChange={(evt) => {
         setContent(evt.target.value)
         updateNodeArgs(id)
     }

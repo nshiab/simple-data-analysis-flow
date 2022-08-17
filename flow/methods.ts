@@ -129,6 +129,7 @@ export default
         },
         modifyValues: {
             category: "Cleaning",
+            maxWidth: 1000,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 {
@@ -142,6 +143,7 @@ export default
         },
         modifyItems: {
             category: "Cleaning",
+            maxWidth: 1000,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 {
@@ -155,6 +157,7 @@ export default
         },
         addKey: {
             category: "Restructuring",
+            maxWidth: 1000,
             arguments: [
                 { name: "key", type: "text", optional: false },
                 {
@@ -212,6 +215,25 @@ export default
                 }
             ]
         },
+        filterValues: {
+            category: "Selecting",
+            maxWidth: 1000,
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                {
+                    name: "valueComparator", type: "javascript", defaultValue: `(value) => value > 10`, optional: false
+                }
+            ]
+        },
+        filterItems: {
+            category: "Selecting",
+            maxWidth: 1000,
+            arguments: [
+                {
+                    name: "itemComparator", type: "javascript", defaultValue: `(item) => item.someNumber > 10`, optional: false
+                }
+            ]
+        },
         summarize: {
             category: "Analyzing",
             arguments: [
@@ -237,6 +259,7 @@ export default
             category: "Visualizing",
             justClone: true,
             htmlOutput: true,
+            maxWidth: 1000,
             arguments: [
                 {
                     name: "x",
@@ -277,6 +300,7 @@ export default
         showTable: {
             category: "Visualizing",
             justClone: true,
+            maxWidth: 1000,
             arguments: [
                 {
                     name: "nbItemsInTable",

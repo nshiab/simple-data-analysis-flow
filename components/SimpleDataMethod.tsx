@@ -89,7 +89,7 @@ export default function SimpleDataMethod({ id, data }) {
                 <Handle type="target" position={Position.Top} id="b" style={{ ...handleStyle.target, transform: "translateX(20px)", backgroundColor: data.sourceSimpleDataB ? "green" : "#ff6666" }} />
             </div> :
             <Handle type="target" position={Position.Top} id="a" style={{ ...handleStyle.target, backgroundColor: data.sourceSimpleData ? "green" : "#ff6666" }} />}
-        <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10, maxWidth: ["showTable", "getChart", "modifyValues", "modifyItems", "addKey"].includes(data.method) ? 1000 : 300 }}>
+        <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10, maxWidth: methods[data.method].maxWidth ? methods[data.method].maxWidth : 300 }}>
 
             <div style={{ fontWeight: "bold", textAlign: "center", marginBottom: 10 }}>{data.method}</div>
 
