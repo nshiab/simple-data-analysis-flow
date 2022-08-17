@@ -129,7 +129,7 @@ export default
         },
         modifyValues: {
             category: "Cleaning",
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 {
@@ -143,7 +143,7 @@ export default
         },
         modifyItems: {
             category: "Cleaning",
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 {
@@ -157,7 +157,7 @@ export default
         },
         addKey: {
             category: "Restructuring",
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 { name: "key", type: "text", optional: false },
                 {
@@ -217,7 +217,7 @@ export default
         },
         filterValues: {
             category: "Selecting",
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 {
@@ -227,7 +227,7 @@ export default
         },
         filterItems: {
             category: "Selecting",
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 {
                     name: "itemComparator", type: "javascript", defaultValue: `(item) => item.someNumber > 10`, optional: false
@@ -259,6 +259,7 @@ export default
         },
         addVariation: {
             category: "Analyzing",
+            maxWidth: 400,
             arguments: [
                 { name: "key", type: "keys", optional: false },
                 { name: "newKey", type: "text", optional: false },
@@ -327,7 +328,7 @@ export default
             category: "Visualizing",
             justClone: true,
             htmlOutput: true,
-            maxWidth: 1000,
+            maxWidth: 600,
             arguments: [
                 {
                     name: "x",
@@ -357,20 +358,106 @@ export default
                     name: "marginLeft",
                     type: "number",
                     defaultValue: undefined
-                }
+                },
+                {
+                    name: "marginBottom",
+                    type: "number",
+                    defaultValue: undefined
+                },
+                {
+                    name: "width",
+                    type: "number",
+                    defaultValue: undefined
+                },
+                {
+                    name: "height",
+                    type: "number",
+                    defaultValue: undefined
+                },
+                {
+                    name: "trend",
+                    type: "checkbox"
+                },
+                { name: "showTrendEquation", type: "checkbox" },
+                { name: "title", type: "text" }
 
             ]
         },
         showTable: {
             category: "Visualizing",
             justClone: true,
-            maxWidth: 1000,
+            maxWidth: 400,
             arguments: [
                 {
                     name: "nbItemsInTable",
                     type: "number",
                     defaultValue: 5
                 }
+            ]
+        },
+        getKeys: {
+            category: "Exporting",
+            arguments: []
+        },
+        getData: {
+            category: "Exporting",
+            arguments: []
+        },
+        getLength: {
+            category: "Exporting",
+            arguments: []
+        },
+        getDataAsArrays: {
+            category: "Exporting",
+            arguments: []
+        },
+        getArray: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys", optional: false }
+            ]
+        },
+        getUniqueValues: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys", optional: false }
+            ]
+        },
+        getItem: {
+            category: "Exporting",
+            maxWidth: 400,
+            arguments: [
+                { name: "conditions", type: "javascript", optional: false, defaultValue: `{someKey: "someValue"}` }
+            ]
+        },
+        getMin: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys", optional: false }
+            ]
+        },
+        getMax: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys" }
+            ]
+        },
+        getMean: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys" }
+            ]
+        },
+        getMedian: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys" }
+            ]
+        },
+        getSum: {
+            category: "Exporting",
+            arguments: [
+                { name: "key", type: "keys" }
             ]
         }
     }

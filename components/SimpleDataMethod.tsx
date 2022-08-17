@@ -15,19 +15,9 @@ export default function SimpleDataMethod({ id, data }) {
 
     const [success, setSucces] = useState()
     const [htmlOutput, setHTMLOutput] = useState(null)
+    const [htmlOutputLength, setHTMLOutputLength] = useState(300)
 
-    const remainingItemsShowTable = useCallback(() => {
-
-        const nbItems = data.simpleData.getLength()
-        const nbItemsInTable = data.args.nbItemsInTable ? data.args.nbItemsInTable : 5
-        const reminingItems = nbItems - nbItemsInTable
-
-        return `${nbItems} items in total${reminingItems > 0 ? ` (${reminingItems} hidden)` : ""}`
-
-    }, [data.simpleData, data.args])
-
-
-    const { updateNodeSimpleData, updateNodeArgs, handleStyle, generateArgId, logs, methods } = useStore()
+    const { updateNodeSimpleData, updateNodeArgs, handleStyle, generateArgId, logs, methods, remainingItemsShowTable } = useStore()
 
 
     useEffect(() => {
@@ -57,21 +47,36 @@ export default function SimpleDataMethod({ id, data }) {
 
             if (data.sourceSimpleData && argsTest && !data.errorMessage) {
 
-                try {
+                if (methods[data.method].category !== "Exporting") {
+                    try {
 
-                    const newSimpleData = methods[data.method].justClone ? data.sourceSimpleData.clone() : await data.sourceSimpleData.clone()[data.method](data.args)
+                        const newSimpleData = methods[data.method].justClone ? data.sourceSimpleData.clone() : await data.sourceSimpleData.clone()[data.method](data.args)
 
-                    logs && console.log("triggered", data.method)
-                    updateNodeSimpleData(id, newSimpleData, null)
+                        logs && console.log("triggered", data.method)
+                        updateNodeSimpleData(id, newSimpleData, null)
 
-                    methods[data.method].htmlOutput ? setHTMLOutput(data.sourceSimpleData.clone()[data.method](data.args)) : setHTMLOutput(null)
+                        methods[data.method].htmlOutput ? setHTMLOutput(data.sourceSimpleData.clone()[data.method](data.args)) : setHTMLOutput(null)
 
-                    setSucces(true)
-                } catch (error) {
-                    updateNodeSimpleData(id, data.simpleData, error.message)
-                    setHTMLOutput(null)
-                    setSucces(false)
+                        setSucces(true)
+                    } catch (error) {
+                        updateNodeSimpleData(id, data.simpleData, error.message)
+                        setHTMLOutput(null)
+                        setSucces(false)
+                    }
+                } else {
+                    try {
+                        const result = data.sourceSimpleData[data.method](data.args)
+
+                        const resultString = JSON.stringify(result, null, 1)
+
+                        updateNodeSimpleData(id, null, null)
+                        setHTMLOutput(resultString)
+                    } catch (error) {
+                        updateNodeSimpleData(id, null, error.message)
+                    }
                 }
+
+
             } else {
                 setHTMLOutput(null)
                 updateNodeSimpleData(id, data.simpleData, data.errorMessage)
@@ -92,9 +97,9 @@ export default function SimpleDataMethod({ id, data }) {
             <Handle type="target" position={Position.Top} id="a" style={{ ...handleStyle.target, backgroundColor: data.sourceSimpleData ? "green" : "#ff6666" }} />}
         <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10, maxWidth: methods[data.method].maxWidth ? methods[data.method].maxWidth : 300 }}>
 
-            <div style={{ fontWeight: "bold", textAlign: "center", marginBottom: 10 }}>{data.method}</div>
+            <div style={{ fontWeight: "bold", textAlign: "center" }}>{data.method}</div>
 
-            <div style={{ marginTop: 10 }}>
+            <div style={{ marginTop: methods[data.method].arguments.length > 0 ? 10 : 0, display: "flex", flexWrap: "wrap", width: "100%" }}>
                 {methods[data.method].arguments.map((d, i) => {
 
                     let testCondition = true
@@ -140,23 +145,29 @@ export default function SimpleDataMethod({ id, data }) {
                             type = <JavaScriptArea id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
                         }
 
-                        return <div key={generateArgId(id, i, data.method)} style={{ display: "flex", alignItems: "center", fontSize: 12, marginTop: 5 }}>
+                        return <div key={generateArgId(id, i, data.method)} style={{ display: "flex", alignItems: "center", fontSize: 12, borderRight: "1px solid gray", padding: "0 10px", margin: "5px 0" }}>
                             {name}
                             {type}
                         </div>
                     } else {
                         return null
                     }
-
-
                 })}
             </div>
-            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ textAlign: "right", marginTop: 5, fontSize: 12 }}>{remainingItemsShowTable()}</div></> : null}
-            {<div dangerouslySetInnerHTML={{ __html: htmlOutput }}></div>}
+            {methods[data.method].category === "Exporting" && htmlOutput && htmlOutput.length > 300 ? <div style={{ display: "flex", alignItems: "center", fontSize: 12, borderRight: "1px solid gray", padding: "0 10px", margin: "5px 0" }}>
+                <div>Shown characters: </div>
+                <input type="number" style={{ width: 50 }} onChange={(evt) => setHTMLOutputLength(evt.target.value)} defaultValue={300} />
+            </div> : null}
+            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ textAlign: "right", marginTop: 5, fontSize: 12 }}>{remainingItemsShowTable(data)}</div></> : null}
+            {htmlOutput ? <div style={{ marginTop: 15 }} dangerouslySetInnerHTML={{ __html: methods[data.method].category === "Exporting" ? `${htmlOutput.length > htmlOutputLength ? htmlOutput.slice(0, htmlOutputLength).trim() + "..." : htmlOutput}` : htmlOutput }}></div> : null}
             {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
         </div>
-        <Handle style={{
-            ...handleStyle.source, backgroundColor: success ? "green" : "#ff6666"
-        }} position={Position.Bottom} id="a" />
+        {methods[data.method].category !== "Exporting" ?
+            <Handle style={{
+                ...handleStyle.source, backgroundColor: success ? "green" : "#ff6666"
+            }} position={Position.Bottom} id="a" />
+            :
+            null}
+
     </div >
 }
