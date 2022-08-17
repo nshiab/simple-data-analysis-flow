@@ -7,6 +7,7 @@ import MultipleKeys from './MultipleKeys';
 import MultipleBoxes from './MultipleBoxes';
 import useStore from '../flow/store';
 import JavaScriptArea from './JavaScriptArea';
+import Download from './Download';
 
 
 const width = 200
@@ -158,7 +159,7 @@ export default function SimpleDataMethod({ id, data }) {
                 <div>Shown characters: </div>
                 <input type="number" style={{ width: 50 }} onChange={(evt) => setHTMLOutputLength(evt.target.value)} defaultValue={300} />
             </div> : null}
-            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ textAlign: "right", marginTop: 5, fontSize: 12 }}>{remainingItemsShowTable(data)}</div></> : null}
+            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: 5 }}><div style={{ fontSize: 12 }}>{remainingItemsShowTable(data)}</div>{" | "}<Download data={data} /></div></> : null}
             {htmlOutput ? <div style={{ marginTop: 15 }} dangerouslySetInnerHTML={{ __html: methods[data.method].category === "Exporting" ? `${htmlOutput.length > htmlOutputLength ? htmlOutput.slice(0, htmlOutputLength).trim() + "..." : htmlOutput}` : htmlOutput }}></div> : null}
             {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
         </div>
