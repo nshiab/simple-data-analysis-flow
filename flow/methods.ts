@@ -234,6 +234,75 @@ export default
                 }
             ]
         },
+        describe: {
+            category: "Analyzing",
+            arguments: []
+        },
+        sortValues: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "order", type: "select", defaultValue: "ascending", options: ["ascending", "descending"], optional: false }
+            ]
+        },
+        addProportions: {
+            category: "Analyzing",
+            arguments: [
+                { name: "method", type: 'select', options: [undefined, "data", "item"], defaultValue: undefined, optional: false },
+                { name: "key", type: "keys", condition: { name: "method", value: "data" } },
+                { name: "newKey", type: "text", condition: { name: "method", value: "data" } },
+                { name: "keyCategory", type: "multipleKeys", condition: { name: "method", value: "data" } },
+                { name: "keys", type: "multipleKeys", condition: { name: "method", value: "item" } },
+                { name: "suffix", type: "text", defaultValue: "Percent", condition: { name: "method", value: "item" } },
+                { name: "nbDigits", type: "number", defaultValue: 2 }
+            ]
+        },
+        addVariation: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "newKey", type: "text", optional: false },
+                { name: "valueGenerator", type: "javascript", optional: false, defaultValue: `(a, b) => a - b` },
+                { name: "order", type: "select", defaultValue: undefined, options: [undefined, "ascending", "descending"] },
+                { name: "firstValue", type: "text", jsOption: true }
+            ]
+        },
+        addQuantiles: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "newKey", type: "text", optional: false },
+                { name: "nbQuantiles", type: "number", optional: false }
+            ]
+        },
+        addBins: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "newKey", type: "text", optional: false },
+                { name: "nbBins", type: "number", optional: false }
+            ]
+        },
+        addOutliers: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false },
+                { name: "newKey", type: "text", optional: false }
+            ]
+        },
+        excludeOutliers: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key", type: "keys", optional: false }
+            ]
+        },
+        correlation: {
+            category: "Analyzing",
+            arguments: [
+                { name: "key1", type: "keys" },
+                { name: "key2", type: "multipleKeys" }
+            ]
+        },
         summarize: {
             category: "Analyzing",
             arguments: [
@@ -244,14 +313,13 @@ export default
                 },
                 {
                     name: "keyCategory",
-                    type: "keys",
-                    defaultValue: undefined
+                    type: "multipleKeys"
                 },
                 {
                     name: "summary",
-                    type: "select",
-                    defaultValue: undefined,
-                    options: [undefined, "count", "min", "max", "sum", "mean", "median", "deviation"]
+                    type: "multipleBoxes",
+                    defaultValues: [true, true, true, true, true, true, true],
+                    options: ["count", "min", "max", "sum", "mean", "median", "deviation"]
                 }
             ]
         },
@@ -292,10 +360,6 @@ export default
                 }
 
             ]
-        },
-        describe: {
-            category: "Analyzing",
-            arguments: []
         },
         showTable: {
             category: "Visualizing",

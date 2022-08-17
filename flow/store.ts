@@ -16,8 +16,8 @@ import {
 
 import initialNodes from './nodes';
 import initialEdges from './edges';
-import { SimpleData } from 'simple-data-analysis';
 import methods from "./methods"
+import { SimpleData } from 'simple-data-analysis';
 
 type RFState = {
     nodeId: number;
@@ -33,8 +33,10 @@ type RFState = {
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
-    logs: false,
     nodeId: 0,
+    nodes: initialNodes,
+    edges: initialEdges,
+    methods: methods,
     getNodeId: () => {
         get().logs && console.log("getNodeId")
         const newNodeId = ++get().nodeId
@@ -48,14 +50,12 @@ const useStore = create<RFState>((set, get) => ({
         source: { height: 10, width: 10, bottom: -5 },
         target: { height: 10, width: 10, bottom: -5, borderRadius: "0" }
     },
-    nodes: initialNodes,
-    edges: initialEdges,
     onNodesChange: (changes: NodeChange[]) => {
         get().logs && console.log("onNodesChange")
         const removedNodes = changes.filter(d => d.type === "remove").map(d => d.id)
 
         for (let id of removedNodes) {
-            get().updateNodeSimpleData(id, null)
+            get().updateNodeSimpleData(id, null, null)
         }
 
         set({
@@ -186,23 +186,32 @@ const useStore = create<RFState>((set, get) => ({
         const args = {}
         let errorMessage = null
 
+        const methods = get().methods
+
         for (let i = 0; i < methods[method].arguments.length; i++) {
 
             if (["text", "number", "keys", "select"].includes(methods[method].arguments[i].type)) {
-                let val = document.querySelector(`#${get().generateArgId(id, i, method)}`).value
+                const el = document.querySelector(`#${get().generateArgId(id, i, method)}`)
 
-                if (methods[method].arguments[i].jsOption) {
-                    if (document.querySelector(`#${get().generateArgId(id, i, method)}-JS`).checked) {
-                        val = Function(`return ${val}`)()
+                if (el) {
+
+                    let val = el.value
+
+                    if (methods[method].arguments[i].jsOption) {
+                        if (document.querySelector(`#${get().generateArgId(id, i, method)}-JS`).checked) {
+                            val = Function(`return ${val}`)()
+                        }
+
                     }
 
-                }
+                    if (methods[method].arguments[i].type === "number") {
+                        val = parseInt(val)
+                        val = isNaN(val) ? undefined : val
+                    }
 
-                if (methods[method].arguments[i].type === "number") {
-                    val = parseInt(val)
-                    val = isNaN(val) ? undefined : val
+                    args[methods[method].arguments[i].name] = val === "" ? undefined : val
+
                 }
-                args[methods[method].arguments[i].name] = val === "" ? undefined : val
 
             } else if (methods[method].arguments[i].type === "javascript") {
 
@@ -219,8 +228,13 @@ const useStore = create<RFState>((set, get) => ({
 
             } else if (methods[method].arguments[i].type === "checkbox") {
                 args[methods[method].arguments[i].name] = document.querySelector(`#${get().generateArgId(id, i, method)}`).checked
-            } else if (methods[method].arguments[i].type === "multipleKeys") {
-                args[methods[method].arguments[i].name] = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
+            } else if (["multipleKeys", "multipleBoxes"].includes(methods[method].arguments[i].type)) {
+
+                const els = document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)
+                if (els.length > 0) {
+                    args[methods[method].arguments[i].name] = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
+                }
+
             } else if (methods[method].arguments[i].type === "sourceB") {
                 args[methods[method].arguments[i].name] = sourceSimpleDataB
             }

@@ -21,6 +21,8 @@ function pickColor(value) {
     return "red"
   } else if (typeof value === "boolean") {
     return "orange"
+  } else if (typeof value === "undefined") {
+    return "red"
   } else {
     return "black"
   }

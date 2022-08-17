@@ -1,11 +1,10 @@
 // @ts-nocheck
 import { useMemo } from "react"
-import methods from "../flow/methods"
 import useStore from "../flow/store";
 
 export default function AddNode() {
 
-    const { addCustomNode, getNodeId } = useStore();
+    const { addCustomNode, getNodeId, methods } = useStore();
 
     const categories = useMemo(() => {
         const categories = {}
