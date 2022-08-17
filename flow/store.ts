@@ -31,8 +31,8 @@ type RFState = {
     updateNodeSimpleData: (nodeId: string, simpleData: SimpleData) => void;
 };
 
-// this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get) => ({
+    logs: false,
     nodeId: 0,
     nodes: initialNodes,
     edges: initialEdges,
@@ -289,6 +289,13 @@ const useStore = create<RFState>((set, get) => ({
         for (let id of ids) {
             get().updateNodeArgs(id)
         }
+    },
+    remainingItemsShowTable: (data) => {
+        const nbItems = data.simpleData.getLength()
+        const nbItemsInTable = data.args.nbItemsInTable ? data.args.nbItemsInTable : 5
+        const reminingItems = nbItems - nbItemsInTable
+
+        return `${nbItems} items in total${reminingItems > 0 ? ` (${reminingItems} hidden)` : ""}`
     }
 }));
 
