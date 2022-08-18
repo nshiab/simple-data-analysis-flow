@@ -3,6 +3,29 @@ export default
         newSimpleData: {
             category: "Importing"
         },
+        dropFile: {
+            category: "Importing",
+            arguments: [
+                {
+                    name: "autoType",
+                    type: "checkbox",
+                    defaultValue: false
+                },
+                {
+                    name: "firstItem",
+                    type: "number",
+                    defaultValue: undefined
+                },
+                {
+                    name: "lastItem",
+                    type: "number",
+                    defaultValue: undefined
+                },
+                {
+                    name: "fillMissingKeys", type: "checkbox", defaultValue: false
+                }
+            ]
+        },
         loadDataFromUrl: {
             category: "Importing",
             arguments: [
@@ -25,6 +48,9 @@ export default
                     name: "lastItem",
                     type: "number",
                     defaultValue: undefined
+                },
+                {
+                    name: "fillMissingKeys", type: "checkbox", defaultValue: false
                 }
             ]
         },
