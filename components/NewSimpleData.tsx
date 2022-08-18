@@ -20,7 +20,7 @@ export default function NewSimpleData({ id, data }) {
         } else {
             updateNodeSimpleData(id, null, null)
         }
-    }, [manualData])
+    }, [manualData, id, updateNodeSimpleData])
 
     const { updateNodeSimpleData, handleStyle } = useStore()
 

@@ -396,66 +396,66 @@ export default
             ]
         },
         getKeys: {
-            category: "Exporting",
+            category: "Others",
             arguments: []
         },
         getData: {
-            category: "Exporting",
+            category: "Others",
             arguments: []
         },
         getLength: {
-            category: "Exporting",
+            category: "Others",
             arguments: []
         },
         getDataAsArrays: {
-            category: "Exporting",
+            category: "Others",
             arguments: []
         },
         getArray: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys", optional: false }
             ]
         },
         getUniqueValues: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys", optional: false }
             ]
         },
         getItem: {
-            category: "Exporting",
+            category: "Others",
             maxWidth: 400,
             arguments: [
                 { name: "conditions", type: "javascript", optional: false, defaultValue: `{someKey: "someValue"}` }
             ]
         },
         getMin: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys", optional: false }
             ]
         },
         getMax: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys" }
             ]
         },
         getMean: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys" }
             ]
         },
         getMedian: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys" }
             ]
         },
         getSum: {
-            category: "Exporting",
+            category: "Others",
             arguments: [
                 { name: "key", type: "keys" }
             ]
