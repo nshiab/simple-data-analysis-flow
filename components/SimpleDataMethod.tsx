@@ -48,7 +48,7 @@ export default function SimpleDataMethod({ id, data }) {
 
             if (data.sourceSimpleData && argsTest && !data.errorMessage) {
 
-                if (methods[data.method].category !== "Exporting") {
+                if (methods[data.method].category !== "Others") {
                     try {
 
                         const newSimpleData = methods[data.method].justClone ? data.sourceSimpleData.clone() : await data.sourceSimpleData.clone()[data.method](data.args)
@@ -86,7 +86,7 @@ export default function SimpleDataMethod({ id, data }) {
 
         }
 
-    }, [data.method, data.sourceSimpleData, data.sourceSimpleDataB, data.args, data.errorMessage])
+    }, [data.method, data.sourceSimpleData, data.sourceSimpleDataB, data.args, data.errorMessage, updateNodeSimpleData])
 
 
     return <div>
@@ -155,15 +155,15 @@ export default function SimpleDataMethod({ id, data }) {
                     }
                 })}
             </div>
-            {methods[data.method].category === "Exporting" && htmlOutput && htmlOutput.length > 300 ? <div style={{ display: "flex", alignItems: "center", fontSize: 12, borderRight: "1px solid gray", padding: "0 10px", margin: "5px 0" }}>
+            {methods[data.method].category === "Others" && htmlOutput && htmlOutput.length > 300 ? <div style={{ display: "flex", alignItems: "center", fontSize: 12, borderRight: "1px solid gray", padding: "0 10px", margin: "5px 0" }}>
                 <div>Shown characters: </div>
                 <input type="number" style={{ width: 50 }} onChange={(evt) => setHTMLOutputLength(evt.target.value)} defaultValue={300} />
             </div> : null}
-            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: 5 }}><div style={{ fontSize: 12 }}>{remainingItemsShowTable(data)}</div>{" | "}<Download data={data} /></div></> : null}
-            {htmlOutput ? <div style={{ marginTop: 15 }} dangerouslySetInnerHTML={{ __html: methods[data.method].category === "Exporting" ? `${htmlOutput.length > htmlOutputLength ? htmlOutput.slice(0, htmlOutputLength).trim() + "..." : htmlOutput}` : htmlOutput }}></div> : null}
+            {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: 5 }}><div style={{ fontSize: 12 }}>{remainingItemsShowTable(data)}</div><Download data={data} /></div></> : null}
+            {htmlOutput ? <div style={{ marginTop: 15 }} dangerouslySetInnerHTML={{ __html: methods[data.method].category === "Others" ? `${htmlOutput.length > htmlOutputLength ? htmlOutput.slice(0, htmlOutputLength).trim() + "..." : htmlOutput}` : htmlOutput }}></div> : null}
             {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
         </div>
-        {methods[data.method].category !== "Exporting" ?
+        {methods[data.method].category !== "Others" ?
             <Handle style={{
                 ...handleStyle.source, backgroundColor: success ? "green" : "#ff6666"
             }} position={Position.Bottom} id="a" />

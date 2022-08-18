@@ -14,7 +14,7 @@ export default function Flow() {
   const nodeTypes = useMemo(() => ({
     newSimpleData: NewSimpleData,
     simpleDataMethod: SimpleDataMethod,
-  }), [NewSimpleData, SimpleDataMethod])
+  }), [])
 
   return (
     <>
