@@ -7,6 +7,8 @@ import SimpleDataMethod from '../components/SimpleDataMethod';
 
 import SDA from "../node_modules/simple-data-analysis/package.json"
 import SDAFlow from "../package.json"
+import DropFile from '../components/DropFile';
+import LoadDataFromUrl from '../components/LoadDataFromUrl';
 
 export default function Flow() {
   const { nodes, edges, onNodesChange, onEdgesChange, onConnect } = useStore();
@@ -14,6 +16,8 @@ export default function Flow() {
   const nodeTypes = useMemo(() => ({
     newSimpleData: NewSimpleData,
     simpleDataMethod: SimpleDataMethod,
+    dropFile: DropFile,
+    loadDataFromUrl: LoadDataFromUrl
   }), [])
 
   return (

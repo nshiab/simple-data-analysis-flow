@@ -164,6 +164,24 @@ const useStore = create<RFState>((set, get) => ({
                     position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
                 }]
             })
+        } else if (method === "dropFile") {
+            set({
+                nodes: [...nodes, {
+                    id: nodeId,
+                    type: 'dropFile',
+                    data: { method: method, simpleData: null, args: {} },
+                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                }]
+            })
+        } else if (method === "loadDataFromUrl") {
+            set({
+                nodes: [...nodes, {
+                    id: nodeId,
+                    type: 'loadDataFromUrl',
+                    data: { method: method, simpleData: null, args: {} },
+                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                }]
+            })
         } else {
             set({
                 nodes: [...nodes, {
@@ -175,6 +193,28 @@ const useStore = create<RFState>((set, get) => ({
             })
         }
 
+    },
+    testNodeArgs: (data) => {
+
+        const methods = get().methods
+
+        let argsTest = false
+
+        if (methods[data.method].arguments.filter(d => d.optional === false).length === 0) {
+            argsTest = true
+        } else {
+
+            for (let arg of methods[data.method].arguments.filter(d => d.optional === false)) {
+                if (data.args[arg.name]) {
+                    argsTest = true
+                } else {
+                    argsTest = false
+                    break
+                }
+            }
+        }
+
+        return argsTest
     },
     updateNodeArgs: (id) => {
 
