@@ -21,6 +21,9 @@ export default function AddNode() {
         return categories
     }, [methods])
 
-    return <div style={{ borderTop: "1px solid black", paddingTop: 5, paddingBottom: 5, paddingLeft: 5, display: "flex", flexWrap: "wrap", backgroundColor: "white" }}>
-        {Object.keys(categories).map(cat => <select onChange={(evt) => addCustomNode(evt, `${getNodeId()}`, cat)} key={`methodCategory-${cat}`}><option>{cat}</option>{categories[cat].sort().map(opt => <option key={`methodCategory-${cat}-${opt}`}>{opt}</option>)}</select>)}</div>
+    return <div>
+        <div style={{ paddingBottom: 5, paddingLeft: 5, display: "flex", flexWrap: "wrap", backgroundColor: "white" }}>
+            {Object.keys(categories).map(cat => <select onChange={(evt) => addCustomNode(evt, `${getNodeId()}`, cat)} key={`methodCategory-${cat}`}><option>{cat}</option>{categories[cat].sort().map(opt => <option key={`methodCategory-${cat}-${opt}`}>{opt}</option>)}</select>)}
+        </div>
+    </div>
 }

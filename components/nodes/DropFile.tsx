@@ -2,9 +2,9 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { SimpleData } from 'simple-data-analysis';
-import useStore from '../flow/store';
+import useStore from '../../flow/store';
 import { csvParse, autoType } from "d3-dsv"
-import Arguments from './Arguments';
+import Arguments from '../Arguments';
 const width = 200
 
 
@@ -12,8 +12,7 @@ export default function DropFile({ id, data }) {
 
     const { updateNodeSimpleData, handleStyle, testNodeArgs } = useStore()
 
-    const [fileContent, setFileContent] = useState(null)
-    const [file, setFile] = useState(null)
+
     const [success, setSucces] = useState(false)
 
     const readFileAsync = useCallback((file) => {
@@ -33,16 +32,19 @@ export default function DropFile({ id, data }) {
 
             const argsTest = testNodeArgs(data)
 
-            if (file && fileContent && argsTest) {
+            if (data.file && data.file.content && argsTest) {
 
-                let simpleData
-                if (file.type === "text/csv") {
-                    const parsedContent = data.args.autoType ? csvParse(fileContent, autoType) : csvParse(fileContent)
-                    simpleData = new SimpleData({ data: parsedContent })
-                } else if (file.type === "application/json") {
-                    const parsedContent = JSON.parse(fileContent)
-                    simpleData = new SimpleData({ data: parsedContent, ...data.args })
+                let parsedContent
+                if (data.file.type === "text/csv") {
+                    parsedContent = data.args.autoType ? csvParse(data.file.content, autoType) : csvParse(data.file.content)
+                } else if (data.file.type === "application/json") {
+                    parsedContent = JSON.parse(data.file.content)
                 }
+
+                data.args.firstItem = data.args.firstItem === "" ? undefined : data.args.firstItem
+                data.args.lastItem = data.args.lastItem === "" ? undefined : data.args.lastItem
+
+                const simpleData = new SimpleData({ data: parsedContent, ...data.args })
 
                 updateNodeSimpleData(id, simpleData, null)
                 setSucces(true)
@@ -53,7 +55,7 @@ export default function DropFile({ id, data }) {
             setSucces(false)
         }
 
-    }, [fileContent, file, data.args, id, testNodeArgs, updateNodeSimpleData])
+    }, [data.args, id, testNodeArgs, updateNodeSimpleData, data.file])
 
     return <div style={{ backgroundColor: "white", border: "1px solid black", borderRadius: 5, padding: 10, width: 300 }}>
         <div style={{ fontWeight: "bold", textAlign: "center", marginBottom: 10 }}>dropFile</div>
@@ -75,20 +77,17 @@ export default function DropFile({ id, data }) {
 
                 const fileContent = await readFileAsync(f)
 
-                setFile(f)
-                setFileContent(fileContent)
+                updateNodeSimpleData(id, data.simpleData, null, { file: { content: fileContent, name: f?.name, type: f?.type } })
 
             } catch (error) {
-                updateNodeSimpleData(id, data.simpleData, error.message)
-                setFile(null)
-                setFileContent(null)
+                updateNodeSimpleData(id, data.simpleData, error.message, { file: { content: null, name: null } })
                 setSucces(false)
             }
 
         }} onDragOver={(evt) => evt.preventDefault()}><div style={{ fontSize: 12, width: 150, textAlign: "center", margin: "0 auto" }}>Drop a CSV or JSON file (array of objects)</div></div>
-        {file ?
+        {data.file ?
             <div>
-                <div style={{ fontSize: 12, textAlign: "center", marginTop: 10 }}><b>File: </b>{`${file.name}`}</div>
+                <div style={{ fontSize: 12, textAlign: "center", marginTop: 10 }}><b>File: </b>{`${data.file.name}`}</div>
                 <Arguments id={id} data={data} />
             </div> :
             null}

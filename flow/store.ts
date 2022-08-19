@@ -14,8 +14,6 @@ import {
     applyEdgeChanges,
 } from 'react-flow-renderer';
 
-import initialNodes from './nodes';
-import initialEdges from './edges';
 import methods from "./methods"
 import { SimpleData } from 'simple-data-analysis';
 
@@ -33,13 +31,16 @@ type RFState = {
 
 const useStore = create<RFState>((set, get) => ({
     logs: false,
-    nodeId: 0,
-    nodes: initialNodes,
-    edges: initialEdges,
+    startNodeId: 0,
+    setStartNodeId: (number) => { set({ startNodeId: number }) },
+    nodes: null,
+    edges: null,
+    setNodes: (nodes) => { set({ nodes: nodes }) },
+    setEdges: (edges) => { set({ edges: edges }) },
     methods: methods,
     getNodeId: () => {
         get().logs && console.log("getNodeId")
-        const newNodeId = ++get().nodeId
+        const newNodeId = ++get().startNodeId
         set({ nodeId: newNodeId })
         return newNodeId
     },
@@ -155,43 +156,49 @@ const useStore = create<RFState>((set, get) => ({
         const nodes = get().nodes
         const lastNode = nodes[nodes.length - 1]
 
+        let newNode
         if (method === "newSimpleData") {
-            set({
-                nodes: [...nodes, {
-                    id: nodeId,
-                    type: 'newSimpleData',
-                    data: { method: method, simpleData: new SimpleData(), args: {} },
-                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
-                }]
-            })
+            newNode = {
+                id: nodeId,
+                type: 'newSimpleData',
+                category: "Importing",
+                data: { method: method, simpleData: new SimpleData(), args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+            }
         } else if (method === "dropFile") {
-            set({
-                nodes: [...nodes, {
-                    id: nodeId,
-                    type: 'dropFile',
-                    data: { method: method, simpleData: null, args: {} },
-                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
-                }]
-            })
+            newNode = {
+                id: nodeId,
+                type: 'dropFile',
+                category: "Importing",
+                data: { method: method, simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+            }
         } else if (method === "loadDataFromUrl") {
-            set({
-                nodes: [...nodes, {
-                    id: nodeId,
-                    type: 'loadDataFromUrl',
-                    data: { method: method, simpleData: null, args: {} },
-                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
-                }]
-            })
+            newNode = {
+                id: nodeId,
+                type: 'loadDataFromUrl',
+                category: "Importing",
+                data: { method: method, simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+            }
         } else {
-            set({
-                nodes: [...nodes, {
-                    id: nodeId,
-                    type: 'simpleDataMethod',
-                    data: { method: method, sourceSimpleData: null, sourceSimpleDataB: null, simpleData: null, args: {} },
-                    position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
-                }]
-            })
+            newNode = {
+                id: nodeId,
+                type: 'simpleDataMethod',
+                data: { method: method, sourceSimpleData: null, sourceSimpleDataB: null, simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+            }
         }
+
+
+        for (let arg of methods[method].arguments) {
+            newNode.data.args[arg.name] = ""
+        }
+
+        set({
+            nodes: [...nodes, newNode]
+        })
+
 
     },
     testNodeArgs: (data) => {
@@ -238,7 +245,8 @@ const useStore = create<RFState>((set, get) => ({
                     let val = el.value
 
                     if (methods[method].arguments[i].jsOption) {
-                        if (document.querySelector(`#${get().generateArgId(id, i, method)}-JS`).checked) {
+                        if (document.querySelector(`#${get().generateArgId(id, i, method)}JS`).checked) {
+                            args[`${get().generateArgId(id, i, method)}JS`] = true
                             val = Function(`return ${val}`)()
                         }
 
@@ -249,7 +257,9 @@ const useStore = create<RFState>((set, get) => ({
                         val = isNaN(val) ? undefined : val
                     }
 
-                    args[methods[method].arguments[i].name] = val === "" ? undefined : val
+                    val = val === "" ? undefined : val
+
+                    args[methods[method].arguments[i].name] = val
 
                 }
 
@@ -272,7 +282,8 @@ const useStore = create<RFState>((set, get) => ({
 
                 const els = document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)
                 if (els.length > 0) {
-                    args[methods[method].arguments[i].name] = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
+                    const values = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
+                    args[methods[method].arguments[i].name] = values.length > 0 ? values : undefined
                 }
 
             } else if (methods[method].arguments[i].type === "sourceB") {
@@ -291,7 +302,7 @@ const useStore = create<RFState>((set, get) => ({
             nodes: updatedNodes
         });
     },
-    updateNodeSimpleData: (nodeId: string, simpleData: SimpleData, errorMessage) => {
+    updateNodeSimpleData: (nodeId: string, simpleData: SimpleData, errorMessage, data) => {
 
         get().logs && console.log("updateNodeSimpleData")
 
@@ -299,7 +310,7 @@ const useStore = create<RFState>((set, get) => ({
 
         const updatedNodes = nodes.map((node) => {
             if (node.id === nodeId) {
-                node.data = { ...node.data, simpleData, errorMessage };
+                node.data = { ...node.data, simpleData, errorMessage, ...data };
             }
             return node;
         })

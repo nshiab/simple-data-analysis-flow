@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { SimpleData } from 'simple-data-analysis';
-import useStore from '../flow/store';
-import Arguments from './Arguments';
+import useStore from '../../flow/store';
+import Arguments from '../Arguments';
 const width = 200
 
 
