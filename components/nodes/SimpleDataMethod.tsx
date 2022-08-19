@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
-import Table from './Table';
-import useStore from '../flow/store';
-import Download from './Download';
-import Arguments from './Arguments';
+import Table from '../Table';
+import useStore from '../../flow/store';
+import Download from '../Download';
+import Arguments from '../Arguments';
 
 
 const width = 200
@@ -17,8 +17,9 @@ export default function SimpleDataMethod({ id, data }) {
 
     const { updateNodeSimpleData, testNodeArgs, handleStyle, logs, methods, remainingItemsShowTable } = useStore()
 
-
     useEffect(() => {
+
+        console.log(data.args)
 
         const argsTest = testNodeArgs(data)
 

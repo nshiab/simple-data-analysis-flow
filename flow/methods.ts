@@ -1,28 +1,26 @@
 export default
     {
         newSimpleData: {
-            category: "Importing"
+            category: "Importing",
+            arguments: []
         },
         dropFile: {
             category: "Importing",
             arguments: [
                 {
                     name: "autoType",
-                    type: "checkbox",
-                    defaultValue: false
+                    type: "checkbox"
                 },
                 {
                     name: "firstItem",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "lastItem",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
-                    name: "fillMissingKeys", type: "checkbox", defaultValue: false
+                    name: "fillMissingKeys", type: "checkbox"
                 }
             ]
         },
@@ -36,21 +34,18 @@ export default
                 },
                 {
                     name: "autoType",
-                    type: "checkbox",
-                    defaultValue: false
+                    type: "checkbox"
                 },
                 {
                     name: "firstItem",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "lastItem",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
-                    name: "fillMissingKeys", type: "checkbox", defaultValue: false
+                    name: "fillMissingKeys", type: "checkbox"
                 }
             ]
         },
@@ -88,7 +83,7 @@ export default
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys" },
-                { name: "nbToKeep", type: "number", defaultValue: 1 }
+                { name: "nbToKeep", type: "number" }
             ]
         },
         keepDuplicates: {
@@ -107,8 +102,8 @@ export default
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys", optional: false },
-                { name: "thousandSeparator", type: "text", defaultValue: ",", width: 10 },
-                { name: "decimalSeparator", type: "text", defaultValue: ".", width: 10 },
+                { name: "thousandSeparator", type: "text", width: 10 },
+                { name: "decimalSeparator", type: "text", width: 10 },
                 { name: "skipErrors", type: "checkbox" }
             ]
         },
@@ -116,8 +111,8 @@ export default
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys", optional: false },
-                { name: "thousandSeparator", type: "text", defaultValue: ",", width: 10 },
-                { name: "decimalSeparator", type: "text", defaultValue: ".", width: 10 },
+                { name: "thousandSeparator", type: "text", width: 10 },
+                { name: "decimalSeparator", type: "text", width: 10 },
                 { name: "skipErrors", type: "checkbox" }
             ]
         },
@@ -143,14 +138,14 @@ export default
                 { name: "key", type: "keys", optional: false },
                 { name: "oldValue", type: "text", optional: false, jsOption: true },
                 { name: "newValue", type: "text", optional: false, jsOption: true },
-                { name: "method", type: "select", defaultValue: undefined, options: [undefined, "entireString", "partialString"] },
+                { name: "method", type: "select", options: [undefined, "entireString", "partialString"] },
             ]
         },
         roundValues: {
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys", optional: false },
-                { name: "nbDigits", type: "number", defaultValue: 1 }
+                { name: "nbDigits", type: "number" }
             ]
         },
         modifyValues: {
@@ -268,19 +263,19 @@ export default
             category: "Analyzing",
             arguments: [
                 { name: "key", type: "keys", optional: false },
-                { name: "order", type: "select", defaultValue: "ascending", options: ["ascending", "descending"], optional: false }
+                { name: "order", type: "select", options: ["ascending", "descending"], optional: false }
             ]
         },
         addProportions: {
             category: "Analyzing",
             arguments: [
-                { name: "method", type: 'select', options: [undefined, "data", "item"], defaultValue: undefined, optional: false },
+                { name: "method", type: 'select', options: [undefined, "data", "item"], optional: false },
                 { name: "key", type: "keys", condition: { name: "method", value: "data" } },
                 { name: "newKey", type: "text", condition: { name: "method", value: "data" } },
                 { name: "keyCategory", type: "multipleKeys", condition: { name: "method", value: "data" } },
                 { name: "keys", type: "multipleKeys", condition: { name: "method", value: "item" } },
-                { name: "suffix", type: "text", defaultValue: "Percent", condition: { name: "method", value: "item" } },
-                { name: "nbDigits", type: "number", defaultValue: 2 }
+                { name: "suffix", type: "text", condition: { name: "method", value: "item" } },
+                { name: "nbDigits", type: "number" }
             ]
         },
         addVariation: {
@@ -290,7 +285,7 @@ export default
                 { name: "key", type: "keys", optional: false },
                 { name: "newKey", type: "text", optional: false },
                 { name: "valueGenerator", type: "javascript", optional: false, defaultValue: `(a, b) => a - b` },
-                { name: "order", type: "select", defaultValue: undefined, options: [undefined, "ascending", "descending"] },
+                { name: "order", type: "select", options: [undefined, "ascending", "descending"] },
                 { name: "firstValue", type: "text", jsOption: true }
             ]
         },
@@ -335,8 +330,7 @@ export default
             arguments: [
                 {
                     name: "keyValue",
-                    type: "keys",
-                    defaultValue: undefined
+                    type: "keys"
                 },
                 {
                     name: "keyCategory",
@@ -345,9 +339,9 @@ export default
                 {
                     name: "summary",
                     type: "multipleBoxes",
-                    defaultValues: [true, true, true, true, true, true, true],
                     options: ["count", "min", "max", "sum", "mean", "median", "deviation"]
-                }
+                },
+                { name: "nbDigits", type: "number" }
             ]
         },
         getChart: {
@@ -359,46 +353,38 @@ export default
                 {
                     name: "x",
                     type: "keys",
-                    defaultValue: undefined,
                     optional: false
                 },
                 {
                     name: "y",
                     type: "keys",
-                    defaultValue: undefined,
                     optional: false
                 },
                 {
                     name: "type",
                     type: "select",
-                    defaultValue: undefined,
                     options: [undefined, "dot", "line", "bar", "barVertical", "barHorizontal", "box", "boxVertical", "boxHorizontal"],
                     optional: false
                 },
                 {
                     name: "color",
-                    type: "keys",
-                    defaultValue: undefined
+                    type: "keys"
                 },
                 {
                     name: "marginLeft",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "marginBottom",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "width",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "height",
-                    type: "number",
-                    defaultValue: undefined
+                    type: "number"
                 },
                 {
                     name: "trend",
@@ -406,18 +392,16 @@ export default
                 },
                 { name: "showTrendEquation", type: "checkbox" },
                 { name: "title", type: "text" }
-
             ]
         },
         showTable: {
             category: "Visualizing",
             justClone: true,
-            maxWidth: 400,
+            maxWidth: 5000,
             arguments: [
                 {
                     name: "nbItemsInTable",
-                    type: "number",
-                    defaultValue: 5
+                    type: "number"
                 }
             ]
         },

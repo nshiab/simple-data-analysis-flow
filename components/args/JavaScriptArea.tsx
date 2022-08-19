@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useEffect, useState } from "react"
 
 export default function JavaScriptArea({ id, method, generateArgId, updateNodeArgs, d, i }) {

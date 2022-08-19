@@ -1,9 +1,13 @@
 // @ts-nocheck
-import Keys from './Keys';
-import MultipleKeys from './MultipleKeys';
-import MultipleBoxes from './MultipleBoxes';
-import JavaScriptArea from './JavaScriptArea';
+import Keys from './args/Keys';
+import MultipleKeys from './args/MultipleKeys';
+import MultipleBoxes from './args/MultipleBoxes';
+import JavaScriptArea from './args/JavaScriptArea';
 import useStore from "../flow/store"
+import TextInput from './args/TextInput';
+import NumberInput from './args/NumberInput';
+import Checkbox from './args/Checkbox';
+import Select from './args/Select';
 
 export default function Arguments({ id, data }) {
 
@@ -27,30 +31,19 @@ export default function Arguments({ id, data }) {
 
                 let type
                 if (d.type === "text") {
-                    type = <input id={generateArgId(id, i, data.method)} onChange={() => updateNodeArgs(id)} defaultValue={d.defaultValue} style={{ width: d.width ? d.width : undefined }}></input>
-                    if (d.jsOption) {
-                        type = <div style={{ display: "flex", alignItems: "center" }}>
-                            {type}
-                            <div style={{ marginLeft: 4 }}>JS?</div>
-                            <input id={`${generateArgId(id, i, data.method)}-JS`} onChange={() => updateNodeArgs(id)} type="checkbox" />
-                        </div>
-                    }
+                    type = <TextInput id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "number") {
-                    type = <input id={generateArgId(id, i, data.method)} onChange={() => updateNodeArgs(id)} type="number" defaultValue={d.defaultValue} style={{ width: 50 }}></input>
+                    type = <NumberInput id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "checkbox") {
-                    type = <input type={"checkbox"} id={generateArgId(id, i, data.method)} onChange={() => updateNodeArgs(id)} style={{ marginBottom: 0 }} defaultChecked={d.defaultValue}></input>
+                    type = <Checkbox id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "keys") {
-                    type = <Keys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} simpleData={data.sourceSimpleData} />
+                    type = <Keys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
                 } else if (d.type === "multipleKeys") {
-                    type = <MultipleKeys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} simpleData={data.sourceSimpleData} />
-
+                    type = <MultipleKeys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
                 } else if (d.type === "multipleBoxes") {
-                    type = <MultipleBoxes id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
+                    type = <MultipleBoxes id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} args={data.args} />
                 } else if (d.type === "select") {
-                    type = <select id={generateArgId(id, i, data.method)} onChange={() => updateNodeArgs(id)} defaultValue={d.defaultValue}>
-                        {d.options.map((opt, index) => <option key={`${data.method}-option-${index}`}>{opt}</option>
-                        )}
-                    </select>
+                    type = <Select d={d} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "javascript") {
                     type = <JavaScriptArea id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
                 }
