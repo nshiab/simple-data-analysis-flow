@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react"
 
 export default function JavaScriptArea({ id, method, generateArgId, updateNodeArgs, d, i }) {
@@ -6,7 +7,7 @@ export default function JavaScriptArea({ id, method, generateArgId, updateNodeAr
     const [nbRows, setNbRows] = useState(0)
 
     useEffect(() => {
-        setNbRows(content.split("\n").length)
+        setNbRows(content.split("\n").length + 1)
     }, [content])
 
 
