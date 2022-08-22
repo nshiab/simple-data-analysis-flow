@@ -7,8 +7,6 @@ import Download from '../Download';
 import Arguments from '../Arguments';
 
 
-const width = 200
-
 export default function SimpleDataMethod({ id, data }) {
 
     const [success, setSucces] = useState()
@@ -19,7 +17,6 @@ export default function SimpleDataMethod({ id, data }) {
 
     useEffect(() => {
 
-        console.log(data.args)
 
         const argsTest = testNodeArgs(data)
 
@@ -85,7 +82,7 @@ export default function SimpleDataMethod({ id, data }) {
             </div> : null}
             {data.method === "showTable" && data.simpleData ? <><Table keys={data.simpleData.getKeys()} data={data.simpleData.getData().slice(0, data.args.nbItemsInTable ? data.args.nbItemsInTable : 5)} /><div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", marginTop: 5 }}><div style={{ fontSize: 12 }}>{remainingItemsShowTable(data)}</div><Download data={data} /></div></> : null}
             {htmlOutput ? <div style={{ marginTop: 15 }} dangerouslySetInnerHTML={{ __html: methods[data.method].category === "Others" ? `${htmlOutput.length > htmlOutputLength ? htmlOutput.slice(0, htmlOutputLength).trim() + "..." : htmlOutput}` : htmlOutput }}></div> : null}
-            {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
+            {data.errorMessage ? <div style={{ width: "100%", color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
         </div>
         {methods[data.method].category !== "Others" ?
             <Handle style={{

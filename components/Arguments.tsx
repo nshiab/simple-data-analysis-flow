@@ -43,7 +43,7 @@ export default function Arguments({ id, data }) {
                 } else if (d.type === "multipleBoxes") {
                     type = <MultipleBoxes id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} args={data.args} />
                 } else if (d.type === "select") {
-                    type = <Select d={d} i={i} method={data.method} d={d} args={data.args} />
+                    type = <Select id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "javascript") {
                     type = <JavaScriptArea id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
                 }

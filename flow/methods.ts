@@ -139,13 +139,15 @@ export default
                 { name: "oldValue", type: "text", optional: false, jsOption: true },
                 { name: "newValue", type: "text", optional: false, jsOption: true },
                 { name: "method", type: "select", options: [undefined, "entireString", "partialString"] },
+                { name: "skipErrors", type: "checkbox" }
             ]
         },
         roundValues: {
             category: "Cleaning",
             arguments: [
                 { name: "key", type: "keys", optional: false },
-                { name: "nbDigits", type: "number" }
+                { name: "nbDigits", type: "number" },
+                { name: "skipErrors", type: "checkbox" }
             ]
         },
         modifyValues: {
@@ -449,25 +451,25 @@ export default
         getMax: {
             category: "Others",
             arguments: [
-                { name: "key", type: "keys" }
+                { name: "key", type: "keys", optional: false }
             ]
         },
         getMean: {
             category: "Others",
             arguments: [
-                { name: "key", type: "keys" }
+                { name: "key", type: "keys", optional: false }
             ]
         },
         getMedian: {
             category: "Others",
             arguments: [
-                { name: "key", type: "keys" }
+                { name: "key", type: "keys", optional: false }
             ]
         },
         getSum: {
             category: "Others",
             arguments: [
-                { name: "key", type: "keys" }
+                { name: "key", type: "keys", optional: false }
             ]
         }
     }

@@ -12,13 +12,13 @@ export default function TextInput({ id, i, method, d, args }) {
 
         const argId = generateArgId(id, i, method)
 
-        let t = <input id={argId} onChange={() => updateNodeArgs(id)} style={{ width: d.width ? d.width : undefined }} value={args[d.name]}></input>
+        let t = <input id={argId} onChange={() => updateNodeArgs(id)} style={{ width: d.width ? d.width : undefined }} value={args[d.name] === undefined ? "" : args[d.name]}></input>
 
         if (d.jsOption) {
             t = <div style={{ display: "flex", alignItems: "center" }}>
                 {t}
                 <div style={{ marginLeft: 4 }}>JS?</div>
-                <input id={`${argId}JS`} onChange={() => updateNodeArgs(id)} type="checkbox" checked={args[`${argId}JS`]} />
+                <input id={`${argId}JS`} onChange={() => updateNodeArgs(id)} type="checkbox" checked={args[`${argId}JS`] === undefined ? false : args[`${argId}JS`]} />
             </div>
         }
         setType(t)

@@ -35,7 +35,7 @@ export default function Header({ flowInstance, setHome, name, setName }) {
 
             const stringified = JSON.stringify(flow)
 
-            localStorage.setItem(name, JSON.stringify(stringified));
+            // localStorage.setItem(name, JSON.stringify(stringified));
 
             const a = document.createElement("a")
             const file = new Blob([stringified], { type: "application/json" })
