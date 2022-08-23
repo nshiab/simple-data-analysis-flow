@@ -2,8 +2,17 @@ import { useEffect, useState } from "react"
 import useStore from "../../flow/store"
 import { Arg } from "../../flow/methods"
 
-export default function JavaScriptArea({ id, method, d, i }: { id: string, method: string, d: Arg, i: number }) {
-
+export default function JavaScriptArea({
+    id,
+    method,
+    d,
+    i,
+}: {
+    id: string
+    method: string
+    d: Arg
+    i: number
+}) {
     const { generateArgId, updateNodeArgs } = useStore()
 
     const [content, setContent] = useState(d.defaultValue ? d.defaultValue : "")
@@ -13,10 +22,16 @@ export default function JavaScriptArea({ id, method, d, i }: { id: string, metho
         setNbRows(content.split("\n").length + 1)
     }, [content])
 
-
-    return <textarea id={generateArgId(id, i, method)} rows={nbRows} value={content} style={{ resize: "none", fontSize: "12px", width: "250px" }} onChange={(evt) => {
-        setContent(evt.target.value)
-        updateNodeArgs(id)
-    }
-    }></textarea>
+    return (
+        <textarea
+            id={generateArgId(id, i, method)}
+            rows={nbRows}
+            value={content}
+            style={{ resize: "none", fontSize: "12px", width: "250px" }}
+            onChange={(evt) => {
+                setContent(evt.target.value)
+                updateNodeArgs(id)
+            }}
+        ></textarea>
+    )
 }
