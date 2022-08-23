@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useMemo, useState } from 'react';
 import ReactFlow, { Controls, Background } from 'react-flow-renderer';
 import useStore from '../flow/store';
@@ -22,9 +21,9 @@ export default function Flow() {
     loadDataFromUrl: LoadDataFromUrl
   }), [])
 
-  const [flowInstance, setFlowInstance] = useState(null);
-  const [home, setHome] = useState(true)
-  const [name, setName] = useState(`SDA-Flow ${new Date().toDateString()} ${new Date().toLocaleTimeString()}`.replaceAll(" ", "_"))
+  const [flowInstance, setFlowInstance] = useState<any>(null);
+  const [home, setHome] = useState<boolean>(true)
+  const [name, setName] = useState<string>("New SDA-Flow")
 
 
   return (
@@ -38,6 +37,7 @@ export default function Flow() {
         <div style={{ position: "relative" }}>
           <div style={{ width: "100vw", height: "100vh" }}>
             <ReactFlow
+              //@ts-ignore
               onInit={setFlowInstance}
               nodeTypes={nodeTypes}
               nodes={nodes}

@@ -1,11 +1,7 @@
-// @ts-nocheck
 import create from 'zustand';
 import {
-    Connection,
     Edge,
-    EdgeChange,
     Node,
-    NodeChange,
     addEdge,
     OnNodesChange,
     OnEdgesChange,
@@ -14,34 +10,72 @@ import {
     applyEdgeChanges,
 } from 'react-flow-renderer';
 
-import methods from "./methods"
+import methods, { Method, Arg } from "./methods"
 import { SimpleData } from 'simple-data-analysis';
+import React from 'react';
+
+interface NodeDataArgs { [key: string]: any }
+
+interface NodeData {
+    method: string,
+    category: string,
+    simpleData: SimpleData | null,
+    args: NodeDataArgs,
+    sourceSimpleData?: SimpleData | null,
+    sourceSimpleDataB?: SimpleData | null,
+    manualData?: any[],
+    manualDataString?: string,
+    file?: { content: null | string, name: string, type: string },
+    openManualData?: boolean,
+    errorMessage?: string
+}
+
+interface CustomNode {
+    id: string,
+    type: string,
+    position: { x: number, y: number },
+    data: NodeData
+}
 
 type RFState = {
-    nodeId: number;
-    getNodeId: () => number,
+    logs: boolean;
+    startNodeId: number;
+    getNodeId: () => number;
+    setStartNodeId: (number: number) => void;
+    generateArgId: (id: string, i: number, method: string) => string
     nodes: Node[];
     edges: Edge[];
+    setNodes: (nodes: CustomNode[]) => void;
+    setEdges: (edges: Edge[]) => void;
+    methods: { [key: string]: Method };
+    handleStyle: {
+        [key: string]: {
+            width: number, height: number, bottom: number, borderRadius?: number
+        }
+    },
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     onConnect: OnConnect;
-    addCustomNode: (evt: any, nodeId: string) => void,
-    updateNodeSimpleData: (nodeId: string, simpleData: SimpleData) => void;
+    addCustomNode: (evt: React.ChangeEvent<HTMLButtonElement | HTMLSelectElement>, nodeId: string, cat: string) => void;
+    testNodeArgs: (data: NodeData) => boolean;
+    updateNodeArgs: (id: string) => void;
+    updateNodeSimpleData: (nodeId: string, simpleData: SimpleData | null, errorMessage: string | null | undefined, data?: {}) => void;
+    remainingItemsShowTable: (data: NodeData) => string;
 };
 
 const useStore = create<RFState>((set, get) => ({
     logs: false,
     startNodeId: 0,
     setStartNodeId: (number) => { set({ startNodeId: number }) },
-    nodes: null,
-    edges: null,
+    nodes: [],
+    edges: [],
     setNodes: (nodes) => { set({ nodes: nodes }) },
     setEdges: (edges) => { set({ edges: edges }) },
     methods: methods,
     getNodeId: () => {
         get().logs && console.log("getNodeId")
         const newNodeId = ++get().startNodeId
-        set({ nodeId: newNodeId })
+        set({ startNodeId: newNodeId })
         return newNodeId
     },
     generateArgId: (id, i, method) => {
@@ -49,10 +83,12 @@ const useStore = create<RFState>((set, get) => ({
     },
     handleStyle: {
         source: { height: 10, width: 10, bottom: -5 },
-        target: { height: 10, width: 10, bottom: -5, borderRadius: "0" }
+        target: { height: 10, width: 10, bottom: -5, borderRadius: 0 }
     },
-    onNodesChange: (changes: NodeChange[]) => {
+    onNodesChange: (changes) => {
         get().logs && console.log("onNodesChange")
+
+        //@ts-ignore
         const removedNodes = changes.filter(d => d.type === "remove").map(d => d.id)
 
         for (let id of removedNodes) {
@@ -63,7 +99,7 @@ const useStore = create<RFState>((set, get) => ({
             nodes: applyNodeChanges(changes, get().nodes),
         });
     },
-    onEdgesChange: (changes: EdgeChange[]) => {
+    onEdgesChange: (changes) => {
         get().logs && console.log("onEdgesChange")
         set({
             edges: applyEdgeChanges(changes, get().edges),
@@ -91,7 +127,7 @@ const useStore = create<RFState>((set, get) => ({
         }
 
     },
-    onConnect: (connection: Connection) => {
+    onConnect: (connection) => {
 
         get().logs && console.log("onConnect")
 
@@ -146,47 +182,44 @@ const useStore = create<RFState>((set, get) => ({
             }),
         });
 
-        get().updateNodeArgs(connection.target)
+        get().updateNodeArgs(connection.target as string)
 
     },
-    addCustomNode: (evt, nodeId: string, cat) => {
+    addCustomNode: (evt, nodeId, cat) => {
         get().logs && console.log("addCustomNode")
         const method = evt.target.value
         evt.target.value = cat
         const nodes = get().nodes
         const lastNode = nodes[nodes.length - 1]
 
-        let newNode
+        let newNode: CustomNode
         if (method === "newSimpleData") {
             newNode = {
                 id: nodeId,
                 type: 'newSimpleData',
-                category: "Importing",
-                data: { method: method, simpleData: new SimpleData(), args: {} },
-                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                data: { method: method, category: "Importing", simpleData: new SimpleData(), args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode && lastNode.height ? lastNode.position.y + lastNode.height + 20 : 0 }
             }
         } else if (method === "dropFile") {
             newNode = {
                 id: nodeId,
                 type: 'dropFile',
-                category: "Importing",
-                data: { method: method, simpleData: null, args: {} },
-                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                data: { method: method, category: "Importing", simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode && lastNode.height ? lastNode.position.y + lastNode.height + 20 : 0 }
             }
         } else if (method === "loadDataFromUrl") {
             newNode = {
                 id: nodeId,
                 type: 'loadDataFromUrl',
-                category: "Importing",
-                data: { method: method, simpleData: null, args: {} },
-                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                data: { method: method, category: "Importing", simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode && lastNode.height ? lastNode.position.y + lastNode.height + 20 : 0 }
             }
         } else {
             newNode = {
                 id: nodeId,
                 type: 'simpleDataMethod',
-                data: { method: method, sourceSimpleData: null, sourceSimpleDataB: null, simpleData: null, args: {} },
-                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode ? lastNode.position.y + lastNode.height + 20 : 0 }
+                data: { method: method, category: cat, sourceSimpleData: null, sourceSimpleDataB: null, simpleData: null, args: {} },
+                position: { x: lastNode ? lastNode.position.x : 0, y: lastNode && lastNode.height ? lastNode.position.y + lastNode.height + 20 : 0 }
             }
         }
 
@@ -228,61 +261,70 @@ const useStore = create<RFState>((set, get) => ({
         get().logs && console.log("updateNodeArgs")
 
         const nodes = get().nodes
+
+        //@ts-ignore
         const { method, sourceSimpleDataB } = nodes.find(d => d.id === id).data
 
-        const args = {}
-        let errorMessage = null
+        const args: { [key: string]: string | number | boolean | undefined | string[] } = {}
+        let errorMessage: string | null = null
 
         const methods = get().methods
 
         for (let i = 0; i < methods[method].arguments.length; i++) {
 
             if (["text", "number", "keys", "select"].includes(methods[method].arguments[i].type)) {
-                const el = document.querySelector(`#${get().generateArgId(id, i, method)}`)
+                const el: HTMLInputElement | null = document.querySelector(`#${get().generateArgId(id, i, method)}`)
 
                 if (el) {
 
                     let val = el.value
 
                     if (methods[method].arguments[i].jsOption) {
-                        if (document.querySelector(`#${get().generateArgId(id, i, method)}JS`).checked) {
-                            args[`${get().generateArgId(id, i, method)}JS`] = true
+                        const elOption: HTMLInputElement | null = document.querySelector(`#${get().generateArgId(id, i, method)}JS`)
+                        if (elOption && elOption.checked) {
+                            const optionId = get().generateArgId(id, i, method)
+                            args[`${optionId}JS`] = true
                             val = Function(`return ${val}`)()
                         }
 
                     }
 
                     if (methods[method].arguments[i].type === "number") {
-                        val = parseInt(val)
-                        val = isNaN(val) ? undefined : val
+                        let valNumber = parseInt(val)
+
+                        args[methods[method].arguments[i].name] = isNaN(valNumber) ? undefined : valNumber
+                    } else {
+                        args[methods[method].arguments[i].name] = val === "" ? undefined : val
                     }
-
-                    val = val === "" ? undefined : val
-
-                    args[methods[method].arguments[i].name] = val
 
                 }
 
             } else if (methods[method].arguments[i].type === "javascript") {
 
-                let val = document.querySelector(`#${get().generateArgId(id, i, method)}`).value
+                const el: HTMLInputElement | null = document.querySelector(`#${get().generateArgId(id, i, method)}`)
 
-                try {
-                    val = Function(`return ${val}`)()
+                if (el) {
+                    try {
+                        const fVal = Function(`return ${el.value}`)()
 
-                    args[methods[method].arguments[i].name] = val
-                } catch (error) {
-                    errorMessage = error.message
+                        args[methods[method].arguments[i].name] = fVal
+                    } catch (error: any) {
+                        errorMessage = error.message
+                    }
+
                 }
 
-
             } else if (methods[method].arguments[i].type === "checkbox") {
-                args[methods[method].arguments[i].name] = document.querySelector(`#${get().generateArgId(id, i, method)}`).checked
+                const el: HTMLInputElement | null = document.querySelector(`#${get().generateArgId(id, i, method)}`)
+                if (el) {
+                    args[methods[method].arguments[i].name] = el.checked
+                }
+
             } else if (["multipleKeys", "multipleBoxes"].includes(methods[method].arguments[i].type)) {
 
                 const els = document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)
                 if (els.length > 0) {
-                    const values = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`)).filter(d => d.checked).map(d => d.value)
+                    const values = Array.from(document.querySelectorAll(`.${get().generateArgId(id, i, method)}`) as unknown as HTMLInputElement[]).filter(d => d.checked).map(d => d.value)
                     args[methods[method].arguments[i].name] = values.length > 0 ? values : undefined
                 }
 
@@ -302,7 +344,7 @@ const useStore = create<RFState>((set, get) => ({
             nodes: updatedNodes
         });
     },
-    updateNodeSimpleData: (nodeId: string, simpleData: SimpleData, errorMessage, data) => {
+    updateNodeSimpleData: (nodeId, simpleData, errorMessage, data?) => {
 
         get().logs && console.log("updateNodeSimpleData")
 
@@ -342,7 +384,7 @@ const useStore = create<RFState>((set, get) => ({
         }
     },
     remainingItemsShowTable: (data) => {
-        const nbItems = data.simpleData.getLength()
+        const nbItems = data.simpleData ? data.simpleData.getLength() : 0
         const nbItemsInTable = data.args.nbItemsInTable ? data.args.nbItemsInTable : 5
         const reminingItems = nbItems - nbItemsInTable
 
@@ -351,3 +393,4 @@ const useStore = create<RFState>((set, get) => ({
 }));
 
 export default useStore;
+export type { NodeData, NodeDataArgs }

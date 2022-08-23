@@ -1,10 +1,10 @@
-// @ts-nocheck
 import { useEffect, useState } from "react"
-import useStore from "../../flow/store"
+import { Arg } from "../../flow/methods"
+import useStore, { NodeDataArgs } from "../../flow/store"
 
-export default function NumberInput({ id, i, method, d, args }) {
+export default function NumberInput({ id, i, method, d, args }: { id: string, i: number, method: string, d: Arg, args: NodeDataArgs }) {
 
-    const [type, setType] = useState(null)
+    const [type, setType] = useState<React.ReactElement | null>(null)
 
     const { generateArgId, updateNodeArgs } = useStore()
 

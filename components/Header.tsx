@@ -20,7 +20,7 @@ export default function Header({ flowInstance, setHome, name, setName }) {
             const flow = cloneDeep(flowInstance.toObject());
 
             for (let i = 0; i < flow.nodes.length; i++) {
-                if (flow.nodes[i].category === "Importing") {
+                if (flow.nodes[i].data.category === "Importing") {
                     flow.nodes[i].data.dataSaved = flow.nodes[i].data.simpleData ? flow.nodes[i].data.simpleData.getData() : []
                 }
 
@@ -32,10 +32,9 @@ export default function Header({ flowInstance, setHome, name, setName }) {
 
             flow.name = name
             flow.startNodeId = startNodeId
+            console.log(flow.startNodeId)
 
             const stringified = JSON.stringify(flow)
-
-            // localStorage.setItem(name, JSON.stringify(stringified));
 
             const a = document.createElement("a")
             const file = new Blob([stringified], { type: "application/json" })
@@ -43,7 +42,7 @@ export default function Header({ flowInstance, setHome, name, setName }) {
             a.download = `${name}.json`
             a.click()
         }
-    }, [flowInstance, name]);
+    }, [flowInstance, name, startNodeId]);
 
     return <div style={{ backgroundColor: "white", paddingTop: 5, paddingBottom: 5 }}>
         <div style={{ display: "flex", justifyContent: "space-between" }}>

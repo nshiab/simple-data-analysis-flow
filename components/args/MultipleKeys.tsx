@@ -1,10 +1,11 @@
-// @ts-nocheck
 import { useEffect, useState } from "react"
-import useStore from "../../flow/store"
+import { SimpleData } from "simple-data-analysis"
+import { Arg } from "../../flow/methods"
+import useStore, { NodeDataArgs } from "../../flow/store"
 
-export default function MultipleKeys({ id, method, d, i, sourceSimpleData, args }) {
+export default function MultipleKeys({ id, method, d, i, sourceSimpleData, args }: { id: string, method: string, d: Arg, i: number, sourceSimpleData: SimpleData | null | undefined, args: NodeDataArgs }) {
 
-    const [type, setType] = useState(null)
+    const [type, setType] = useState<React.ReactElement | null>(null)
 
     const { generateArgId, updateNodeArgs } = useStore()
 
@@ -22,7 +23,7 @@ export default function MultipleKeys({ id, method, d, i, sourceSimpleData, args 
         </div>
 
         setType(t)
-    }, [id, method, d, i, sourceSimpleData, args])
+    }, [id, method, d, i, sourceSimpleData, args, generateArgId, updateNodeArgs])
 
     return type
 }

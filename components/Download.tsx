@@ -1,10 +1,9 @@
-// @ts-nocheck
-
 import DownloadIcon from '@mui/icons-material/Download';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { csvFormat } from "d3-dsv"
+import { NodeData } from '../flow/store';
 
-export default function Download({ data }) {
+export default function Download({ data }: { data: NodeData }) {
 
     const [clicked, setClicked] = useState(false)
     const [format, setFormat] = useState(".csv")
@@ -13,13 +12,13 @@ export default function Download({ data }) {
     const downloadFile = useCallback(() => {
 
         let content
-        if (format == ".json") {
+        if (format == ".json" && data.simpleData) {
             content = JSON.stringify(data.simpleData.getData())
-        } else if (format === ".csv") {
+        } else if (format === ".csv" && data.simpleData) {
             content = csvFormat(data.simpleData.getData())
         }
         const a = document.createElement("a")
-        const file = new Blob([content], { type: "text/plain" })
+        const file = new Blob([content as BlobPart], { type: "text/plain" })
         a.href = URL.createObjectURL(file)
         a.download = `${fileName}${format}`
         a.click()
