@@ -40,6 +40,7 @@ export default function NewSimpleData({
                 border: "1px solid black",
                 borderRadius: 5,
                 padding: 10,
+                width: 250,
             }}
         >
             <div
@@ -75,15 +76,17 @@ export default function NewSimpleData({
             {data.openManualData ? (
                 <div
                     style={{
-                        display: "flex",
-                        flexDirection: "column",
                         marginTop: 10,
                     }}
                 >
                     <textarea
                         rows={10}
                         ref={inputRef}
-                        style={{ width: 200 }}
+                        style={{
+                            width: "95%",
+                            resize: "none",
+                            margin: "0 auto",
+                        }}
                         placeholder="Paste a JSON array of objects"
                         onChange={() => {
                             try {

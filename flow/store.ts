@@ -43,6 +43,7 @@ type RFState = {
     logs: boolean
     startNodeId: number
     getNodeId: () => number
+    getNode: (id: string) => Node | undefined
     setStartNodeId: (number: number) => void
     generateArgId: (id: string, i: number, method: string) => string
     nodes: Node[]
@@ -61,6 +62,7 @@ type RFState = {
     onNodesChange: OnNodesChange
     onEdgesChange: OnEdgesChange
     onConnect: OnConnect
+    resetSimpleDataSource: (ids: string[]) => Node[]
     addCustomNode: (
         evt: React.ChangeEvent<HTMLButtonElement | HTMLSelectElement>,
         nodeId: string,
@@ -98,6 +100,9 @@ const useStore = create<RFState>((set, get) => ({
         set({ startNodeId: newNodeId })
         return newNodeId
     },
+    getNode: (id) => {
+        return get().nodes.find((d) => d.id === id)
+    },
     generateArgId: (id, i, method) => {
         return `node${id}method${method}Arg${i}`
     },
@@ -105,21 +110,47 @@ const useStore = create<RFState>((set, get) => ({
         source: { height: 10, width: 10, bottom: -5 },
         target: { height: 10, width: 10, bottom: -5, borderRadius: 0 },
     },
+    resetSimpleDataSource: (ids) => {
+        const nodes: Node[] = get().nodes
+        for (let node of nodes) {
+            for (let id of ids) {
+                if (node.data.source === id) {
+                    node.data = {
+                        ...node.data,
+                        sourceSimpleData: null,
+                        source: null,
+                    }
+                } else if (node.data.sourceB === id) {
+                    node.data = {
+                        ...node.data,
+                        sourceSimpleDataB: null,
+                        sourceB: null,
+                    }
+                }
+            }
+        }
+
+        return nodes
+    },
     onNodesChange: (changes) => {
         get().logs && console.log("onNodesChange")
 
-        const removedNodes = changes
+        const removedNodesIds = changes
             .filter((d) => d.type === "remove")
             //@ts-ignore
             .map((d) => d.id)
 
-        for (let id of removedNodes) {
-            get().updateNodeSimpleData(id, null, null)
-        }
+        if (removedNodesIds.length > 0) {
+            const updatedNodes = get().resetSimpleDataSource(removedNodesIds)
 
-        set({
-            nodes: applyNodeChanges(changes, get().nodes),
-        })
+            set({
+                nodes: applyNodeChanges(changes, updatedNodes),
+            })
+        } else {
+            set({
+                nodes: applyNodeChanges(changes, get().nodes),
+            })
+        }
     },
     onEdgesChange: (changes) => {
         get().logs && console.log("onEdgesChange")
@@ -128,24 +159,16 @@ const useStore = create<RFState>((set, get) => ({
         })
 
         if (changes.length === 1 && changes[0].type === "remove") {
-            const target = changes[0].id.split("-")
-            const targetId = target[2].replace("a", "").replace("b", "")
-            const targetHandle = target[2][target[2].length - 1]
+            const changeArray = changes[0].id.split("-")
+            const source = changeArray[1]
+            const sourceId = source.replace("a", "").replace("b", "")
+            const target = changeArray[2]
+            const targetId = target.replace("a", "").replace("b", "")
+
+            const updatedNodes = get().resetSimpleDataSource([sourceId])
 
             set({
-                nodes: get().nodes.map((node) => {
-                    if (node.id === targetId) {
-                        if (targetHandle === "a") {
-                            node.data = { ...node.data, sourceSimpleData: null }
-                        } else if (targetHandle === "b") {
-                            node.data = {
-                                ...node.data,
-                                sourceSimpleDataB: null,
-                            }
-                        }
-                    }
-                    return node
-                }),
+                nodes: updatedNodes,
             })
 
             get().updateNodeArgs(targetId)
@@ -185,7 +208,6 @@ const useStore = create<RFState>((set, get) => ({
 
                 if (index > -1) {
                     const ed = edgesToRemove.filter((d) => node.id === d.target)
-
                     for (let e of ed) {
                         if (e.targetHandle === "a") {
                             node.data = { ...node.data, sourceSimpleData: null }
@@ -204,6 +226,7 @@ const useStore = create<RFState>((set, get) => ({
                             sourceSimpleData: sourceSimpleData
                                 ? sourceSimpleData.clone()
                                 : null,
+                            source: connection.source,
                         }
                     } else if (connection.targetHandle === "b") {
                         node.data = {
@@ -211,6 +234,7 @@ const useStore = create<RFState>((set, get) => ({
                             sourceSimpleDataB: sourceSimpleData
                                 ? sourceSimpleData.clone()
                                 : null,
+                            sourceB: connection.source,
                         }
                     }
                 }
