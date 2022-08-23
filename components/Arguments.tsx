@@ -1,15 +1,14 @@
-// @ts-nocheck
 import Keys from './args/Keys';
 import MultipleKeys from './args/MultipleKeys';
 import MultipleBoxes from './args/MultipleBoxes';
 import JavaScriptArea from './args/JavaScriptArea';
-import useStore from "../flow/store"
+import useStore, { NodeData } from "../flow/store"
 import TextInput from './args/TextInput';
 import NumberInput from './args/NumberInput';
 import Checkbox from './args/Checkbox';
 import Select from './args/Select';
 
-export default function Arguments({ id, data }) {
+export default function Arguments({ id, data }: { id: string, data: NodeData }) {
 
     const { methods, generateArgId, updateNodeArgs } = useStore()
 
@@ -18,10 +17,10 @@ export default function Arguments({ id, data }) {
 
             let testCondition = true
             if (d.condition) {
+                //@ts-ignore
                 const index = methods[data.method].arguments.indexOf(methods[data.method].arguments.find(arg => arg.name === d.condition.name))
-                const conditionElement = document.querySelector(`#${generateArgId(id, index, data.method)}`)
-                testCondition = conditionElement ? conditionElement.value === d.condition.value : null
-
+                const conditionElement: HTMLInputElement | null = document.querySelector(`#${generateArgId(id, index, data.method)}`)
+                testCondition = conditionElement ? conditionElement.value === d.condition.value : false
             }
 
             if (d.type !== "sourceB" && testCondition) {
@@ -37,15 +36,15 @@ export default function Arguments({ id, data }) {
                 } else if (d.type === "checkbox") {
                     type = <Checkbox id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "keys") {
-                    type = <Keys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
+                    type = <Keys id={id} method={data.method} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
                 } else if (d.type === "multipleKeys") {
-                    type = <MultipleKeys id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
+                    type = <MultipleKeys id={id} method={data.method} d={d} i={i} sourceSimpleData={data.sourceSimpleData} args={data.args} />
                 } else if (d.type === "multipleBoxes") {
-                    type = <MultipleBoxes id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} args={data.args} />
+                    type = <MultipleBoxes id={id} method={data.method} d={d} i={i} args={data.args} />
                 } else if (d.type === "select") {
                     type = <Select id={id} i={i} method={data.method} d={d} args={data.args} />
                 } else if (d.type === "javascript") {
-                    type = <JavaScriptArea id={id} method={data.method} generateArgId={generateArgId} updateNodeArgs={updateNodeArgs} d={d} i={i} />
+                    type = <JavaScriptArea id={id} method={data.method} d={d} i={i} />
                 }
 
                 return <div key={generateArgId(id, i, data.method)} style={{ display: "flex", alignItems: "center", fontSize: 12, borderRight: "1px solid gray", padding: "0 10px", margin: "5px 0" }}>

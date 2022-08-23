@@ -1,26 +1,25 @@
-// @ts-nocheck
 import { useCallback, useState } from "react"
 import { SimpleData } from "simple-data-analysis"
 import useStore from "../flow/store"
 
-export default function Home({ home, setHome, setName }) {
+export default function Home({ home, setHome, setName }: { home: boolean, setHome: React.Dispatch<React.SetStateAction<boolean>>, setName: React.Dispatch<React.SetStateAction<string>> }) {
 
     const { setNodes, setEdges, updateNodeSimpleData, setStartNodeId } = useStore()
     const [errorMessage, setErrorMessage] = useState(null)
 
-    const readFileAsync = useCallback((file) => {
+    const readFileAsync: (file: Blob) => Promise<string> = useCallback((file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader()
             reader.onload = () => {
-                resolve(reader.result)
+                resolve(reader.result as string)
             }
             reader.onerror = reject
             reader.readAsText(file)
         })
     }, [])
 
-    const onRestore = useCallback((flowString) => {
-        const restoreFlow = async (flowString) => {
+    const onRestore = useCallback((flowString: string) => {
+        const restoreFlow = async (flowString: string) => {
             const flow = JSON.parse(flowString);
 
             setName(flow.name)
@@ -32,7 +31,7 @@ export default function Home({ home, setHome, setName }) {
             }
 
             for (let i = 0; i < flow.nodes.length; i++) {
-                if (flow.nodes[i].category === "Importing") {
+                if (flow.nodes[i].data.category === "Importing") {
                     updateNodeSimpleData(flow.nodes[i].id, new SimpleData({ data: flow.nodes[i].data.dataSaved, fillMissingKeys: true }), null)
                 }
 
@@ -40,7 +39,7 @@ export default function Home({ home, setHome, setName }) {
         };
 
         restoreFlow(flowString);
-    }, [setNodes, setEdges]);
+    }, [setNodes, setEdges, setName, setStartNodeId, updateNodeSimpleData]);
 
     return home ?
         <div>
@@ -67,13 +66,19 @@ export default function Home({ home, setHome, setName }) {
 
                     const f = items[0].getAsFile()
 
-                    const fileContent = await readFileAsync(f)
+                    if (f) {
+                        const fileContent = await readFileAsync(f)
 
-                    onRestore(fileContent)
+                        onRestore(fileContent)
 
-                    setHome(false)
-                    setErrorMessage(null)
+                        setHome(false)
+                        setErrorMessage(null)
+                    } else {
+                        throw new Error("There's a problem with the file")
+                    }
+
                 } catch (error) {
+                    //@ts-ignore
                     setErrorMessage(error.message)
                 }
 

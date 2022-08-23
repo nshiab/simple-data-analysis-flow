@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { useMemo } from "react"
 import useStore from "../flow/store";
 
@@ -7,7 +6,7 @@ export default function AddNode() {
     const { addCustomNode, getNodeId, methods } = useStore();
 
     const categories = useMemo(() => {
-        const categories = {}
+        const categories: { [key: string]: string[] } = {}
         for (let method of Object.keys(methods)) {
             if (Object.keys(categories).indexOf(methods[method].category) < 0) {
                 categories[methods[method].category] = []

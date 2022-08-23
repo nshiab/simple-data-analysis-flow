@@ -1,7 +1,10 @@
-// @ts-nocheck
 import { useEffect, useState } from "react"
+import useStore from "../../flow/store"
+import { Arg } from "../../flow/methods"
 
-export default function JavaScriptArea({ id, method, generateArgId, updateNodeArgs, d, i }) {
+export default function JavaScriptArea({ id, method, d, i }: { id: string, method: string, d: Arg, i: number }) {
+
+    const { generateArgId, updateNodeArgs } = useStore()
 
     const [content, setContent] = useState(d.defaultValue ? d.defaultValue : "")
     const [nbRows, setNbRows] = useState(0)

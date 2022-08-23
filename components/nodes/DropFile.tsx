@@ -1,21 +1,19 @@
-// @ts-nocheck
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { SimpleData } from 'simple-data-analysis';
-import useStore from '../../flow/store';
+import useStore, { NodeData } from '../../flow/store';
 import { csvParse, autoType } from "d3-dsv"
 import Arguments from '../Arguments';
-const width = 200
 
 
-export default function DropFile({ id, data }) {
+export default function DropFile({ id, data }: { id: string, data: NodeData }) {
 
     const { updateNodeSimpleData, handleStyle, testNodeArgs } = useStore()
 
 
     const [success, setSucces] = useState(false)
 
-    const readFileAsync = useCallback((file) => {
+    const readFileAsync = useCallback((file: File) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader()
             reader.onload = () => {
@@ -51,6 +49,7 @@ export default function DropFile({ id, data }) {
             }
 
         } catch (error) {
+            //@ts-ignore
             updateNodeSimpleData(id, data.simpleData, error.message)
             setSucces(false)
         }
@@ -75,11 +74,17 @@ export default function DropFile({ id, data }) {
 
                 const f = items[0].getAsFile()
 
-                const fileContent = await readFileAsync(f)
+                if (f) {
+                    const fileContent = await readFileAsync(f)
 
-                updateNodeSimpleData(id, data.simpleData, null, { file: { content: fileContent, name: f?.name, type: f?.type } })
+                    updateNodeSimpleData(id, data.simpleData, null, { file: { content: fileContent, name: f?.name, type: f?.type } })
+                } else {
+                    throw new Error("Problem with the file")
+                }
+
 
             } catch (error) {
+                //@ts-ignore
                 updateNodeSimpleData(id, data.simpleData, error.message, { file: { content: null, name: null } })
                 setSucces(false)
             }
@@ -91,7 +96,7 @@ export default function DropFile({ id, data }) {
                 <Arguments id={id} data={data} />
             </div> :
             null}
-        {data.errorMessage ? <div style={{ maxWidth: width, color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
+        {data.errorMessage ? <div style={{ maxWidth: "100%", color: "red", marginTop: 10 }}>{data.errorMessage}</div> : null}
         <Handle type="source" position={Position.Bottom} id="a" style={{ ...handleStyle.source, backgroundColor: success ? "green" : "#ff6666" }} />
     </div >
 
