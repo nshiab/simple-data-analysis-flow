@@ -1,9 +1,8 @@
 import { useMemo } from "react"
-import useStore from "../flow/store";
+import useStore from "../flow/store"
 
 export default function AddNode() {
-
-    const { addCustomNode, getNodeId, methods } = useStore();
+    const { addCustomNode, getNodeId, methods } = useStore()
 
     const categories = useMemo(() => {
         const categories: { [key: string]: string[] } = {}
@@ -20,9 +19,33 @@ export default function AddNode() {
         return categories
     }, [methods])
 
-    return <div>
-        <div style={{ paddingBottom: 5, paddingLeft: 5, display: "flex", flexWrap: "wrap", backgroundColor: "white" }}>
-            {Object.keys(categories).map(cat => <select onChange={(evt) => addCustomNode(evt, `${getNodeId()}`, cat)} key={`methodCategory-${cat}`}><option>{cat}</option>{categories[cat].sort().map(opt => <option key={`methodCategory-${cat}-${opt}`}>{opt}</option>)}</select>)}
+    return (
+        <div>
+            <div
+                style={{
+                    paddingBottom: 5,
+                    paddingLeft: 5,
+                    display: "flex",
+                    flexWrap: "wrap",
+                    backgroundColor: "white",
+                }}
+            >
+                {Object.keys(categories).map((cat) => (
+                    <select
+                        onChange={(evt) =>
+                            addCustomNode(evt, `${getNodeId()}`, cat)
+                        }
+                        key={`methodCategory-${cat}`}
+                    >
+                        <option>{cat}</option>
+                        {categories[cat].sort().map((opt) => (
+                            <option key={`methodCategory-${cat}-${opt}`}>
+                                {opt}
+                            </option>
+                        ))}
+                    </select>
+                ))}
+            </div>
         </div>
-    </div>
+    )
 }

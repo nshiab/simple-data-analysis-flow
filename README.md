@@ -10,9 +10,9 @@ If you use the library, show off your work and tag me on [Twitter](https://twitt
 
 These project's goals are:
 
-- To allow non-coders to use the open source library [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis).
+-   To allow non-coders to use the open source library [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis).
 
-- To create a node-based editor for data analysis running in the browser.
+-   To create a node-based editor for data analysis running in the browser.
 
 ## Example
 
