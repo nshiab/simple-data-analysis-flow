@@ -1,15 +1,15 @@
 interface Arg {
     name: string
     type:
-    | "checkbox"
-    | "select"
-    | "keys"
-    | "multipleKeys"
-    | "number"
-    | "text"
-    | "javascript"
-    | "sourceB"
-    | "multipleBoxes"
+        | "checkbox"
+        | "select"
+        | "keys"
+        | "multipleKeys"
+        | "number"
+        | "text"
+        | "javascript"
+        | "sourceB"
+        | "multipleBoxes"
     optional?: boolean
     width?: number
     jsOption?: boolean
@@ -334,7 +334,7 @@ const methods: {
             {
                 name: "newKey",
                 type: "text",
-                optional: false
+                optional: false,
             },
             {
                 name: "keyCategory",
@@ -355,11 +355,11 @@ const methods: {
             {
                 name: "keys",
                 type: "multipleKeys",
-                optional: false
+                optional: false,
             },
             {
                 name: "suffix",
-                type: "text"
+                type: "text",
             },
             { name: "nbDigits", type: "number" },
         ],

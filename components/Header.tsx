@@ -28,10 +28,11 @@ export default function Header({ flowInstance, setHome, name, setName }) {
                 flow.nodes[i].data.sourceSimpleData = null
                 flow.nodes[i].data.sourceSimpleDataB = null
 
-
                 for (let arg of Object.keys(flow.nodes[i].data.args)) {
                     if (typeof flow.nodes[i].data.args[arg] === "function") {
-                        flow.nodes[i].data.args[arg] = String(flow.nodes[i].data.args[arg])
+                        flow.nodes[i].data.args[arg] = String(
+                            flow.nodes[i].data.args[arg]
+                        )
                     }
                 }
             }

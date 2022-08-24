@@ -18,26 +18,25 @@ export default function Keys({
     args: NodeDataArgs
     sourceSimpleData: SimpleData | null | undefined
 }) {
-
     const { generateArgId, updateNodeArgs } = useStore()
 
-    return <select
-        id={generateArgId(id, i, method)}
-        onChange={() => updateNodeArgs(id)}
-        value={args[d.name]}
-    >
-        {sourceSimpleData
-            ? [undefined, ...sourceSimpleData.getKeys()].map(
-                (opt, index) => (
+    return (
+        <select
+            id={generateArgId(id, i, method)}
+            onChange={() => updateNodeArgs(id)}
+            value={args[d.name]}
+        >
+            {sourceSimpleData ? (
+                [undefined, ...sourceSimpleData.getKeys()].map((opt, index) => (
                     <option key={`${id}-${method}-option-${index}`}>
                         {opt}
                     </option>
-                )
-            )
-            :
-            <option key={`${id}-${method}-option-${0}`}>
-                {args[d.name]}
-            </option>
-        }
-    </select>
+                ))
+            ) : (
+                <option key={`${id}-${method}-option-${0}`}>
+                    {args[d.name]}
+                </option>
+            )}
+        </select>
+    )
 }

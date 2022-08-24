@@ -32,7 +32,6 @@ export default function Home({
     const onRestore = useCallback(
         (flowString: string) => {
             const restoreFlow = async (flowString: string) => {
-
                 const flow = JSON.parse(flowString)
 
                 setName(flow.name)

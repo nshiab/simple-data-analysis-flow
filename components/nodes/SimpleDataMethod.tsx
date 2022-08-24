@@ -39,8 +39,6 @@ export default function SimpleDataMethod({
                 argsTest
             )
 
-
-
         if (data.sourceSimpleData && argsTest && !data.errorMessage) {
             if (methods[data.method].category !== "Others") {
                 try {
@@ -48,18 +46,16 @@ export default function SimpleDataMethod({
                     const newSimpleData = methods[data.method].justClone
                         ? data.sourceSimpleData.clone()
                         : //@ts-ignore
-                        data.sourceSimpleData.clone()[method](data.args)
+                          data.sourceSimpleData.clone()[method](data.args)
 
                     logs && console.log("triggered", data.method)
                     updateNodeSimpleData(id, newSimpleData, null)
 
                     methods[data.method].htmlOutput
                         ? setHTMLOutput(
-                            //@ts-ignore
-                            data.sourceSimpleData
-                                .clone()
-                            [method](data.args)
-                        )
+                              //@ts-ignore
+                              data.sourceSimpleData.clone()[method](data.args)
+                          )
                         : setHTMLOutput(null)
 
                     setSucces(true)
@@ -162,8 +158,8 @@ export default function SimpleDataMethod({
                 <Arguments id={id} data={data} />
 
                 {methods[data.method].category === "Others" &&
-                    htmlOutput &&
-                    htmlOutput.length > 300 ? (
+                htmlOutput &&
+                htmlOutput.length > 300 ? (
                     <div
                         style={{
                             display: "flex",
@@ -219,12 +215,13 @@ export default function SimpleDataMethod({
                         dangerouslySetInnerHTML={{
                             __html:
                                 methods[data.method].category === "Others"
-                                    ? `${htmlOutput.length > htmlOutputLength
-                                        ? htmlOutput
-                                            .slice(0, htmlOutputLength)
-                                            .trim() + "..."
-                                        : htmlOutput
-                                    }`
+                                    ? `${
+                                          htmlOutput.length > htmlOutputLength
+                                              ? htmlOutput
+                                                    .slice(0, htmlOutputLength)
+                                                    .trim() + "..."
+                                              : htmlOutput
+                                      }`
                                     : htmlOutput,
                         }}
                     ></div>
