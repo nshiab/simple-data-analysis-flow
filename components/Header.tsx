@@ -18,20 +18,26 @@ export default function Header({ flowInstance, setHome, name, setName }) {
             const flow = cloneDeep(flowInstance.toObject())
 
             for (let i = 0; i < flow.nodes.length; i++) {
-                if (flow.nodes[i].data.category === "Importing") {
-                    flow.nodes[i].data.dataSaved = flow.nodes[i].data.simpleData
-                        ? flow.nodes[i].data.simpleData.getData()
-                        : []
-                }
+                // if (flow.nodes[i].data.category === "Importing") {
+                //     flow.nodes[i].data.dataSaved = flow.nodes[i].data.simpleData
+                //         ? flow.nodes[i].data.simpleData.getDataAsArrays()
+                //         : []
+                // }
 
                 flow.nodes[i].data.simpleData = null
                 flow.nodes[i].data.sourceSimpleData = null
                 flow.nodes[i].data.sourceSimpleDataB = null
+
+
+                for (let arg of Object.keys(flow.nodes[i].data.args)) {
+                    if (typeof flow.nodes[i].data.args[arg] === "function") {
+                        flow.nodes[i].data.args[arg] = String(flow.nodes[i].data.args[arg])
+                    }
+                }
             }
 
             flow.name = name
             flow.startNodeId = startNodeId
-            console.log(flow.startNodeId)
 
             const stringified = JSON.stringify(flow)
 

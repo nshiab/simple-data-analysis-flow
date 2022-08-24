@@ -15,31 +15,20 @@ export default function Select({
     d: Arg
     args: NodeDataArgs
 }) {
-    const [type, setType] = useState<React.ReactElement | null>(null)
 
     const { generateArgId, updateNodeArgs } = useStore()
 
-    useEffect(() => {
-        const argId = generateArgId(id, i, method)
-
-        const t = (
-            <select
-                id={argId}
-                onChange={() => updateNodeArgs(id)}
-                value={args[d.name]}
-            >
-                {d.options
-                    ? d.options.map((opt, index) => (
-                          <option key={`${id}-${method}-option-${index}`}>
-                              {opt}
-                          </option>
-                      ))
-                    : null}
-            </select>
-        )
-
-        setType(t)
-    }, [id, i, method, d, args, generateArgId, updateNodeArgs])
-
-    return type
+    return <select
+        id={generateArgId(id, i, method)}
+        onChange={() => updateNodeArgs(id)}
+        value={args[d.name]}
+    >
+        {d.options
+            ? d.options.map((opt, index) => (
+                <option key={`${id}-${method}-option-${index}`}>
+                    {opt}
+                </option>
+            ))
+            : null}
+    </select>
 }

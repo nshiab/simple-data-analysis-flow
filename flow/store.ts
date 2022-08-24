@@ -426,6 +426,7 @@ const useStore = create<RFState>((set, get) => ({
                         const fVal = Function(`return ${el.value}`)()
 
                         args[methods[method].arguments[i].name] = fVal
+
                     } catch (error: any) {
                         errorMessage = error.message
                     }
@@ -515,9 +516,8 @@ const useStore = create<RFState>((set, get) => ({
             : 5
         const reminingItems = nbItems - nbItemsInTable
 
-        return `${nbItems} items in total${
-            reminingItems > 0 ? ` (${reminingItems} hidden)` : ""
-        }`
+        return `${nbItems} items in total${reminingItems > 0 ? ` (${reminingItems} hidden)` : ""
+            }`
     },
 }))
 

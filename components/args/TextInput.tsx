@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Arg } from "../../flow/methods"
 import useStore, { NodeDataArgs } from "../../flow/store"
 
@@ -15,42 +15,55 @@ export default function TextInput({
     d: Arg
     args: NodeDataArgs
 }) {
-    const [type, setType] = useState<React.ReactElement | null>(null)
 
     const { generateArgId, updateNodeArgs } = useStore()
 
-    useEffect(() => {
-        const argId = generateArgId(id, i, method)
+    const [cursor, setCursor] = useState(0)
+    const ref = useRef<HTMLInputElement>(null)
 
-        let t = (
+
+    useEffect(() => {
+        ref.current?.setSelectionRange(cursor, cursor)
+    }, [cursor, args[d.name]])
+
+
+    return <div>{
+        d.jsOption ?
+            <div style={{ display: "flex", alignItems: "center" }}>
+                <input
+                    ref={ref}
+                    id={generateArgId(id, i, method)}
+                    onChange={(e) => {
+                        e.target.selectionStart && setCursor(e.target.selectionStart)
+                        updateNodeArgs(id)
+                    }}
+                    style={{ width: d.width ? d.width : undefined }}
+                    value={args[d.name] === undefined ? "" : args[d.name]}
+                ></input>
+                <div style={{ marginLeft: 4 }}>JS?</div>
+                <input
+                    id={`${generateArgId(id, i, method)}JS`}
+                    onChange={() => updateNodeArgs(id)}
+                    type="checkbox"
+                    checked={
+                        args[`${generateArgId(id, i, method)}JS`] === undefined
+                            ? false
+                            : args[`${generateArgId(id, i, method)}JS`]
+                    }
+                />
+            </div>
+            :
             <input
-                id={argId}
-                onChange={() => updateNodeArgs(id)}
+                ref={ref}
+                id={generateArgId(id, i, method)}
+                onChange={(e) => {
+                    e.target.selectionStart && setCursor(e.target.selectionStart)
+                    updateNodeArgs(id)
+                }}
                 style={{ width: d.width ? d.width : undefined }}
                 value={args[d.name] === undefined ? "" : args[d.name]}
             ></input>
-        )
 
-        if (d.jsOption) {
-            t = (
-                <div style={{ display: "flex", alignItems: "center" }}>
-                    {t}
-                    <div style={{ marginLeft: 4 }}>JS?</div>
-                    <input
-                        id={`${argId}JS`}
-                        onChange={() => updateNodeArgs(id)}
-                        type="checkbox"
-                        checked={
-                            args[`${argId}JS`] === undefined
-                                ? false
-                                : args[`${argId}JS`]
-                        }
-                    />
-                </div>
-            )
-        }
-        setType(t)
-    }, [id, i, method, d, args, generateArgId, updateNodeArgs])
-
-    return type
+    }
+    </div>
 }

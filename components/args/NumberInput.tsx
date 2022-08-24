@@ -15,25 +15,16 @@ export default function NumberInput({
     d: Arg
     args: NodeDataArgs
 }) {
-    const [type, setType] = useState<React.ReactElement | null>(null)
 
     const { generateArgId, updateNodeArgs } = useStore()
 
-    useEffect(() => {
-        const argId = generateArgId(id, i, method)
-
-        const t = (
-            <input
-                id={argId}
-                onChange={() => updateNodeArgs(id)}
-                type="number"
-                style={{ width: 50 }}
-                value={args[d.name] === undefined ? "" : args[d.name]}
-            ></input>
-        )
-
-        setType(t)
-    }, [id, i, method, d, args, generateArgId, updateNodeArgs])
-
-    return type
+    return <input
+        id={generateArgId(id, i, method)}
+        onChange={(e) => {
+            updateNodeArgs(id)
+        }}
+        type="number"
+        style={{ width: 50 }}
+        value={args[d.name] === undefined ? "" : args[d.name]}
+    ></input>
 }

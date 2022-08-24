@@ -1,15 +1,15 @@
 interface Arg {
     name: string
     type:
-        | "checkbox"
-        | "select"
-        | "keys"
-        | "multipleKeys"
-        | "number"
-        | "text"
-        | "javascript"
-        | "sourceB"
-        | "multipleBoxes"
+    | "checkbox"
+    | "select"
+    | "keys"
+    | "multipleKeys"
+    | "number"
+    | "text"
+    | "javascript"
+    | "sourceB"
+    | "multipleBoxes"
     optional?: boolean
     width?: number
     jsOption?: boolean
@@ -317,39 +317,49 @@ const methods: {
             },
         ],
     },
-    addProportions: {
+    "addProportions-data": {
         category: "Analyzing",
         arguments: [
             {
                 name: "method",
                 type: "select",
-                options: [undefined, "data", "item"],
+                options: ["data"],
                 optional: false,
             },
             {
                 name: "key",
                 type: "keys",
-                condition: { name: "method", value: "data" },
+                optional: false,
             },
             {
                 name: "newKey",
                 type: "text",
-                condition: { name: "method", value: "data" },
+                optional: false
             },
             {
                 name: "keyCategory",
                 type: "multipleKeys",
-                condition: { name: "method", value: "data" },
+            },
+            { name: "nbDigits", type: "number" },
+        ],
+    },
+    "addProportions-item": {
+        category: "Analyzing",
+        arguments: [
+            {
+                name: "method",
+                type: "select",
+                options: ["item"],
+                optional: false,
             },
             {
                 name: "keys",
                 type: "multipleKeys",
-                condition: { name: "method", value: "item" },
+                optional: false
             },
             {
                 name: "suffix",
-                type: "text",
-                condition: { name: "method", value: "item" },
+                type: "text"
             },
             { name: "nbDigits", type: "number" },
         ],
