@@ -7,12 +7,12 @@ export default function JavaScriptArea({
     method,
     d,
     i,
-    args
+    args,
 }: {
     id: string
     method: string
     d: Arg
-    i: number,
+    i: number
     args: NodeDataArgs
 }) {
     const { generateArgId, updateNodeArgs } = useStore()
@@ -29,11 +29,11 @@ export default function JavaScriptArea({
             ref={ref}
             id={generateArgId(id, i, method)}
             rows={
-                args[d.name] ?
-                    String(args[d.name]).split("\n").length + 2 :
-                    d.defaultValue ?
-                        d.defaultValue.split("\n").length + 1 :
-                        4
+                args[d.name]
+                    ? String(args[d.name]).split("\n").length + 2
+                    : d.defaultValue
+                    ? d.defaultValue.split("\n").length + 1
+                    : 4
             }
             value={args[d.name] ? String(args[d.name]) : d.defaultValue}
             style={{ resize: "none", fontSize: "12px", width: "250px" }}

@@ -14,14 +14,15 @@ export default function Checkbox({
     d: Arg
     args: NodeDataArgs
 }) {
-
     const { generateArgId, updateNodeArgs } = useStore()
 
-    return <input
-        type="checkbox"
-        id={generateArgId(id, i, method)}
-        onChange={() => updateNodeArgs(id)}
-        style={{ marginBottom: 0 }}
-        checked={args[d.name]}
-    ></input>
+    return (
+        <input
+            type="checkbox"
+            id={generateArgId(id, i, method)}
+            onChange={() => updateNodeArgs(id)}
+            style={{ marginBottom: 0 }}
+            checked={args[d.name]}
+        ></input>
+    )
 }

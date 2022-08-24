@@ -15,16 +15,17 @@ export default function NumberInput({
     d: Arg
     args: NodeDataArgs
 }) {
-
     const { generateArgId, updateNodeArgs } = useStore()
 
-    return <input
-        id={generateArgId(id, i, method)}
-        onChange={(e) => {
-            updateNodeArgs(id)
-        }}
-        type="number"
-        style={{ width: 50 }}
-        value={args[d.name] === undefined ? "" : args[d.name]}
-    ></input>
+    return (
+        <input
+            id={generateArgId(id, i, method)}
+            onChange={(e) => {
+                updateNodeArgs(id)
+            }}
+            type="number"
+            style={{ width: 50 }}
+            value={args[d.name] === undefined ? "" : args[d.name]}
+        ></input>
+    )
 }
