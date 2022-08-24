@@ -15,7 +15,7 @@ export default function Arguments({
     id: string
     data: NodeData
 }) {
-    const { methods, generateArgId, updateNodeArgs } = useStore()
+    const { methods, generateArgId } = useStore()
 
     return (
         <div
@@ -128,6 +128,7 @@ export default function Arguments({
                                 method={data.method}
                                 d={d}
                                 i={i}
+                                args={data.args}
                             />
                         )
                     }

@@ -32,6 +32,7 @@ export default function Home({
     const onRestore = useCallback(
         (flowString: string) => {
             const restoreFlow = async (flowString: string) => {
+
                 const flow = JSON.parse(flowString)
 
                 setName(flow.name)
@@ -42,18 +43,18 @@ export default function Home({
                     setEdges(flow.edges || [])
                 }
 
-                for (let i = 0; i < flow.nodes.length; i++) {
-                    if (flow.nodes[i].data.category === "Importing") {
-                        updateNodeSimpleData(
-                            flow.nodes[i].id,
-                            new SimpleData({
-                                data: flow.nodes[i].data.dataSaved,
-                                fillMissingKeys: true,
-                            }),
-                            null
-                        )
-                    }
-                }
+                // for (let i = 0; i < flow.nodes.length; i++) {
+                //     if (flow.nodes[i].data.category === "Importing") {
+                //         updateNodeSimpleData(
+                //             flow.nodes[i].id,
+                //             new SimpleData({
+                //                 data: flow.nodes[i].data.dataSaved,
+                //                 fillMissingKeys: true,
+                //             }),
+                //             null
+                //         )
+                //     }
+                // }
             }
 
             restoreFlow(flowString)

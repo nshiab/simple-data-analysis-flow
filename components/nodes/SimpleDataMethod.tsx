@@ -39,24 +39,27 @@ export default function SimpleDataMethod({
                 argsTest
             )
 
+
+
         if (data.sourceSimpleData && argsTest && !data.errorMessage) {
             if (methods[data.method].category !== "Others") {
                 try {
+                    const method = data.method.split("-")[0]
                     const newSimpleData = methods[data.method].justClone
                         ? data.sourceSimpleData.clone()
                         : //@ts-ignore
-                          data.sourceSimpleData.clone()[data.method](data.args)
+                        data.sourceSimpleData.clone()[method](data.args)
 
                     logs && console.log("triggered", data.method)
                     updateNodeSimpleData(id, newSimpleData, null)
 
                     methods[data.method].htmlOutput
                         ? setHTMLOutput(
-                              //@ts-ignore
-                              data.sourceSimpleData
-                                  .clone()
-                                  [data.method](data.args)
-                          )
+                            //@ts-ignore
+                            data.sourceSimpleData
+                                .clone()
+                            [method](data.args)
+                        )
                         : setHTMLOutput(null)
 
                     setSucces(true)
@@ -68,8 +71,9 @@ export default function SimpleDataMethod({
                 }
             } else {
                 try {
+                    const method = data.method.split("-")[0]
                     //@ts-ignore
-                    const result = data.sourceSimpleData[data.method](data.args)
+                    const result = data.sourceSimpleData[method](data.args)
 
                     const resultString = JSON.stringify(result, null, 1)
 
@@ -158,8 +162,8 @@ export default function SimpleDataMethod({
                 <Arguments id={id} data={data} />
 
                 {methods[data.method].category === "Others" &&
-                htmlOutput &&
-                htmlOutput.length > 300 ? (
+                    htmlOutput &&
+                    htmlOutput.length > 300 ? (
                     <div
                         style={{
                             display: "flex",
@@ -215,13 +219,12 @@ export default function SimpleDataMethod({
                         dangerouslySetInnerHTML={{
                             __html:
                                 methods[data.method].category === "Others"
-                                    ? `${
-                                          htmlOutput.length > htmlOutputLength
-                                              ? htmlOutput
-                                                    .slice(0, htmlOutputLength)
-                                                    .trim() + "..."
-                                              : htmlOutput
-                                      }`
+                                    ? `${htmlOutput.length > htmlOutputLength
+                                        ? htmlOutput
+                                            .slice(0, htmlOutputLength)
+                                            .trim() + "..."
+                                        : htmlOutput
+                                    }`
                                     : htmlOutput,
                         }}
                     ></div>
