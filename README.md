@@ -30,6 +30,6 @@ Here's the final result of the demo. It's an example from the [simple-data-analy
 
 The editor is built as a [NextJS app](https://nextjs.org/), with [simple-data-analysis.js](https://github.com/nshiab/simple-data-analysis) and [React Flow](https://github.com/wbkd/react-flow).
 
-All of the computations are ran in the browser.
+All of the computations are run in the browser.
 
 Feel free to start a conversation or create a new issue. If you want to contribute to the code, let's talk! :)

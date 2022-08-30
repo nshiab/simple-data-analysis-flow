@@ -74,7 +74,7 @@ export default function Home({
                     margin: "0 auto",
                 }}
             >
-                Welcome! The aim of this project is to allow non-coders to use
+                Welcome! This project aims to allow non-coders to use
                 the open source library{" "}
                 <a href="https://github.com/nshiab/simple-data-analysis.js">
                     simple-data-analysis.js
@@ -86,7 +86,7 @@ export default function Home({
                 Feel to start a conversation, raise an issue or contribute to
                 the{" "}
                 <a href="https://github.com/nshiab/simple-data-analysis-flow">
-                    code on Github
+                    code on GitHub
                 </a>
                 .
             </div>
