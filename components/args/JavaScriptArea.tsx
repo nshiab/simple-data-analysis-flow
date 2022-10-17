@@ -28,7 +28,6 @@ export default function JavaScriptArea({
                         ? d.defaultValue.split("\n").length + 1
                         : 4
                 }
-                // value={args[d.name] ? String(args[d.name]) : d.defaultValue}
                 defaultValue={
                     args[d.name] ? String(args[d.name]) : d.defaultValue
                 }
