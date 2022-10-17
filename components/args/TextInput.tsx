@@ -55,7 +55,12 @@ export default function TextInput({
                             args[d.name] === undefined ? "" : args[d.name]
                         }
                     ></input>
-                    <button onClick={() => updateNodeArgs(id)}>Update</button>
+                    <button
+                        style={{ marginLeft: "4px" }}
+                        onClick={() => updateNodeArgs(id)}
+                    >
+                        Update
+                    </button>
                 </>
             )}
         </div>
