@@ -22,6 +22,7 @@ export default function SimpleDataMethod({
         handleStyle,
         logs,
         methods,
+        documentation,
         remainingItemsShowTable,
     } = useStore()
 
@@ -152,7 +153,14 @@ export default function SimpleDataMethod({
                 }}
             >
                 <div style={{ fontWeight: "bold", textAlign: "center" }}>
-                    {data.method}
+                    <a
+                        href={documentation[methods[data.method].category]}
+                        style={{ color: "black" }}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
+                        {data.method}
+                    </a>
                 </div>
 
                 <Arguments id={id} data={data} />
