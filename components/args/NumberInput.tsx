@@ -24,7 +24,7 @@ export default function NumberInput({
                 updateNodeArgs(id)
             }}
             type="number"
-            style={{ width: 50 }}
+            style={{ width: 75 }}
             value={args[d.name] === undefined ? "" : args[d.name]}
         ></input>
     )

@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react"
-import { SimpleData } from "simple-data-analysis"
 import useStore from "../flow/store"
 
 export default function Home({
@@ -11,8 +10,7 @@ export default function Home({
     setHome: React.Dispatch<React.SetStateAction<boolean>>
     setName: React.Dispatch<React.SetStateAction<string>>
 }) {
-    const { setNodes, setEdges, updateNodeSimpleData, setStartNodeId } =
-        useStore()
+    const { setNodes, setEdges, setStartNodeId } = useStore()
     const [errorMessage, setErrorMessage] = useState(null)
 
     const readFileAsync: (file: Blob) => Promise<string> = useCallback(
@@ -41,24 +39,11 @@ export default function Home({
                     setNodes(flow.nodes || [])
                     setEdges(flow.edges || [])
                 }
-
-                // for (let i = 0; i < flow.nodes.length; i++) {
-                //     if (flow.nodes[i].data.category === "Importing") {
-                //         updateNodeSimpleData(
-                //             flow.nodes[i].id,
-                //             new SimpleData({
-                //                 data: flow.nodes[i].data.dataSaved,
-                //                 fillMissingKeys: true,
-                //             }),
-                //             null
-                //         )
-                //     }
-                // }
             }
 
             restoreFlow(flowString)
         },
-        [setNodes, setEdges, setName, setStartNodeId, updateNodeSimpleData]
+        [setNodes, setEdges, setName, setStartNodeId]
     )
 
     return home ? (
@@ -74,8 +59,8 @@ export default function Home({
                     margin: "0 auto",
                 }}
             >
-                Welcome! This project aims to allow non-coders to use
-                the open source library{" "}
+                Welcome! This project aims to allow non-coders to use the open
+                source library{" "}
                 <a href="https://github.com/nshiab/simple-data-analysis.js">
                     simple-data-analysis.js
                 </a>{" "}
