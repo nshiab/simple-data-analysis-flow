@@ -16,7 +16,7 @@
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-flow-renderer": "^10.3.14",
-        "simple-data-analysis": "^1.0.6",
+        "simple-data-analysis": "^1.0.7",
         "zustand": "^4.0.0"
     },
     "devDependencies": {
