@@ -149,7 +149,7 @@ export default function SimpleDataMethod({
                     padding: 10,
                     maxWidth: methods[data.method].maxWidth
                         ? methods[data.method].maxWidth
-                        : 300,
+                        : 330,
                 }}
             >
                 <div style={{ fontWeight: "bold", textAlign: "center" }}>
