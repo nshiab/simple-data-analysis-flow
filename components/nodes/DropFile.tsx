@@ -6,7 +6,13 @@ import { csvParse, autoType } from "d3-dsv"
 import Arguments from "../Arguments"
 
 export default function DropFile({ id, data }: { id: string; data: NodeData }) {
-    const { updateNodeSimpleData, handleStyle, testNodeArgs } = useStore()
+    const {
+        updateNodeSimpleData,
+        handleStyle,
+        testNodeArgs,
+        methods,
+        documentation,
+    } = useStore()
 
     const [success, setSucces] = useState(false)
 
@@ -79,7 +85,14 @@ export default function DropFile({ id, data }: { id: string; data: NodeData }) {
                     marginBottom: 10,
                 }}
             >
-                dropFile
+                <a
+                    href={documentation[methods[data.method].category]}
+                    style={{ color: "black" }}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    dropFile
+                </a>
             </div>
             <div
                 style={{

@@ -51,6 +51,7 @@ type RFState = {
     setNodes: (nodes: CustomNode[]) => void
     setEdges: (edges: Edge[]) => void
     methods: { [key: string]: Method }
+    documentation: { [key: string]: string }
     handleStyle: {
         [key: string]: {
             width: number
@@ -94,6 +95,21 @@ const useStore = create<RFState>((set, get) => ({
         set({ edges: edges })
     },
     methods: methods,
+    documentation: {
+        Importing:
+            "https://observablehq.com/@nshiab/importing-data-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Cleaning:
+            "https://observablehq.com/@nshiab/cleaning-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Restructuring:
+            "https://observablehq.com/@nshiab/restructuring-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Selecting:
+            "https://observablehq.com/@nshiab/selecting-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Analyzing:
+            "https://observablehq.com/@nshiab/analyzing-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Visualizing:
+            "https://observablehq.com/@nshiab/visualizing-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+        Others: "https://observablehq.com/@nshiab/exporting-simple-data-analysis?collection=@nshiab/simple-data-analysis-in-javascript",
+    },
     getNodeId: () => {
         get().logs && console.log("getNodeId")
         const newNodeId = ++get().startNodeId

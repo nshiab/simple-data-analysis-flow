@@ -14,7 +14,8 @@ export default function NewSimpleData({
 
     const inputRef = useRef<HTMLTextAreaElement>(null)
 
-    const { updateNodeSimpleData, handleStyle } = useStore()
+    const { updateNodeSimpleData, handleStyle, methods, documentation } =
+        useStore()
 
     useEffect(() => {
         if (!data.errorMessage) {
@@ -50,7 +51,14 @@ export default function NewSimpleData({
                     marginBottom: 10,
                 }}
             >
-                New SimpleData
+                <a
+                    href={documentation[methods[data.method].category]}
+                    style={{ color: "black" }}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    new SimpleData
+                </a>
             </div>
             <button
                 style={{

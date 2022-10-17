@@ -20,6 +20,7 @@ interface Arg {
 
 interface Method {
     category: string
+    documentation?: string
     maxWidth?: number
     doubleSource?: boolean
     justClone?: boolean
@@ -87,6 +88,8 @@ const methods: {
     },
     renameKey: {
         category: "Cleaning",
+        documentation:
+            "https://observablehq.com/@nshiab/cleaning-simple-data-analysis#cell-70",
         arguments: [
             { name: "oldKey", type: "keys", optional: false },
             { name: "newKey", type: "text", optional: false },

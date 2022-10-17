@@ -11,7 +11,13 @@ export default function LoadDataFromUrl({
     id: string
     data: NodeData
 }) {
-    const { updateNodeSimpleData, testNodeArgs, handleStyle } = useStore()
+    const {
+        updateNodeSimpleData,
+        testNodeArgs,
+        handleStyle,
+        methods,
+        documentation,
+    } = useStore()
 
     const [success, setSucces] = useState(false)
 
@@ -62,7 +68,14 @@ export default function LoadDataFromUrl({
                     marginBottom: 10,
                 }}
             >
-                loadDataFromUrl
+                <a
+                    href={documentation[methods[data.method].category]}
+                    style={{ color: "black" }}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    loadDataFromUrl
+                </a>
             </div>
             <Arguments id={id} data={data} />
             {data.errorMessage ? (
