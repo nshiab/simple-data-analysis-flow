@@ -18,14 +18,19 @@ export default function NumberInput({
     const { generateArgId, updateNodeArgs } = useStore()
 
     return (
-        <input
-            id={generateArgId(id, i, method)}
-            onChange={(e) => {
-                updateNodeArgs(id)
-            }}
-            type="number"
-            style={{ width: 75 }}
-            value={args[d.name] === undefined ? "" : args[d.name]}
-        ></input>
+        <div>
+            <input
+                id={generateArgId(id, i, method)}
+                type="number"
+                style={{ width: 75 }}
+                defaultValue={args[d.name] === undefined ? "" : args[d.name]}
+            ></input>
+            <button
+                style={{ marginLeft: "4px" }}
+                onClick={() => updateNodeArgs(id)}
+            >
+                Update
+            </button>
+        </div>
     )
 }
