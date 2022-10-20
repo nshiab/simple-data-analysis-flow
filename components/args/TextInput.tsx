@@ -32,7 +32,7 @@ export default function TextInput({
                     <input
                         id={`${generateArgId(id, i, method)}JS`}
                         type="checkbox"
-                        checked={
+                        defaultValue={
                             args[`${generateArgId(id, i, method)}JS`] ===
                             undefined
                                 ? false

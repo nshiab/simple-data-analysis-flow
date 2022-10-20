@@ -244,6 +244,7 @@ const methods: {
         arguments: [
             { name: "dataToBeAdded", type: "sourceB", optional: false },
             { name: "fillMissingKeys", type: "checkbox" },
+            { name: "defaultValue", type: "text", jsOption: true, width: 100 },
         ],
     },
     mergeItems: {
