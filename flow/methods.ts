@@ -345,6 +345,7 @@ const methods: {
                 type: "multipleKeys",
             },
             { name: "nbDigits", type: "number" },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     "addProportions-item": {
@@ -366,6 +367,7 @@ const methods: {
                 type: "text",
             },
             { name: "nbDigits", type: "number" },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     addVariation: {
@@ -386,6 +388,7 @@ const methods: {
                 options: [undefined, "ascending", "descending"],
             },
             { name: "firstValue", type: "text", jsOption: true },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     addQuantiles: {
@@ -394,6 +397,7 @@ const methods: {
             { name: "key", type: "keys", optional: false },
             { name: "newKey", type: "text", optional: false },
             { name: "nbQuantiles", type: "number", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     addBins: {
@@ -402,6 +406,7 @@ const methods: {
             { name: "key", type: "keys", optional: false },
             { name: "newKey", type: "text", optional: false },
             { name: "nbBins", type: "number", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     addOutliers: {
@@ -409,17 +414,22 @@ const methods: {
         arguments: [
             { name: "key", type: "keys", optional: false },
             { name: "newKey", type: "text", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     excludeOutliers: {
         category: "Analyzing",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
     correlation: {
         category: "Analyzing",
         arguments: [
             { name: "key1", type: "keys" },
             { name: "key2", type: "multipleKeys" },
+            { name: "nbItemsToCheck", type: "number" },
         ],
     },
     summarize: {
@@ -558,23 +568,46 @@ const methods: {
     },
     getMin: {
         category: "Others",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
     getMax: {
         category: "Others",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
     getMean: {
         category: "Others",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
     getMedian: {
         category: "Others",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
     getSum: {
         category: "Others",
-        arguments: [{ name: "key", type: "keys", optional: false }],
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
+    },
+    getQuantile: {
+        category: "Others",
+        arguments: [
+            { name: "key", type: "keys", optional: false },
+            { name: "quantile", type: "number" },
+            { name: "nbItemsToCheck", type: "number" },
+        ],
     },
 }
 
