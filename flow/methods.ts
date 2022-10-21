@@ -1,15 +1,15 @@
 interface Arg {
     name: string
     type:
-        | "checkbox"
-        | "select"
-        | "keys"
-        | "multipleKeys"
-        | "number"
-        | "text"
-        | "javascript"
-        | "sourceB"
-        | "multipleBoxes"
+    | "checkbox"
+    | "select"
+    | "keys"
+    | "multipleKeys"
+    | "number"
+    | "text"
+    | "javascript"
+    | "sourceB"
+    | "multipleBoxes"
     optional?: boolean
     width?: number
     jsOption?: boolean
@@ -312,13 +312,14 @@ const methods: {
     sortValues: {
         category: "Analyzing",
         arguments: [
-            { name: "key", type: "keys", optional: false },
+            { name: "key", type: "multipleKeys", optional: false },
             {
                 name: "order",
                 type: "select",
                 options: ["ascending", "descending"],
                 optional: false,
             },
+            { name: "locale", type: "text", jsOption: true },
         ],
     },
     "addProportions-data": {
