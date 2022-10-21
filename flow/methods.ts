@@ -496,6 +496,17 @@ const methods: {
                 type: "keys",
             },
             {
+                name: "colorScale",
+                type: "select",
+                options: [
+                    undefined,
+                    "linear",
+                    "diverging",
+                    "categorical",
+                    "ordinal",
+                ],
+            },
+            {
                 name: "marginLeft",
                 type: "number",
             },
