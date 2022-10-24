@@ -1,15 +1,15 @@
 interface Arg {
     name: string
     type:
-    | "checkbox"
-    | "select"
-    | "keys"
-    | "multipleKeys"
-    | "number"
-    | "text"
-    | "javascript"
-    | "sourceB"
-    | "multipleBoxes"
+        | "checkbox"
+        | "select"
+        | "keys"
+        | "multipleKeys"
+        | "number"
+        | "text"
+        | "javascript"
+        | "sourceB"
+        | "multipleBoxes"
     optional?: boolean
     width?: number
     jsOption?: boolean
@@ -583,6 +583,12 @@ const methods: {
         arguments: [
             { name: "key", type: "keys", optional: false },
             { name: "nbItemsToCheck", type: "number" },
+            {
+                name: "type",
+                type: "select",
+                options: [undefined, "number", "Date"],
+            },
+            { name: "nbDigits", type: "number" },
         ],
     },
     getMax: {
@@ -590,6 +596,12 @@ const methods: {
         arguments: [
             { name: "key", type: "keys", optional: false },
             { name: "nbItemsToCheck", type: "number" },
+            {
+                name: "type",
+                type: "select",
+                options: [undefined, "number", "Date"],
+            },
+            { name: "nbDigits", type: "number" },
         ],
     },
     getMean: {
@@ -597,6 +609,12 @@ const methods: {
         arguments: [
             { name: "key", type: "keys", optional: false },
             { name: "nbItemsToCheck", type: "number" },
+            {
+                name: "type",
+                type: "select",
+                options: [undefined, "number", "Date"],
+            },
+            { name: "nbDigits", type: "number" },
         ],
     },
     getMedian: {
@@ -604,6 +622,12 @@ const methods: {
         arguments: [
             { name: "key", type: "keys", optional: false },
             { name: "nbItemsToCheck", type: "number" },
+            {
+                name: "type",
+                type: "select",
+                options: [undefined, "number", "Date"],
+            },
+            { name: "nbDigits", type: "number" },
         ],
     },
     getSum: {
