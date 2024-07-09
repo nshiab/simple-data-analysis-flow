@@ -1,33 +1,37 @@
 {
-    "name": "simple-data-analysis-flow",
-    "version": "0.12.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint",
-        "format": "prettier --ignore-path .prettierignore --write .",
-        "check-format": "prettier --ignore-path .prettierignore --check .",
-        "export": "npm run format && next build && next export -o docs/ && touch docs/.nojekyll"
-    },
-    "dependencies": {
-        "next": "12.2.4",
-        "react": "18.2.0",
-        "react-dom": "18.2.0",
-        "react-flow-renderer": "^10.3.14",
-        "simple-data-analysis": "^1.0.16",
-        "zustand": "^4.0.0"
-    },
-    "devDependencies": {
-        "@types/d3-dsv": "^3.0.0",
-        "@types/node": "18.6.5",
-        "@types/react": "18.0.17",
-        "@types/react-dom": "18.0.6",
-        "eslint": "8.21.0",
-        "eslint-config-next": "12.2.4",
-        "eslint-config-prettier": "^8.5.0",
-        "prettier": "^2.7.1",
-        "typescript": "4.7.4"
-    }
+  "name": "simple-data-analysis-flow",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@duckdb/duckdb-wasm": "^1.28.1-dev99.0",
+    "@radix-ui/react-separator": "^1.1.0",
+    "@xyflow/react": "^12.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "i": "^0.3.7",
+    "lucide-react": "^0.406.0",
+    "next": "14.2.4",
+    "npm": "^10.8.1",
+    "react": "^18",
+    "react-dom": "^18",
+    "simple-data-analysis": "^3.3.2",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
 }
