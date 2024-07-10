@@ -11,68 +11,31 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useState } from "react";
+import { useEffect } from "react";
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB";
-import {
-  AsyncDuckDB,
-  AsyncDuckDBConnection,
-  DuckDBDataProtocol,
-} from "@duckdb/duckdb-wasm";
 
-export default function ST() {
-  const [fileName, setFileName] = useState("");
-
+export default function ST({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
 
-  const sdbConnection = useHandleConnections({ type: "target" });
-  const sdb = useNodesData(sdbConnection[0].source)?.data?.instance;
+  const targetConnection = useHandleConnections({ type: "target" });
+  const source = useNodesData(targetConnection[0]?.source);
+
+  useEffect(() => {
+    const sdb = source?.data?.instance;
+    if (sdb instanceof SimpleWebDB) {
+      updateNodeData(id, {
+        instance: sdb.newTable(id),
+      });
+    }
+  }, [source, id, updateNodeData]);
 
   return (
-    <div
-      onDrop={async (evt) => {
-        evt.preventDefault();
-        const items = evt.dataTransfer.items;
-        // @ts-expect-error Still experimental
-        const file = await items[0].getAsFileSystemHandle();
-        const fileSplit = (file.name as string).split(".");
-        const extension = fileSplit[1].toLowerCase();
-        const tableName = fileSplit[0];
-
-        if (sdb instanceof SimpleWebDB) {
-          console.log(tableName);
-          // await (sdb.db as AsyncDuckDB).registerFileHandle(
-          //   file.name,
-          //   file,
-          //   DuckDBDataProtocol.BROWSER_FILEREADER,
-          //   true
-          // );
-          // if (extension === "csv") {
-          //   await (sdb.connection as AsyncDuckDBConnection).insertCSVFromPath(
-          //     file.name,
-          //     { name: tableName }
-          //   );
-          // }
-          // console.log(await sdb.getTables());
-          // const table = sdb.newTable(tableName);
-          // await table.logTable();
-        }
-
-        if (file) {
-          setFileName(file.name);
-        }
-      }}
-      onDragOver={(evt) => evt.preventDefault()}
-    >
+    <div>
       <Handle type="target" position={Position.Top} />
       <Card className="max-w-xs">
         <CardHeader>
           <CardTitle>SimpleTable</CardTitle>
-          <CardDescription>
-            This is a table
-            {fileName === ""
-              ? ". Drag-and-drop a CSV, JSON, or Parquet file."
-              : ` with data from ${fileName}.`}
-          </CardDescription>
+          <CardDescription>This is a table in the database.</CardDescription>
         </CardHeader>
       </Card>
       <Handle type="source" position={Position.Bottom} />

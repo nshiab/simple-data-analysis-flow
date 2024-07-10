@@ -3,7 +3,6 @@
 import React, { useCallback } from "react";
 import {
   ReactFlow,
-  MiniMap,
   Controls,
   Background,
   useNodesState,
@@ -16,24 +15,47 @@ import {
 import "@xyflow/react/dist/style.css";
 import SDB from "./SDA/SDB";
 import ST from "./SDA/ST";
+import FetchData from "./SDA/FetchData";
+import LogTable from "./SDA/LogTable";
 
 const initialNodes: Node[] = [
   {
-    id: "node-1",
+    id: "node1",
     type: "SDB",
     position: { x: 0, y: 0 },
     data: { instance: null },
   },
   {
-    id: "node-2",
+    id: "node2",
     type: "ST",
-    position: { x: 25, y: 150 },
+    position: { x: 0, y: 150 },
+    data: { instance: null },
+  },
+  {
+    id: "node3",
+    type: "FetchData",
+    position: { x: -150, y: 300 },
+    data: { instance: null },
+  },
+  {
+    id: "node4",
+    type: "LogTable",
+    position: { x: 200, y: 300 },
     data: { instance: null },
   },
 ];
-const initialEdges = [{ id: "edge-1", source: "node-1", target: "node-2" }];
+const initialEdges = [
+  { id: "edge1", source: "node1", target: "node2" },
+  { id: "edge2", source: "node2", target: "node3" },
+  { id: "edge3", source: "node3", target: "node4" },
+];
 
-const nodeTypes = { SDB: SDB, ST: ST };
+const nodeTypes = {
+  SDB: SDB,
+  ST: ST,
+  FetchData: FetchData,
+  LogTable: LogTable,
+};
 
 export default function SimpleFlow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
@@ -59,9 +81,9 @@ export default function SimpleFlow() {
         onConnect={onConnect}
         nodeTypes={nodeTypes}
         fitView
+        fitViewOptions={{ padding: 1 }}
       >
         <Controls />
-        <MiniMap />
         <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
       </ReactFlow>
     </div>
