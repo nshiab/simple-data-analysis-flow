@@ -24,14 +24,17 @@ import {
   TableRow,
 } from "../ui/table";
 import { formatDate, formatNumber } from "journalism";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
-export default function LogTable({ id }: { id: string }) {
+export default function LogTable() {
   const [data, setData] = useState<
     { [key: string]: string | number | Date | boolean | null }[] | null
   >(null);
   const [columns, setColumns] = useState<string[] | null>(null);
   const [types, setTypes] = useState<string[] | null>(null);
   const [nbRows, setNbRows] = useState<number | null>(null);
+  const [nbRowsToLog, setNbRowsToLog] = useState<number>(10);
 
   const targetConnection = useHandleConnections({ type: "target" });
   const source = useNodesData(targetConnection[0]?.source);
@@ -40,7 +43,7 @@ export default function LogTable({ id }: { id: string }) {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable) {
-        setData(await table.getTop(10));
+        setData(await table.getTop(nbRowsToLog));
         const columns = await table.getColumns();
         const typesObj = await table.getTypes();
         const types = columns.map((d) => typesObj[d]);
@@ -48,11 +51,16 @@ export default function LogTable({ id }: { id: string }) {
         setColumns(columns);
         setTypes(types);
         setNbRows(nbRows);
+      } else {
+        setData(null);
+        setColumns(null);
+        setTypes(null);
+        setNbRows(null);
       }
     }
 
     run();
-  }, [source]);
+  }, [source, nbRowsToLog]);
 
   return (
     <div>
@@ -67,6 +75,15 @@ export default function LogTable({ id }: { id: string }) {
           Array.isArray(columns) &&
           Array.isArray(types) && (
             <CardContent>
+              <div className="flex items-center space-x-2 mb-6">
+                <Label>Number of rows to show:</Label>
+                <Input
+                  type="number"
+                  className="w-20"
+                  value={nbRowsToLog}
+                  onChange={(e) => setNbRowsToLog(parseInt(e.target.value))}
+                />
+              </div>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -91,6 +108,10 @@ export default function LogTable({ id }: { id: string }) {
                                 { utc: true, abbreviations: true }
                               )}
                             </TableCell>
+                          );
+                        } else if (typeof d[c] === "number") {
+                          return (
+                            <TableCell key={i}>{formatNumber(d[c])}</TableCell>
                           );
                         } else {
                           return (

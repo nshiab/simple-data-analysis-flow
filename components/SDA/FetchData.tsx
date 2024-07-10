@@ -129,8 +129,8 @@ export default function FetchData({ id }: { id: string }) {
                   />
                   <Label>Auto-detect</Label>
                 </div>
-                <div className="my-4">
-                  <Label>File type</Label>
+                <div className="flex items-center space-x-2 my-4">
+                  <Label>File type:</Label>
                   <Select
                     onValueChange={(e: "csv" | "dsv" | "json" | "parquet") =>
                       setFileType(e)
@@ -156,8 +156,8 @@ export default function FetchData({ id }: { id: string }) {
                   />
                   <Label>Header</Label>
                 </div>
-                <div className="my-4">
-                  <Label>Delimiter</Label>
+                <div className="flex items-center space-x-2 my-4">
+                  <Label>Delimiter:</Label>
                   <Input
                     type="text"
                     className="w-20"
@@ -165,8 +165,8 @@ export default function FetchData({ id }: { id: string }) {
                     onChange={(e) => setDelim(e.target.value)}
                   />
                 </div>
-                <div className="my-4">
-                  <Label>Skip rows</Label>
+                <div className="flex items-center space-x-2 my-4">
+                  <Label>Skip rows:</Label>
                   <Input
                     type="number"
                     className="w-20"
