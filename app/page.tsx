@@ -8,20 +8,20 @@ export default function Home() {
           Simple Data Analysis Flow
         </h1>
         <p className="leading-7 [&:not(:first-child)]:mt-2">
-          Welcome! This project allows you to use the open source library{" "}
+          This is a node-based editor for{" "}
           <a
             className="font-medium underline underline-offset-2"
             href="https://github.com/nshiab/simple-data-analysis.js"
           >
             simple-data-analysis
           </a>{" "}
-          with a node-based editor running in the browser. Feel to start a
-          conversation, raise an issue or contribute to the{" "}
+          that runs in your browser. To add nodes, right-click on the panel
+          below. If you encounter a bug, create an issue on{" "}
           <a
             className="font-medium underline underline-offset-2"
             href="https://github.com/nshiab/simple-data-analysis-flow"
           >
-            code on GitHub
+            GitHub
           </a>
           .
         </p>
