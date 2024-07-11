@@ -11,11 +11,13 @@ import {
   useHandleConnections,
   useNodesData,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 
 import DataTable from "../partials/DataTable";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
+import { Button } from "../ui/button";
+import { dataAsCsv } from "journalism";
 
 export default function LogTable() {
   const [data, setData] = useState<
@@ -52,6 +54,19 @@ export default function LogTable() {
     run();
   }, [source, nbRowsToLog]);
 
+  const downloadFile = useCallback(async () => {
+    const table = source?.data?.instance;
+    if (table instanceof SimpleWebTable) {
+      const data = await table.getData();
+      const csv = dataAsCsv(data);
+      const a = document.createElement("a");
+      const file = new Blob([csv as BlobPart], { type: "text/csv" });
+      a.href = URL.createObjectURL(file);
+      a.download = "data.csv";
+      a.click();
+    }
+  }, [source]);
+
   return (
     <div>
       <Handle type="target" position={Position.Top} />
@@ -76,6 +91,11 @@ export default function LogTable() {
                 types={types}
                 nbRows={nbRows}
               />
+              <div className="text-right">
+                <Button variant={"secondary"} onClick={downloadFile}>
+                  Download as CSV
+                </Button>
+              </div>
             </CardContent>
           )}
       </Card>

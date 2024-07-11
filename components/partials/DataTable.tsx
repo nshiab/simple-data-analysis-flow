@@ -1,3 +1,4 @@
+import { Button } from "../ui/button";
 import {
   Table,
   TableBody,

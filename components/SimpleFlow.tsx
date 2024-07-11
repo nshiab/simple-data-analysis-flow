@@ -45,9 +45,9 @@ const initialNodes: Node[] = [
   {
     id: "node4",
     type: "LogTable",
-    position: { x: 125, y: 300 },
+    position: { x: 25, y: 300 },
     data: { instance: null },
-    origin: [0.5, 0],
+    origin: [0, 0],
   },
 ];
 const initialEdges = [
