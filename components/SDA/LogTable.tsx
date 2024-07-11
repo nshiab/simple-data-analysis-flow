@@ -56,7 +56,9 @@ export default function LogTable({ id }: { id: string }) {
         setColumns(columns);
         setTypes(types);
         setNbRows(nbRows);
-        const code = `await ${table.name}.logTable(${
+
+        const originalTableName = source?.data?.originalTableName ?? table.name;
+        const code = `await ${originalTableName}.logTable(${
           nbRowsToLog ?? defaultNbRows
         })`;
         setCode(code);

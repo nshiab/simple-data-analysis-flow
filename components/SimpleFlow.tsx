@@ -62,14 +62,14 @@ const initialNodes: Node[] = [
   {
     id: "node6",
     type: "FetchGeoData",
-    position: { x: 450, y: 300 },
+    position: { x: 800, y: 300 },
     data: { instance: null },
     origin: [0.5, 0],
   },
   {
     id: "node7",
     type: "LogTable",
-    position: { x: 600, y: 500 },
+    position: { x: 900, y: 500 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -83,7 +83,7 @@ const initialNodes: Node[] = [
   {
     id: "node9",
     type: "LogTable",
-    position: { x: 150, y: 600 },
+    position: { x: -100, y: 1000 },
     data: { instance: null },
     origin: [0.5, 0],
   },
