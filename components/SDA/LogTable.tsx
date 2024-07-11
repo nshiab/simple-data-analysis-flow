@@ -21,6 +21,8 @@ import { Button } from "../ui/button";
 import { dataAsCsv } from "journalism";
 import Code from "../partials/Code";
 
+const defaultNbRows = 5;
+
 export default function LogTable({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
 
@@ -30,7 +32,9 @@ export default function LogTable({ id }: { id: string }) {
   const [columns, setColumns] = useState<string[] | null>(null);
   const [types, setTypes] = useState<string[] | null>(null);
   const [nbRows, setNbRows] = useState<number | null>(null);
-  const [nbRowsToLog, setNbRowsToLog] = useState<number | undefined>(10);
+  const [nbRowsToLog, setNbRowsToLog] = useState<number | undefined>(
+    defaultNbRows
+  );
 
   const targetConnection = useHandleConnections({ type: "target" });
   const source = useNodesData(targetConnection[0]?.source);
@@ -41,7 +45,7 @@ export default function LogTable({ id }: { id: string }) {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable) {
-        setData(await table.getTop(nbRowsToLog ?? 10));
+        setData(await table.getTop(nbRowsToLog ?? defaultNbRows));
         const columns = await table.getColumns();
         const typesObj = await table.getTypes();
         const types = columns.map((d) => typesObj[d]);
@@ -49,7 +53,9 @@ export default function LogTable({ id }: { id: string }) {
         setColumns(columns);
         setTypes(types);
         setNbRows(nbRows);
-        const code = `await ${table.name}.logTable(${nbRowsToLog ?? 10})`;
+        const code = `await ${table.name}.logTable(${
+          nbRowsToLog ?? defaultNbRows
+        })`;
         setCode(code);
         updateNodeData(id, { instance: table, code });
       } else {
@@ -92,7 +98,7 @@ export default function LogTable({ id }: { id: string }) {
             <CardContent>
               <OptionsInputNumber
                 label="Number of rows to show:"
-                defaultValue={10}
+                defaultValue={defaultNbRows}
                 set={setNbRowsToLog}
               />
               <DataTable

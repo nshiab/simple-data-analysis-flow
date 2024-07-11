@@ -26,7 +26,7 @@ export default function ST({ id }: { id: string }) {
   useEffect(() => {
     const sdb = source?.data?.instance;
     if (sdb instanceof SimpleWebDB) {
-      const code = `const ${id}Table = sdb.newTable(${id}Table);`;
+      const code = `const ${id}Table = sdb.newTable("${id}Table");`;
       setCode(code);
       updateNodeData(id, {
         instance: sdb.newTable(`${id}Table`),
