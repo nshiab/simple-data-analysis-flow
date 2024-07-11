@@ -1,5 +1,6 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -7,6 +8,7 @@ import {
 import { Handle, Position, useReactFlow } from "@xyflow/react";
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB";
 import { useEffect } from "react";
+import Code from "../partials/Code";
 
 export default function SDB({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
@@ -22,6 +24,12 @@ export default function SDB({ id }: { id: string }) {
   return (
     <div>
       <Card>
+        <Code
+          code={`// For front-end projects, switch to SimpleWebDB
+import { SimpleDB } from "simple-data-analysis";
+
+const sdb = new SimpleDB();`}
+        />
         <CardHeader>
           <CardTitle>SimpleDB</CardTitle>
           <CardDescription>This is your in-memory database.</CardDescription>

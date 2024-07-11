@@ -27,6 +27,7 @@
     "npm": "^10.8.1",
     "react": "^18",
     "react-dom": "^18",
+    "shiki": "^1.10.3",
     "simple-data-analysis": "^3.3.2",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
