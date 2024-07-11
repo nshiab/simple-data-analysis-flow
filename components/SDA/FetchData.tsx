@@ -34,6 +34,7 @@ import OptionsCheckbox from "../partials/OptionsCheckbox";
 import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
+import Code from "../partials/Code";
 
 export default function FetchData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
@@ -52,6 +53,8 @@ export default function FetchData({ id }: { id: string }) {
   const target = useHandleConnections({ type: "target" });
   const source = useNodesData(target[0]?.source);
 
+  const [code, setCode] = useState("");
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
@@ -64,6 +67,15 @@ export default function FetchData({ id }: { id: string }) {
             delim,
             skip,
           });
+          const code = `// For front-end projects, use fetchData instead. 
+await ${table.name}.loadData("${url}", {
+  fileType: ${fileType},
+  autoDetect: ${autoDetect},
+  header: ${header},
+  delim: ${delim},
+  skip: ${skip},
+});`;
+          setCode(code);
           updateNodeData(id, {
             instance: table,
           });
@@ -92,6 +104,7 @@ export default function FetchData({ id }: { id: string }) {
     <div>
       <Handle type="target" position={Position.Top} />
       <Card className="max-w-xs">
+        <Code code={code} />
         <CardHeader>
           <CardTitle>Fetch data</CardTitle>
           <CardDescription>Fetches data from a URL.</CardDescription>

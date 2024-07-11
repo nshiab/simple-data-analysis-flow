@@ -4,6 +4,7 @@
 
 pre {
   white-space: pre-wrap;
+  word-break: break-all;
   width: 550px;
 }
 

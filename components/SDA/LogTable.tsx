@@ -10,6 +10,7 @@ import {
   Position,
   useHandleConnections,
   useNodesData,
+  useReactFlow,
 } from "@xyflow/react";
 import { useCallback, useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
@@ -18,8 +19,11 @@ import DataTable from "../partials/DataTable";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
 import { Button } from "../ui/button";
 import { dataAsCsv } from "journalism";
+import Code from "../partials/Code";
 
-export default function LogTable() {
+export default function LogTable({ id }: { id: string }) {
+  const { updateNodeData } = useReactFlow();
+
   const [data, setData] = useState<
     { [key: string]: string | number | Date | boolean | null }[] | null
   >(null);
@@ -30,6 +34,8 @@ export default function LogTable() {
 
   const targetConnection = useHandleConnections({ type: "target" });
   const source = useNodesData(targetConnection[0]?.source);
+
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     async function run() {
@@ -43,6 +49,9 @@ export default function LogTable() {
         setColumns(columns);
         setTypes(types);
         setNbRows(nbRows);
+        const code = `await ${table.name}.logTable(${nbRowsToLog ?? 10})`;
+        setCode(code);
+        updateNodeData(id, { instance: table, code });
       } else {
         setData(null);
         setColumns(null);
@@ -52,7 +61,7 @@ export default function LogTable() {
     }
 
     run();
-  }, [source, nbRowsToLog]);
+  }, [source, nbRowsToLog, id, updateNodeData]);
 
   const downloadFile = useCallback(async () => {
     const table = source?.data?.instance;
@@ -70,7 +79,8 @@ export default function LogTable() {
   return (
     <div>
       <Handle type="target" position={Position.Top} />
-      <Card>
+      <Card className="min-w-60">
+        <Code code={code} />
         <CardHeader>
           <CardTitle>Log table</CardTitle>
           {data === null && <CardDescription>No data.</CardDescription>}

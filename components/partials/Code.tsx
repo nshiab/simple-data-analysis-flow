@@ -35,18 +35,21 @@ export default function Code({ code }: { code: string }) {
           <CodeIcon />
         </Button>
         {open && (
-          <div className="absolute translate-x-14 top-0 p-4 rounded-lg border bg-card text-card-foreground shadow-sm">
-            <div className="absolute m-auto left-auto right-0 top-0">
+          <div className="absolute translate-x-14 top-0 rounded-lg border bg-card text-card-foreground shadow-sm flex justify-between">
+            <div
+              className="p-4"
+              dangerouslySetInnerHTML={{ __html: innerHTML }}
+            ></div>
+            <div>
               <Button
                 variant={"outline"}
                 size={"icon"}
-                className="m-1 h-9 px-0 border-none"
+                className="m-1 h-9 px-0 py-0 border-none"
                 onClick={copy}
               >
                 <CopyIcon />
               </Button>
             </div>
-            <div dangerouslySetInnerHTML={{ __html: innerHTML }}></div>
           </div>
         )}
       </div>

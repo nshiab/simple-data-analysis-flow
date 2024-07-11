@@ -14,9 +14,11 @@ import { Dispatch, SetStateAction, useCallback } from "react";
 let id = 1;
 
 export default function AddNode({
-  children,
+  start,
   setNodes,
+  children,
 }: {
+  start: number;
   setNodes: Dispatch<SetStateAction<Node[]>>;
   children: any;
 }) {
@@ -25,7 +27,7 @@ export default function AddNode({
   const addNode = useCallback(
     (x: number, y: number, type: string) => {
       const newNode = {
-        id: `addedNode${id++}`,
+        id: `node${start + id++}`,
         position: screenToFlowPosition({
           x,
           y,
@@ -36,10 +38,11 @@ export default function AddNode({
         },
         origin: [0.5, 0.0],
       };
+      console.log(newNode);
       // @ts-expect-error Missing origin in type?
       setNodes((nodes) => nodes.concat(newNode));
     },
-    [setNodes, screenToFlowPosition]
+    [setNodes, screenToFlowPosition, start]
   );
 
   return (

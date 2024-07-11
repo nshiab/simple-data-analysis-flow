@@ -74,7 +74,7 @@ export default function SimpleFlow() {
 
   return (
     <ReactFlowProvider>
-      <AddNode setNodes={setNodes}>
+      <AddNode start={initialNodes.length} setNodes={setNodes}>
         <div
           style={{
             width: "100vw",
