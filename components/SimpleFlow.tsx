@@ -21,6 +21,7 @@ import LogTable from "./SDA/LogTable";
 import AddNode from "./partials/AddNode";
 import AllCode from "./partials/AllCode";
 import FetchGeoData from "./SDA/FetchGeoData";
+import Points from "./SDA/Points";
 
 const initialNodes: Node[] = [
   {
@@ -68,7 +69,21 @@ const initialNodes: Node[] = [
   {
     id: "node7",
     type: "LogTable",
-    position: { x: 450, y: 500 },
+    position: { x: 600, y: 500 },
+    data: { instance: null },
+    origin: [0.5, 0],
+  },
+  {
+    id: "node8",
+    type: "Points",
+    position: { x: -175, y: 600 },
+    data: { instance: null },
+    origin: [0.5, 0],
+  },
+  {
+    id: "node9",
+    type: "LogTable",
+    position: { x: 150, y: 600 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -80,6 +95,8 @@ const initialEdges = [
   { id: "edge4", source: "node1", target: "node5" },
   { id: "edge5", source: "node5", target: "node6" },
   { id: "edge6", source: "node6", target: "node7" },
+  { id: "edge7", source: "node3", target: "node8" },
+  { id: "edge8", source: "node8", target: "node9" },
 ];
 
 const nodeTypes = {
@@ -88,6 +105,7 @@ const nodeTypes = {
   FetchData: FetchData,
   FetchGeoData: FetchGeoData,
   LogTable: LogTable,
+  Points: Points,
 };
 
 export default function SimpleFlow() {
