@@ -41,6 +41,8 @@ export default function LogTable({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
 
+  const [downloadLabel, setDownloadLabel] = useState("");
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
@@ -58,6 +60,12 @@ export default function LogTable({ id }: { id: string }) {
         })`;
         setCode(code);
         updateNodeData(id, { instance: table, code });
+
+        if (types.some((d) => d === "GEOMETRY")) {
+          setDownloadLabel("Download as GeoJSON");
+        } else {
+          setDownloadLabel("Download as CSV");
+        }
       } else {
         setData(null);
         setColumns(null);
@@ -72,13 +80,24 @@ export default function LogTable({ id }: { id: string }) {
   const downloadFile = useCallback(async () => {
     const table = source?.data?.instance;
     if (table instanceof SimpleWebTable) {
-      const data = await table.getData();
-      const csv = dataAsCsv(data);
-      const a = document.createElement("a");
-      const file = new Blob([csv as BlobPart], { type: "text/csv" });
-      a.href = URL.createObjectURL(file);
-      a.download = "data.csv";
-      a.click();
+      const types = await table.getTypes();
+      if (Object.values(types).some((d) => d === "GEOMETRY")) {
+        const data = await table.getGeoData();
+        const string = JSON.stringify(data);
+        const a = document.createElement("a");
+        const file = new Blob([string as BlobPart], { type: "text/plain" });
+        a.href = URL.createObjectURL(file);
+        a.download = "data.geojson";
+        a.click();
+      } else {
+        const data = await table.getData();
+        const csv = dataAsCsv(data);
+        const a = document.createElement("a");
+        const file = new Blob([csv as BlobPart], { type: "text/plain" });
+        a.href = URL.createObjectURL(file);
+        a.download = "data.csv";
+        a.click();
+      }
     }
   }, [source]);
 
@@ -109,7 +128,7 @@ export default function LogTable({ id }: { id: string }) {
               />
               <div className="text-right">
                 <Button variant={"secondary"} onClick={downloadFile}>
-                  Download as CSV
+                  {downloadLabel}
                 </Button>
               </div>
             </CardContent>

@@ -16,20 +16,7 @@ import { useEffect, useRef, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Label } from "../ui/label";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectValue,
-} from "../ui/select";
-import { Checkbox } from "../ui/checkbox";
-import { Accordion, AccordionItem, AccordionTrigger } from "../ui/accordion";
-import { AccordionContent } from "@radix-ui/react-accordion";
 import Options from "../partials/Options";
-import OptionsItem from "../partials/OptionsItem";
 import OptionsCheckbox from "../partials/OptionsCheckbox";
 import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
@@ -67,7 +54,7 @@ export default function FetchData({ id }: { id: string }) {
             delim,
             skip,
           });
-          const code = `// For front-end projects, use fetchData instead. 
+          const code = `// For front-end projects, use fetchData. 
 await ${table.name}.loadData("${url}", {
   fileType: ${fileType},
   autoDetect: ${autoDetect},

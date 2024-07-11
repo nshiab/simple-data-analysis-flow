@@ -20,6 +20,7 @@ import FetchData from "./SDA/FetchData";
 import LogTable from "./SDA/LogTable";
 import AddNode from "./partials/AddNode";
 import AllCode from "./partials/AllCode";
+import FetchGeoData from "./SDA/FetchGeoData";
 
 const initialNodes: Node[] = [
   {
@@ -50,17 +51,42 @@ const initialNodes: Node[] = [
     data: { instance: null },
     origin: [0, 0],
   },
+  {
+    id: "node5",
+    type: "ST",
+    position: { x: 400, y: 150 },
+    data: { instance: null },
+    origin: [0.5, 0],
+  },
+  {
+    id: "node6",
+    type: "FetchGeoData",
+    position: { x: 450, y: 300 },
+    data: { instance: null },
+    origin: [0.5, 0],
+  },
+  {
+    id: "node7",
+    type: "LogTable",
+    position: { x: 450, y: 500 },
+    data: { instance: null },
+    origin: [0.5, 0],
+  },
 ];
 const initialEdges = [
   { id: "edge1", source: "node1", target: "node2" },
   { id: "edge2", source: "node2", target: "node3" },
   { id: "edge3", source: "node3", target: "node4" },
+  { id: "edge4", source: "node1", target: "node5" },
+  { id: "edge5", source: "node5", target: "node6" },
+  { id: "edge6", source: "node6", target: "node7" },
 ];
 
 const nodeTypes = {
   SDB: SDB,
   ST: ST,
   FetchData: FetchData,
+  FetchGeoData: FetchGeoData,
   LogTable: LogTable,
 };
 

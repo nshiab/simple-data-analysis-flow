@@ -48,6 +48,8 @@ export default function DataTable({
                 );
               } else if (typeof d[c] === "number") {
                 return <TableCell key={i}>{formatNumber(d[c])}</TableCell>;
+              } else if (ArrayBuffer.isView(d[c])) {
+                return <TableCell key={i}>{`<Geometry>`}</TableCell>;
               } else {
                 return <TableCell key={i}>{d[c]?.toString()}</TableCell>;
               }
