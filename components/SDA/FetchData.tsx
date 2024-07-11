@@ -28,6 +28,12 @@ import {
 import { Checkbox } from "../ui/checkbox";
 import { Accordion, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { AccordionContent } from "@radix-ui/react-accordion";
+import Options from "../partials/Options";
+import OptionsItem from "../partials/OptionsItem";
+import OptionsCheckbox from "../partials/OptionsCheckbox";
+import OptionsSelect from "../partials/OptionsSelect";
+import OptionsInputText from "../partials/OptionsInputText";
+import OptionsInputNumber from "../partials/OptionsInputNumber";
 
 export default function FetchData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
@@ -118,65 +124,41 @@ export default function FetchData({ id }: { id: string }) {
               <p className={`my-4 text-red-500`}>Error. Is this a valid URL?</p>
             </div>
           )}
-          <Accordion type="single" collapsible className="mt-3">
-            <AccordionItem value="item-1">
-              <AccordionTrigger>Options</AccordionTrigger>
-              <AccordionContent>
-                <div className="flex items-center space-x-2 my-4">
-                  <Checkbox
-                    defaultChecked
-                    onCheckedChange={(e: boolean) => setAutoDetect(e)}
-                  />
-                  <Label>Auto-detect</Label>
-                </div>
-                <div className="flex items-center space-x-2 my-4">
-                  <Label>File type:</Label>
-                  <Select
-                    onValueChange={(e: "csv" | "dsv" | "json" | "parquet") =>
-                      setFileType(e)
-                    }
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        <SelectItem value="csv">CSV</SelectItem>
-                        <SelectItem value="dsv">DSV</SelectItem>
-                        <SelectItem value="json">JSON</SelectItem>
-                        <SelectItem value="parquet">Parquet</SelectItem>
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="flex items-center space-x-2 my-4">
-                  <Checkbox
-                    defaultChecked
-                    onCheckedChange={(e: boolean) => setHeader(e)}
-                  />
-                  <Label>Header</Label>
-                </div>
-                <div className="flex items-center space-x-2 my-4">
-                  <Label>Delimiter:</Label>
-                  <Input
-                    type="text"
-                    className="w-20"
-                    defaultValue={""}
-                    onChange={(e) => setDelim(e.target.value)}
-                  />
-                </div>
-                <div className="flex items-center space-x-2 my-4">
-                  <Label>Skip rows:</Label>
-                  <Input
-                    type="number"
-                    className="w-20"
-                    defaultValue={0}
-                    onChange={(e) => setSkip(parseInt(e.target.value))}
-                  />
-                </div>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <Options>
+            <OptionsCheckbox
+              label="Auto-detect"
+              defaultChecked={true}
+              set={setAutoDetect}
+            />
+            <OptionsSelect
+              label="File type:"
+              placeholder=""
+              items={[
+                { value: "csv", label: "CSV" },
+                { value: "dsv", label: "DSV" },
+                { value: "json", label: "JSON" },
+                { value: "parquet", label: "Parquet" },
+              ]}
+              onChange={(e: "csv" | "dsv" | "json" | "parquet") =>
+                setFileType(e)
+              }
+            />
+            <OptionsCheckbox
+              defaultChecked={true}
+              set={setHeader}
+              label="Header"
+            />
+            <OptionsInputText
+              label="Delimiter:"
+              defaultValue=""
+              set={setDelim}
+            />
+            <OptionsInputNumber
+              label="Skip rows:"
+              defaultValue={0}
+              set={setSkip}
+            />
+          </Options>
         </CardContent>
       </Card>
       <Handle type="source" position={Position.Bottom} />
