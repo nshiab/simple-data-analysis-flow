@@ -3,7 +3,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Handle,
@@ -18,6 +17,7 @@ import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/S
 import Code from "../partials/Code";
 import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
+import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 
 const defaultNewColumn = "geom";
 
@@ -49,7 +49,7 @@ export default function Points({ id }: { id: string }) {
   }, [source]);
 
   const [code, setCode] = useState("");
-
+  const [loader, setLoader] = useState(false);
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
@@ -60,6 +60,7 @@ export default function Points({ id }: { id: string }) {
         typeof newColumn === "string" &&
         newColumn !== ""
       ) {
+        setLoader(true);
         const clonedTable = await table.cloneTable({
           outputTable: `${id}Table`,
         });
@@ -73,6 +74,7 @@ export default function Points({ id }: { id: string }) {
           originalTableName: originalTableName,
           code,
         });
+        setLoader(false);
       }
     }
 
@@ -85,7 +87,7 @@ export default function Points({ id }: { id: string }) {
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
-          <CardTitle>Points</CardTitle>
+          <CardTitleWithLoader loader={loader}>Points</CardTitleWithLoader>
           <CardDescription>
             Creates point geometries from longitude a latitude columns.
           </CardDescription>

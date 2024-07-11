@@ -3,7 +3,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Handle,
@@ -20,6 +19,7 @@ import OptionsInputNumber from "../partials/OptionsInputNumber";
 import { Button } from "../ui/button";
 import { dataAsCsv } from "journalism";
 import Code from "../partials/Code";
+import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 
 const defaultNbRows = 5;
 
@@ -40,13 +40,14 @@ export default function LogTable({ id }: { id: string }) {
   const source = useNodesData(targetConnection[0]?.source);
 
   const [code, setCode] = useState("");
-
   const [downloadLabel, setDownloadLabel] = useState("");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable) {
+        setLoader(true);
         setData(await table.getTop(nbRowsToLog ?? defaultNbRows));
         const columns = await table.getColumns();
         const typesObj = await table.getTypes();
@@ -66,6 +67,7 @@ export default function LogTable({ id }: { id: string }) {
         } else {
           setDownloadLabel("Download as CSV");
         }
+        setLoader(false);
       } else {
         setData(null);
         setColumns(null);
@@ -107,7 +109,7 @@ export default function LogTable({ id }: { id: string }) {
       <Card className="min-w-60">
         <Code code={code} />
         <CardHeader>
-          <CardTitle>Log table</CardTitle>
+          <CardTitleWithLoader loader={loader}>Log table</CardTitleWithLoader>
           {data === null && <CardDescription>No data.</CardDescription>}
         </CardHeader>
         {Array.isArray(data) &&

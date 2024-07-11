@@ -3,7 +3,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Handle,
@@ -17,6 +16,7 @@ import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/S
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Code from "../partials/Code";
+import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 
 export default function FetchGeoData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
@@ -29,12 +29,14 @@ export default function FetchGeoData({ id }: { id: string }) {
   const source = useNodesData(target[0]?.source);
 
   const [code, setCode] = useState("");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable && typeof url === "string") {
         try {
+          setLoader(true);
           await table.fetchGeoData(url);
           const code = `// For front-end projects, use fetchGeoData. 
 await ${table.name}.loadGeoData("${url}");`;
@@ -44,6 +46,7 @@ await ${table.name}.loadGeoData("${url}");`;
             code,
           });
           setError(false);
+          setLoader(false);
         } catch (err) {
           console.log(err);
           setError(true);
@@ -60,7 +63,9 @@ await ${table.name}.loadGeoData("${url}");`;
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
-          <CardTitle>Fetch spatial data</CardTitle>
+          <CardTitleWithLoader loader={loader}>
+            Fetch geo data
+          </CardTitleWithLoader>
           <CardDescription>Fetches spatial data from a URL.</CardDescription>
         </CardHeader>
         <CardContent>

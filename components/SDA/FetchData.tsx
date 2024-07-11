@@ -3,7 +3,6 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
 import {
   Handle,
@@ -22,6 +21,8 @@ import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
 import Code from "../partials/Code";
+import Spinner from "../partials/Spinner";
+import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 
 export default function FetchData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
@@ -41,12 +42,14 @@ export default function FetchData({ id }: { id: string }) {
   const source = useNodesData(target[0]?.source);
 
   const [code, setCode] = useState("");
+  const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable && typeof url === "string") {
         try {
+          setLoader(true);
           await table.fetchData(url, {
             fileType,
             autoDetect,
@@ -68,6 +71,7 @@ await ${table.name}.loadData("${url}", {
             code,
           });
           setError(false);
+          setLoader(false);
         } catch (err) {
           console.log(err);
           setError(true);
@@ -94,7 +98,7 @@ await ${table.name}.loadData("${url}", {
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
-          <CardTitle>Fetch data</CardTitle>
+          <CardTitleWithLoader loader={loader}>Fetch data</CardTitleWithLoader>
           <CardDescription>Fetches data from a URL.</CardDescription>
         </CardHeader>
         <CardContent>
