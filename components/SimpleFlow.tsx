@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   ReactFlow,
   Controls,
@@ -18,7 +18,8 @@ import SDB from "./SDA/SDB";
 import ST from "./SDA/ST";
 import FetchData from "./SDA/FetchData";
 import LogTable from "./SDA/LogTable";
-import AddNode from "./SDA/AddNode";
+import AddNode from "./partials/AddNode";
+import AllCode from "./partials/AllCode";
 
 const initialNodes: Node[] = [
   {
@@ -64,6 +65,23 @@ const nodeTypes = {
 };
 
 export default function SimpleFlow() {
+  const [height, setHeight] = useState("0");
+
+  useEffect(() => {
+    function dimensions() {
+      const header = document.querySelector("#header");
+      if (header) {
+        const bbox = header.getBoundingClientRect();
+        setHeight(`${window.innerHeight - bbox.height}px`);
+      }
+    }
+    dimensions();
+
+    window.addEventListener("resize", dimensions);
+
+    return () => window.removeEventListener("resize", dimensions);
+  }, []);
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
@@ -73,29 +91,31 @@ export default function SimpleFlow() {
   );
 
   return (
-    <ReactFlowProvider>
-      <AddNode start={initialNodes.length} setNodes={setNodes}>
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            nodeTypes={nodeTypes}
-            fitView
-            fitViewOptions={{ padding: 0.5 }}
+    height !== "0" && (
+      <ReactFlowProvider>
+        <AllCode />
+        <AddNode start={initialNodes.length} setNodes={setNodes}>
+          <div
+            style={{
+              width: "100vw",
+              height,
+            }}
           >
-            <Controls />
-            <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-          </ReactFlow>
-        </div>
-      </AddNode>
-    </ReactFlowProvider>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              onConnect={onConnect}
+              nodeTypes={nodeTypes}
+              fitView
+            >
+              <Controls />
+              <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
+            </ReactFlow>
+          </div>
+        </AddNode>
+      </ReactFlowProvider>
+    )
   );
 }

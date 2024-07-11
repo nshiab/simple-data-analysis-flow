@@ -14,9 +14,9 @@ code {
 }
 
 code .line::before {
-  content: counter(step);
+  content: counter(step, decimal);
   counter-increment: step;
-  width: 1rem;
+  width: 2rem;
   margin-right: 1.5rem;
   display: inline-block;
   text-align: right;

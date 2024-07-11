@@ -4,7 +4,15 @@ import CodeIcon from "./CodeIcon";
 import { Button } from "../ui/button";
 import CopyIcon from "./CopyIcon";
 
-export default function Code({ code }: { code: string }) {
+export default function Code({
+  code,
+  border,
+  left,
+}: {
+  code: string;
+  border?: boolean;
+  left?: boolean;
+}) {
   const [innerHTML, setInnerHTML] = useState<string>("");
   const [open, setOpen] = useState(false);
 
@@ -29,13 +37,17 @@ export default function Code({ code }: { code: string }) {
         <Button
           variant={"outline"}
           size={"icon"}
-          className="m-1 h-9 px-0 border-none"
+          className={border ? "bg-white m-2" : "m-1 h-9 px-0 border-none"}
           onClick={() => setOpen(!open)}
         >
           <CodeIcon />
         </Button>
         {open && (
-          <div className="absolute translate-x-14 top-0 rounded-lg border bg-card text-card-foreground shadow-sm flex justify-between">
+          <div
+            className={`absolute ${
+              left ? "-translate-x-full top-2" : "translate-x-14 top-0"
+            }  rounded-lg border bg-card text-card-foreground shadow-sm flex justify-between`}
+          >
             <div
               className="p-4"
               dangerouslySetInnerHTML={{ __html: innerHTML }}

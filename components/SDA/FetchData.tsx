@@ -78,6 +78,7 @@ await ${table.name}.loadData("${url}", {
           setCode(code);
           updateNodeData(id, {
             instance: table,
+            code,
           });
           setError(false);
         } catch (err) {
