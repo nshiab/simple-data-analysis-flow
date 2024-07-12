@@ -21,13 +21,13 @@ import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
 import Code from "../partials/Code";
-import Spinner from "../partials/Spinner";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
+import Error from "../partials/Error";
 
 export default function FetchData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
+
   const [url, setURL] = useState<null | string>(null);
-  const [error, setError] = useState(false);
   const [autoDetect, setAutoDetect] = useState(true);
   const [fileType, setFileType] = useState<
     "csv" | "dsv" | "json" | "parquet" | undefined
@@ -43,6 +43,7 @@ export default function FetchData({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     async function run() {
@@ -70,11 +71,13 @@ await ${table.name}.loadData("${url}", {
             instance: table,
             code,
           });
-          setError(false);
+          setError(null);
           setLoader(false);
         } catch (err) {
-          console.log(err);
-          setError(true);
+          console.error(err);
+          // @ts-expect-error okay
+          setError(err.message);
+          setLoader(false);
         }
       }
     }
@@ -124,11 +127,7 @@ await ${table.name}.loadData("${url}", {
               Fetch
             </Button>
           </div>
-          {error && (
-            <div>
-              <p className={`my-4 text-red-500`}>Error. Is this a valid URL?</p>
-            </div>
-          )}
+          <Error error={error} />
           <Options>
             <OptionsCheckbox
               label="Auto-detect"

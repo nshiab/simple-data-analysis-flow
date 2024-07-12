@@ -17,11 +17,11 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Code from "../partials/Code";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
+import Error from "../partials/Error";
 
 export default function FetchGeoData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
   const [url, setURL] = useState<null | string>(null);
-  const [error, setError] = useState(false);
 
   const { updateNodeData } = useReactFlow();
 
@@ -30,6 +30,7 @@ export default function FetchGeoData({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     async function run() {
@@ -45,11 +46,13 @@ await ${table.name}.loadGeoData("${url}");`;
             instance: table,
             code,
           });
-          setError(false);
+          setError(null);
           setLoader(false);
         } catch (err) {
-          console.log(err);
-          setError(true);
+          console.error(err);
+          // @ts-expect-error okay
+          setError(err.message);
+          setLoader(false);
         }
       }
     }
@@ -91,11 +94,7 @@ await ${table.name}.loadGeoData("${url}");`;
               Fetch
             </Button>
           </div>
-          {error && (
-            <div>
-              <p className={`my-4 text-red-500`}>Error. Is this a valid URL?</p>
-            </div>
-          )}
+          <Error error={error} />
         </CardContent>
       </Card>
       <Handle type="source" position={Position.Bottom} />

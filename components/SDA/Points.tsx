@@ -18,6 +18,7 @@ import Code from "../partials/Code";
 import OptionsSelect from "../partials/OptionsSelect";
 import OptionsInputText from "../partials/OptionsInputText";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
+import Error from "../partials/Error";
 
 const defaultNewColumn = "geom";
 
@@ -50,6 +51,8 @@ export default function Points({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [error, setError] = useState<null | string>(null);
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
@@ -60,21 +63,30 @@ export default function Points({ id }: { id: string }) {
         typeof newColumn === "string" &&
         newColumn !== ""
       ) {
-        setLoader(true);
-        const clonedTable = await table.cloneTable({
-          outputTable: `${id}Table`,
-        });
-        await clonedTable.points(lat, lon, newColumn);
+        try {
+          setLoader(true);
+          const clonedTable = await table.cloneTable({
+            outputTable: `${id}Table`,
+          });
+          await clonedTable.points(lat, lon, newColumn);
 
-        const originalTableName = source?.data?.originalTableName ?? table.name;
-        const code = `await ${originalTableName}.points("${lat}", "${lon}", "${newColumn}");`;
-        setCode(code);
-        updateNodeData(id, {
-          instance: clonedTable,
-          originalTableName: originalTableName,
-          code,
-        });
-        setLoader(false);
+          const originalTableName =
+            source?.data?.originalTableName ?? table.name;
+          const code = `await ${originalTableName}.points("${lat}", "${lon}", "${newColumn}");`;
+          setCode(code);
+          updateNodeData(id, {
+            instance: clonedTable,
+            originalTableName: originalTableName,
+            code,
+          });
+          setError(null);
+          setLoader(false);
+        } catch (err) {
+          console.error(err);
+          //@ts-expect-error okay
+          setError(err.message);
+          setLoader(false);
+        }
       }
     }
 
@@ -110,6 +122,7 @@ export default function Points({ id }: { id: string }) {
             defaultValue={defaultNewColumn}
             set={setNewColumn}
           />
+          <Error error={error} />
         </CardContent>
       </Card>
       <Handle type="source" position={Position.Bottom} />
