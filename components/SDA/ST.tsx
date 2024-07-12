@@ -14,6 +14,8 @@ import {
 import { useEffect, useState } from "react";
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB";
 import Code from "../partials/Code";
+import Target from "../partials/Target";
+import Source from "../partials/Source";
 
 export default function ST({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
@@ -37,7 +39,7 @@ export default function ST({ id }: { id: string }) {
 
   return (
     <div>
-      <Handle type="target" position={Position.Top} />
+      <Target />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
@@ -45,7 +47,7 @@ export default function ST({ id }: { id: string }) {
           <CardDescription>This is a table in the database.</CardDescription>
         </CardHeader>
       </Card>
-      <Handle type="source" position={Position.Bottom} />
+      <Source />
     </div>
   );
 }

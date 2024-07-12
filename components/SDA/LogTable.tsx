@@ -20,6 +20,7 @@ import { Button } from "../ui/button";
 import { dataAsCsv } from "journalism";
 import Code from "../partials/Code";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
+import Target from "../partials/Target";
 
 const defaultNbRows = 5;
 
@@ -107,7 +108,7 @@ export default function LogTable({ id }: { id: string }) {
 
   return (
     <div>
-      <Handle type="target" position={Position.Top} />
+      <Target />
       <Card className="min-w-60">
         <Code code={code} />
         <CardHeader>

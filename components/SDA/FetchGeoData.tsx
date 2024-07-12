@@ -18,6 +18,8 @@ import { Button } from "../ui/button";
 import Code from "../partials/Code";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
+import Target from "../partials/Target";
+import Source from "../partials/Source";
 
 export default function FetchGeoData({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
@@ -62,7 +64,7 @@ await ${table.name}.loadGeoData("${url}");`;
 
   return (
     <div>
-      <Handle type="target" position={Position.Top} />
+      <Target />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
@@ -97,7 +99,7 @@ await ${table.name}.loadGeoData("${url}");`;
           <Error error={error} />
         </CardContent>
       </Card>
-      <Handle type="source" position={Position.Bottom} />
+      <Source />
     </div>
   );
 }

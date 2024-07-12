@@ -1,5 +1,6 @@
 import GithubLogo from "@/components/partials/GithubLogo";
 import SimpleFlow from "@/components/SimpleFlow";
+import { ReactFlowProvider } from "@xyflow/react";
 
 export default function Home() {
   return (
@@ -25,7 +26,9 @@ export default function Home() {
             below.
           </p>
         </div>
-        <SimpleFlow />
+        <ReactFlowProvider>
+          <SimpleFlow />
+        </ReactFlowProvider>
       </div>
     </main>
   );

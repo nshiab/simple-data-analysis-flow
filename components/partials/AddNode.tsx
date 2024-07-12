@@ -38,7 +38,6 @@ export default function AddNode({
         },
         origin: [0.5, 0.0],
       };
-      console.log(newNode);
       // @ts-expect-error Missing origin in type?
       setNodes((nodes) => nodes.concat(newNode));
     },

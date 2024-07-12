@@ -24,7 +24,7 @@ import Source from "../partials/Source";
 
 const defaultNewColumn = "geom";
 
-export default function Points({ id }: { id: string }) {
+export default function JoinGeo({ id }: { id: string }) {
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
   const [newColumn, setNewColumn] = useState<string | undefined>(
@@ -97,13 +97,16 @@ export default function Points({ id }: { id: string }) {
 
   return (
     <div>
-      <Target />
+      <div className="flex justify-evenly -translate-x-[42%]">
+        <Target id="left" />
+        <Target id="right" />
+      </div>
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
-          <CardTitleWithLoader loader={loader}>Points</CardTitleWithLoader>
+          <CardTitleWithLoader loader={loader}>Join geo</CardTitleWithLoader>
           <CardDescription>
-            Creates point geometries from longitude a latitude columns.
+            Joins two tables based on geometries.
           </CardDescription>
         </CardHeader>
         <CardContent>
