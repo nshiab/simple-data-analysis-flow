@@ -26,6 +26,7 @@ import JoinGeo from "./SDA/JoinGeo";
 
 import { initialNodes, initialEdges } from "./initialState";
 import Summarize from "./SDA/Summarize";
+import RenameColumns from "./SDA/RenameColumns";
 
 const nodeTypes = {
   SDB: SDB,
@@ -36,6 +37,7 @@ const nodeTypes = {
   Points: Points,
   JoinGeo: JoinGeo,
   Summarize: Summarize,
+  RenameColumns: RenameColumns,
 };
 
 export default function SimpleFlow() {

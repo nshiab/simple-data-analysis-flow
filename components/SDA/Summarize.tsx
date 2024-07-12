@@ -9,7 +9,7 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 
 import Code from "../partials/Code";
@@ -138,7 +138,9 @@ export default function Summarize({ id }: { id: string }) {
           <OptionsInputText
             label="Table name"
             defaultValue={`${id}Summarize`}
-            set={setName}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
           {targetReady && (
             <>

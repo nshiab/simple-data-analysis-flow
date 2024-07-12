@@ -9,28 +9,23 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 
 import Code from "../partials/Code";
-import OptionsSelect from "../partials/OptionsSelect";
-import OptionsInputText from "../partials/OptionsInputText";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
+import OptionsMultipleInputText from "../partials/OptionsMultipleInputText";
 
-const defaultNewColumn = "geom";
-
-export default function Points({ id }: { id: string }) {
-  const [lat, setLat] = useState("");
-  const [lon, setLon] = useState("");
-  const [newColumn, setNewColumn] = useState<string | undefined>(
-    defaultNewColumn
-  );
-  const [columns, setColumns] = useState<{ value: string; label: string }[]>(
-    []
-  );
+export default function RenameColumns({ id }: { id: string }) {
+  const [columnsToRename, setColumnsToRename] = useState<{
+    [key: string]: string;
+  }>({});
+  const [columns, setColumns] = useState<
+    { label: string; defaultValue: string }[]
+  >([]);
 
   const { updateNodeData } = useReactFlow();
 
@@ -44,7 +39,7 @@ export default function Points({ id }: { id: string }) {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable) {
         setColumns(
-          (await table.getColumns()).map((d) => ({ value: d, label: d }))
+          (await table.getColumns()).map((d) => ({ label: d, defaultValue: d }))
         );
       }
     }
@@ -61,23 +56,19 @@ export default function Points({ id }: { id: string }) {
       if (table instanceof SimpleWebTable) {
         setTargetReady(true);
       }
-      if (
-        table instanceof SimpleWebTable &&
-        lat !== "" &&
-        lon !== "" &&
-        typeof newColumn === "string" &&
-        newColumn !== ""
-      ) {
+      if (table instanceof SimpleWebTable) {
         try {
           setLoader(true);
           const clonedTable = await table.cloneTable({
             outputTable: id,
           });
-          await clonedTable.points(lat, lon, newColumn);
+          await clonedTable.renameColumns(columnsToRename);
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name;
-          const code = `await ${originalTableName}.points("${lat}", "${lon}", "${newColumn}");`;
+          const code = `await ${originalTableName}.renameColumns(${JSON.stringify(
+            columnsToRename
+          )});`;
           setCode(code);
           updateNodeData(id, {
             instance: clonedTable,
@@ -98,7 +89,7 @@ export default function Points({ id }: { id: string }) {
     }
 
     run();
-  }, [source, id, updateNodeData, lat, lon, newColumn]);
+  }, [source, id, updateNodeData, columnsToRename]);
 
   return (
     <div>
@@ -106,30 +97,17 @@ export default function Points({ id }: { id: string }) {
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
-          <CardTitleWithLoader loader={loader}>Points</CardTitleWithLoader>
+          <CardTitleWithLoader loader={loader}>
+            Rename columns
+          </CardTitleWithLoader>
           <CardDescription>
-            Creates point geometries from longitude a latitude columns.
+            Avoid spaces and special characters.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <OptionsSelect
-            label="Latitude"
-            placeholder="Pick a column"
+          <OptionsMultipleInputText
             items={columns}
-            onChange={(e) => setLat(e)}
-          />
-          <OptionsSelect
-            label="Longitude"
-            placeholder="Pick a column"
-            items={columns}
-            onChange={(e) => setLon(e)}
-          />
-          <OptionsInputText
-            label="New column"
-            defaultValue={defaultNewColumn}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewColumn(e.target.value)
-            }
+            setValues={setColumnsToRename}
           />
           <Error error={error} />
         </CardContent>

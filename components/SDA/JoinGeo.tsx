@@ -9,7 +9,7 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 
 import Code from "../partials/Code";
@@ -211,7 +211,9 @@ export default function JoinGeo({ id }: { id: string }) {
           <OptionsInputText
             label="Table name"
             defaultValue={`${id}JoinGeo`}
-            set={setName}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
           />
           <OptionsSelect
             label="Left geometries"

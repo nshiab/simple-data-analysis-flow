@@ -10,7 +10,7 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB";
 import Code from "../partials/Code";
 import Target from "../partials/Target";
@@ -52,7 +52,13 @@ export default function ST({ id }: { id: string }) {
           <CardDescription>This is a table in the database.</CardDescription>
         </CardHeader>
         <CardContent>
-          <OptionsInputText label="Name" defaultValue={`${id}`} set={setName} />
+          <OptionsInputText
+            label="Name"
+            defaultValue={`${id}`}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setName(e.target.value)
+            }
+          />
         </CardContent>
       </Card>
       <Source sourceReady={sourceReady} />

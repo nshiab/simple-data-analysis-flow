@@ -71,6 +71,13 @@ const initialNodes: Node[] = [
     data: { instance: null },
     origin: [0, 0],
   },
+  {
+    id: "node11",
+    type: "RenameColumns",
+    position: { x: -100, y: 1375 },
+    data: { instance: null },
+    origin: [0, 0],
+  },
 ];
 const initialEdges: Edge[] = [
   {
@@ -124,6 +131,11 @@ const initialEdges: Edge[] = [
     id: "edge11",
     source: "node9",
     target: "node10",
+  },
+  {
+    id: "edge12",
+    source: "node10",
+    target: "node11",
   },
 ];
 

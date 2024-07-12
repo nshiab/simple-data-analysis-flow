@@ -11,7 +11,7 @@ export default function OptionsCheckbox({
   label: string;
   defaultChecked?: boolean;
   onChange: (e: boolean) => void;
-  smallMargin: boolean;
+  smallMargin?: boolean;
 }) {
   return (
     <OptionsItem smallMargin={smallMargin}>

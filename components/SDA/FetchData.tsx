@@ -9,7 +9,7 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
@@ -162,7 +162,9 @@ await ${table.name}.loadData("${url}", {
             <OptionsInputText
               label="Delimiter:"
               defaultValue=""
-              set={setDelim}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                setDelim(e.target.value)
+              }
             />
             <OptionsInputNumber
               label="Skip rows:"
