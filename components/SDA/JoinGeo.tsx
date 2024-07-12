@@ -20,8 +20,10 @@ import Target from "../partials/Target";
 import Source from "../partials/Source";
 import Options from "../partials/Options";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
+import OptionsInputText from "../partials/OptionsInputText";
 
 export default function JoinGeo({ id }: { id: string }) {
+  const [name, setName] = useState<string | undefined>(`${id}JoinGeo`);
   const [columnsLeft, setColumnsLeft] = useState<
     { value: string; label: string }[]
   >([]);
@@ -82,6 +84,43 @@ export default function JoinGeo({ id }: { id: string }) {
 
   useEffect(() => {
     async function run() {
+      if (targetLeftReady) {
+        const tableLeft = sourceLeft?.data?.instance;
+        if (tableLeft instanceof SimpleWebTable) {
+          const types = await tableLeft.getTypes();
+          for (const key of Object.keys(types)) {
+            if (types[key] === "GEOMETRY") {
+              setGeoLeft(key);
+              break;
+            }
+          }
+        }
+      }
+      if (targetRightReady) {
+        const tableRight = sourceRight?.data?.instance;
+        if (tableRight instanceof SimpleWebTable) {
+          const types = await tableRight.getTypes();
+          for (const key of Object.keys(types)) {
+            if (types[key] === "GEOMETRY") {
+              setGeoRight(key);
+              break;
+            }
+          }
+        }
+      }
+    }
+    run();
+  }, [
+    targetLeftReady,
+    targetRightReady,
+    setGeoRight,
+    setGeoLeft,
+    sourceLeft,
+    sourceRight,
+  ]);
+
+  useEffect(() => {
+    async function run() {
       const tableLeft = sourceLeft?.data?.instance;
       const tableRight = sourceRight?.data?.instance;
       if (tableLeft instanceof SimpleWebTable) {
@@ -105,25 +144,25 @@ export default function JoinGeo({ id }: { id: string }) {
             distance,
             distanceMethod,
             type: joinType,
-            outputTable: `${id}JoinGeoTable`,
+            outputTable: name,
           });
 
           const originalTableLeftName =
             sourceLeft?.data?.originalTableName ?? tableLeft.name;
           const originalTableRightName =
             sourceRight?.data?.originalTableName ?? tableRight.name;
-          const code = `const ${id}JoinGeoTable = await ${originalTableLeftName}.joinGeo(${originalTableRightName}, "${method}", {
+          const code = `const name = await ${originalTableLeftName}.joinGeo(${originalTableRightName}, "${method}", {
   leftTableColumn: "${geoLeft}",
   rightTableColumn: "${geoRight}",
   distance: "${distance}",
   distanceMethod: "${distanceMethod}",
   type: "${joinType}",
-  outputTable: "${`${id}JoinGeoTable`}",
+  outputTable: ${name},
 })`;
           setCode(code);
           updateNodeData(id, {
             instance: outputTable,
-            originalTableName: `${id}JoinGeoTable`,
+            originalTableName: name,
             code,
           });
           setError(null);
@@ -151,6 +190,7 @@ export default function JoinGeo({ id }: { id: string }) {
     distance,
     distanceMethod,
     joinType,
+    name,
   ]);
 
   return (
@@ -159,7 +199,7 @@ export default function JoinGeo({ id }: { id: string }) {
         <Target targetReady={targetLeftReady} id="left" />
         <Target targetReady={targetRightReady} id="right" />
       </div>
-      <Card className="max-w-xs">
+      <Card>
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>Join geo</CardTitleWithLoader>
@@ -168,17 +208,24 @@ export default function JoinGeo({ id }: { id: string }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          <OptionsInputText
+            label="Table name"
+            defaultValue={`${id}JoinGeo`}
+            set={setName}
+          />
           <OptionsSelect
-            label="Left geometries:"
+            label="Left geometries"
             placeholder="Pick a column"
             items={columnsLeft}
             onChange={(e) => setGeoLeft(e)}
+            value={geoLeft}
           />
           <OptionsSelect
-            label="Right geometries:"
+            label="Right geometries"
             placeholder="Pick a column"
             items={columnsRight}
             onChange={(e) => setGeoRight(e)}
+            value={geoRight}
           />
           <OptionsSelect
             label="Method:"

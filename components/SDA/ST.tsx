@@ -1,5 +1,6 @@
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -14,6 +15,7 @@ import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/Simp
 import Code from "../partials/Code";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
+import OptionsInputText from "../partials/OptionsInputText";
 
 export default function ST({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
@@ -23,21 +25,22 @@ export default function ST({ id }: { id: string }) {
   const targetConnection = useHandleConnections({ type: "target" });
   const source = useNodesData(targetConnection[0]?.source);
 
+  const [name, setName] = useState<string | undefined>(`${id}`);
   const [code, setCode] = useState("");
 
   useEffect(() => {
     const sdb = source?.data?.instance;
     if (sdb instanceof SimpleWebDB) {
       setTargetReady(true);
-      const code = `const ${id}Table = sdb.newTable("${id}Table");`;
+      const code = `const ${name} = sdb.newTable("${name}");`;
       setCode(code);
       updateNodeData(id, {
-        instance: sdb.newTable(`${id}Table`),
+        instance: sdb.newTable(name),
         code: code,
       });
       setSourceReady(true);
     }
-  }, [source, id, updateNodeData]);
+  }, [source, id, updateNodeData, name]);
 
   return (
     <div>
@@ -48,6 +51,9 @@ export default function ST({ id }: { id: string }) {
           <CardTitle>SimpleTable</CardTitle>
           <CardDescription>This is a table in the database.</CardDescription>
         </CardHeader>
+        <CardContent>
+          <OptionsInputText label="Name" defaultValue={`${id}`} set={setName} />
+        </CardContent>
       </Card>
       <Source sourceReady={sourceReady} />
     </div>

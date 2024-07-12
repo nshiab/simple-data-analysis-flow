@@ -4,14 +4,14 @@ const initialNodes: Node[] = [
   {
     id: "node1",
     type: "SDB",
-    position: { x: 0, y: 0 },
+    position: { x: 0, y: -100 },
     data: { instance: null },
     origin: [0.5, 0],
   },
   {
     id: "node2",
     type: "ST",
-    position: { x: 0, y: 150 },
+    position: { x: -100, y: 50 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -25,7 +25,7 @@ const initialNodes: Node[] = [
   {
     id: "node4",
     type: "ST",
-    position: { x: 400, y: 150 },
+    position: { x: 250, y: 50 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -60,7 +60,7 @@ const initialNodes: Node[] = [
   {
     id: "node9",
     type: "JoinGeo",
-    position: { x: 300, y: 600 },
+    position: { x: 200, y: 600 },
     data: { instance: null },
     origin: [0.5, 0],
   },

@@ -19,12 +19,14 @@ import { dataAsCsv } from "journalism";
 import Code from "../partials/Code";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Target from "../partials/Target";
+import { Label } from "../ui/label";
 
 const defaultNbRows = 5;
 
 export default function LogTable({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
 
+  const [name, setName] = useState<string | undefined>(undefined);
   const [data, setData] = useState<
     { [key: string]: string | number | Date | boolean | null }[] | null
   >(null);
@@ -49,6 +51,7 @@ export default function LogTable({ id }: { id: string }) {
       if (table instanceof SimpleWebTable) {
         setTargetReady(true);
         setLoader(true);
+
         setData(await table.getTop(nbRowsToLog ?? defaultNbRows));
         const columns = await table.getColumns();
         const typesObj = await table.getTypes();
@@ -59,6 +62,7 @@ export default function LogTable({ id }: { id: string }) {
         setNbRows(nbRows);
 
         const originalTableName = source?.data?.originalTableName ?? table.name;
+        setName(originalTableName as string);
         const code = `await ${originalTableName}.logTable(${
           nbRowsToLog ?? defaultNbRows
         })`;
@@ -112,7 +116,9 @@ export default function LogTable({ id }: { id: string }) {
       <Card className="min-w-60">
         <Code code={code} />
         <CardHeader>
-          <CardTitleWithLoader loader={loader}>Log table</CardTitleWithLoader>
+          <CardTitleWithLoader loader={loader}>
+            Log table{typeof name === "string" ? ` ${name}` : ""}
+          </CardTitleWithLoader>
           {data === null && <CardDescription>No data.</CardDescription>}
         </CardHeader>
         {Array.isArray(data) &&

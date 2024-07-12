@@ -17,11 +17,12 @@ import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
-import OptionsSelect from "../partials/OptionsSelect";
 import OptionsMultiplesCheckBoxes from "../partials/OptionsMultipleCheckBoxes";
 import OptionsInputNumber from "../partials/OptionsInputNumber";
+import OptionsInputText from "../partials/OptionsInputText";
 
 export default function Summarize({ id }: { id: string }) {
+  const [name, setName] = useState<string | undefined>(`${id}Summarize`);
   const [values, setValues] = useState<string[] | undefined>();
   const [categories, setCategories] = useState<string[] | undefined>();
   const [summaries, setSummaries] = useState<
@@ -81,22 +82,22 @@ export default function Summarize({ id }: { id: string }) {
             categories,
             summaries,
             decimals,
-            outputTable: `${id}SummarizeTable`,
+            outputTable: name,
           });
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name;
-          const code = `const ${id}SummarizeTable = await ${originalTableName}.summarize({
+          const code = `const ${name} = await ${originalTableName}.summarize({
   values: ${JSON.stringify(values)},
   categories: ${JSON.stringify(categories)},
   summaries: ${JSON.stringify(summaries)},
   decimals: ${decimals},
-  outputTable: ${id}SummarizeTable,
+  outputTable: ${name},
 });`;
           setCode(code);
           updateNodeData(id, {
             instance: outputTable,
-            originalTableName: `${id}SummarizeTable`,
+            originalTableName: name,
             code,
           });
           setError(null);
@@ -113,7 +114,16 @@ export default function Summarize({ id }: { id: string }) {
     }
 
     run();
-  }, [source, id, updateNodeData, values, categories, summaries, decimals]);
+  }, [
+    source,
+    id,
+    updateNodeData,
+    values,
+    categories,
+    summaries,
+    decimals,
+    name,
+  ]);
 
   return (
     <div>
@@ -125,20 +135,25 @@ export default function Summarize({ id }: { id: string }) {
           <CardDescription>Aggregates the data.</CardDescription>
         </CardHeader>
         <CardContent>
+          <OptionsInputText
+            label="Table name"
+            defaultValue={`${id}Summarize`}
+            set={setName}
+          />
           {targetReady && (
             <>
               <OptionsMultiplesCheckBoxes
-                label="Values:"
+                label="Values"
                 items={columns}
                 set={setValues}
               />
               <OptionsMultiplesCheckBoxes
-                label="Categories:"
+                label="Categories"
                 items={columns}
                 set={setCategories}
               />
               <OptionsMultiplesCheckBoxes
-                label="Summaries:"
+                label="Summaries"
                 items={[
                   { value: "count", label: "Count" },
                   { value: "countUnique", label: "Count uniques" },
@@ -155,7 +170,7 @@ export default function Summarize({ id }: { id: string }) {
                 set={setSummaries}
               />
               <OptionsInputNumber
-                label="Decimals:"
+                label="Decimals"
                 defaultValue={2}
                 set={setDecimals}
               />

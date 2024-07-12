@@ -17,7 +17,7 @@ export default function OptionsInputText({
       <Label>{label}</Label>
       <Input
         type="text"
-        className="w-20"
+        className="w-50"
         defaultValue={defaultValue}
         onChange={(e) => set(e.target.value)}
       />

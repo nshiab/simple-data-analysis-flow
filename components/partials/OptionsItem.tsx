@@ -2,7 +2,7 @@ export default function OptionsItem({
   smallMargin,
   children,
 }: {
-  smallMargin: boolean;
+  smallMargin?: boolean;
   children: any;
 }) {
   return (

@@ -113,13 +113,13 @@ export default function Points({ id }: { id: string }) {
         </CardHeader>
         <CardContent>
           <OptionsSelect
-            label="Latitude:"
+            label="Latitude"
             placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLat(e)}
           />
           <OptionsSelect
-            label="Longitude:"
+            label="Longitude"
             placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLon(e)}
