@@ -5,8 +5,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Handle,
-  Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
@@ -32,11 +30,16 @@ export default function FetchGeoData({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [targetReady, setTargetReady] = useState(false);
+  const [sourceReady, setSourceReady] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
+      if (table instanceof SimpleWebTable) {
+        setTargetReady(true);
+      }
       if (table instanceof SimpleWebTable && typeof url === "string") {
         try {
           setLoader(true);
@@ -50,11 +53,13 @@ await ${table.name}.loadGeoData("${url}");`;
           });
           setError(null);
           setLoader(false);
+          setSourceReady(true);
         } catch (err) {
           console.error(err);
           // @ts-expect-error okay
           setError(err.message);
           setLoader(false);
+          setSourceReady(false);
         }
       }
     }
@@ -64,7 +69,7 @@ await ${table.name}.loadGeoData("${url}");`;
 
   return (
     <div>
-      <Target />
+      <Target targetReady={true} />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
@@ -99,7 +104,7 @@ await ${table.name}.loadGeoData("${url}");`;
           <Error error={error} />
         </CardContent>
       </Card>
-      <Source />
+      <Source sourceReady={sourceReady} />
     </div>
   );
 }

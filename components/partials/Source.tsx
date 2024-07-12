@@ -1,6 +1,6 @@
 import { Handle, Position } from "@xyflow/react";
 
-export default function Source() {
+export default function Source({ sourceReady }: { sourceReady: boolean }) {
   return (
     <Handle
       type="source"
@@ -12,7 +12,7 @@ export default function Source() {
         border: "none",
         position: "relative",
         transform: "translate(-50%, -1px)",
-        background: "#d3d3d3",
+        background: sourceReady ? "#94a3b8" : "#d3d3d3",
       }}
     />
   );

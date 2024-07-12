@@ -5,8 +5,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Handle,
-  Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
@@ -45,11 +43,16 @@ export default function FetchData({ id }: { id: string }) {
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [targetReady, setTargetReady] = useState(false);
+  const [sourceReady, setSourceReady] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
+      if (table instanceof SimpleWebTable) {
+        setTargetReady(true);
+      }
       if (table instanceof SimpleWebTable && typeof url === "string") {
         try {
           setLoader(true);
@@ -75,11 +78,13 @@ await ${table.name}.loadData("${url}", {
           });
           setError(null);
           setLoader(false);
+          setSourceReady(true);
         } catch (err) {
           console.error(err);
           // @ts-expect-error okay
           setError(err.message);
           setLoader(false);
+          setSourceReady(true);
         }
       }
     }
@@ -99,7 +104,7 @@ await ${table.name}.loadData("${url}", {
 
   return (
     <div>
-      <Target />
+      <Target targetReady={targetReady} />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
@@ -134,7 +139,7 @@ await ${table.name}.loadData("${url}", {
             <OptionsCheckbox
               label="Auto-detect"
               defaultChecked={true}
-              set={setAutoDetect}
+              onChange={(e) => setAutoDetect(e)}
             />
             <OptionsSelect
               label="File type:"
@@ -151,7 +156,7 @@ await ${table.name}.loadData("${url}", {
             />
             <OptionsCheckbox
               defaultChecked={true}
-              set={setHeader}
+              onChange={(e) => setHeader(e)}
               label="Header"
             />
             <OptionsInputText
@@ -167,7 +172,7 @@ await ${table.name}.loadData("${url}", {
           </Options>
         </CardContent>
       </Card>
-      <Source />
+      <Source sourceReady={sourceReady} />
     </div>
   );
 }

@@ -5,8 +5,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Handle,
-  Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
@@ -40,6 +38,7 @@ export default function LogTable({ id }: { id: string }) {
   const targetConnection = useHandleConnections({ type: "target" });
   const source = useNodesData(targetConnection[0]?.source);
 
+  const [targetRead, setTargetReady] = useState(false);
   const [code, setCode] = useState("");
   const [downloadLabel, setDownloadLabel] = useState("");
   const [loader, setLoader] = useState(false);
@@ -48,6 +47,7 @@ export default function LogTable({ id }: { id: string }) {
     async function run() {
       const table = source?.data?.instance;
       if (table instanceof SimpleWebTable) {
+        setTargetReady(true);
         setLoader(true);
         setData(await table.getTop(nbRowsToLog ?? defaultNbRows));
         const columns = await table.getColumns();
@@ -108,7 +108,7 @@ export default function LogTable({ id }: { id: string }) {
 
   return (
     <div>
-      <Target />
+      <Target targetReady={targetRead} />
       <Card className="min-w-60">
         <Code code={code} />
         <CardHeader>

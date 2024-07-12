@@ -1,4 +1,3 @@
-import { SetStateAction } from "react";
 import { Checkbox } from "../ui/checkbox";
 import OptionsItem from "./OptionsItem";
 import { Label } from "../ui/label";
@@ -6,19 +5,18 @@ import { Label } from "../ui/label";
 export default function OptionsCheckbox({
   label,
   defaultChecked,
-  set,
+  onChange,
+  smallMargin,
 }: {
   label: string;
-  defaultChecked: boolean;
-  set: (value: SetStateAction<boolean>) => void;
+  defaultChecked?: boolean;
+  onChange: (e: boolean) => void;
+  smallMargin: boolean;
 }) {
   return (
-    <OptionsItem>
-      <Checkbox
-        defaultChecked={defaultChecked}
-        onCheckedChange={(e: boolean) => set(e)}
-      />
-      <Label>{label}</Label>
+    <OptionsItem smallMargin={smallMargin}>
+      <Checkbox defaultChecked={defaultChecked} onCheckedChange={onChange} />
+      <Label className={`${smallMargin ? "font-normal" : ""}`}>{label}</Label>
     </OptionsItem>
   );
 }

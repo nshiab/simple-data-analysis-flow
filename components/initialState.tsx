@@ -1,4 +1,4 @@
-import { Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 
 const initialNodes: Node[] = [
   {
@@ -39,21 +39,21 @@ const initialNodes: Node[] = [
   {
     id: "node6",
     type: "LogTable",
-    position: { x: 700, y: 550 },
+    position: { x: 500, y: 550 },
     data: { instance: null },
-    origin: [0.5, 0],
+    origin: [0, 0],
   },
   {
     id: "node7",
     type: "Points",
-    position: { x: -175, y: 575 },
+    position: { x: -300, y: 600 },
     data: { instance: null },
     origin: [0.5, 0],
   },
   {
     id: "node8",
     type: "LogTable",
-    position: { x: -400, y: 1000 },
+    position: { x: -400, y: 1050 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -64,8 +64,15 @@ const initialNodes: Node[] = [
     data: { instance: null },
     origin: [0.5, 0],
   },
+  {
+    id: "node10",
+    type: "Summarize",
+    position: { x: 0, y: 1100 },
+    data: { instance: null },
+    origin: [0, 0],
+  },
 ];
-const initialEdges = [
+const initialEdges: Edge[] = [
   {
     id: "edge1",
     source: "node1",
@@ -100,6 +107,23 @@ const initialEdges = [
     id: "edge8",
     source: "node7",
     target: "node8",
+  },
+  {
+    id: "edge9",
+    source: "node7",
+    target: "node9",
+    targetHandle: "left",
+  },
+  {
+    id: "edge10",
+    source: "node5",
+    target: "node9",
+    targetHandle: "right",
+  },
+  {
+    id: "edge11",
+    source: "node9",
+    target: "node10",
   },
 ];
 

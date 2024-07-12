@@ -5,8 +5,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Handle,
-  Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
@@ -16,90 +14,150 @@ import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/S
 
 import Code from "../partials/Code";
 import OptionsSelect from "../partials/OptionsSelect";
-import OptionsInputText from "../partials/OptionsInputText";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
-
-const defaultNewColumn = "geom";
+import Options from "../partials/Options";
+import OptionsInputNumber from "../partials/OptionsInputNumber";
 
 export default function JoinGeo({ id }: { id: string }) {
-  const [lat, setLat] = useState("");
-  const [lon, setLon] = useState("");
-  const [newColumn, setNewColumn] = useState<string | undefined>(
-    defaultNewColumn
+  const [columnsLeft, setColumnsLeft] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [columnsRight, setColumnsRight] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [geoLeft, setGeoLeft] = useState("");
+  const [geoRight, setGeoRight] = useState("");
+  const [method, setMethod] = useState<"intersect" | "inside" | "within" | "">(
+    ""
   );
-  const [columns, setColumns] = useState<{ value: string; label: string }[]>(
-    []
-  );
+  const [distance, setDistance] = useState<number | undefined>(undefined);
+  const [distanceMethod, setDistanceMethod] = useState<
+    "srs" | "haversine" | "spheroid" | undefined
+  >(undefined);
+  const [joinType, setJoinType] = useState<
+    "inner" | "left" | "right" | "full" | undefined
+  >(undefined);
 
   const { updateNodeData } = useReactFlow();
 
-  const target = useHandleConnections({ type: "target" });
-  const source = useNodesData(target[0]?.source);
+  const targetLeft = useHandleConnections({ type: "target", id: "left" });
+  const sourceLeft = useNodesData(targetLeft[0]?.source);
 
   useEffect(() => {
     async function run() {
-      const table = source?.data?.instance;
-      if (table instanceof SimpleWebTable) {
-        setColumns(
-          (await table.getColumns()).map((d) => ({ value: d, label: d }))
+      const tableLeft = sourceLeft?.data?.instance;
+      if (tableLeft instanceof SimpleWebTable) {
+        setColumnsLeft(
+          (await tableLeft.getColumns()).map((d) => ({ value: d, label: d }))
         );
       }
     }
     run();
-  }, [source]);
+  }, [sourceLeft]);
+
+  const targetRight = useHandleConnections({ type: "target", id: "right" });
+  const sourceRight = useNodesData(targetRight[0]?.source);
+
+  useEffect(() => {
+    async function run() {
+      const tableRight = sourceRight?.data?.instance;
+      if (tableRight instanceof SimpleWebTable) {
+        setColumnsRight(
+          (await tableRight.getColumns()).map((d) => ({ value: d, label: d }))
+        );
+      }
+    }
+    run();
+  }, [sourceRight]);
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
+  const [sourceReady, setSourceReady] = useState(false);
+  const [targetLeftReady, setTargetLeftReady] = useState(false);
+  const [targetRightReady, setTargetRightReady] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
   useEffect(() => {
     async function run() {
-      const table = source?.data?.instance;
+      const tableLeft = sourceLeft?.data?.instance;
+      const tableRight = sourceRight?.data?.instance;
+      if (tableLeft instanceof SimpleWebTable) {
+        setTargetLeftReady(true);
+      }
+      if (tableRight instanceof SimpleWebTable) {
+        setTargetRightReady(true);
+      }
       if (
-        table instanceof SimpleWebTable &&
-        lat !== "" &&
-        lon !== "" &&
-        typeof newColumn === "string" &&
-        newColumn !== ""
+        tableLeft instanceof SimpleWebTable &&
+        tableRight instanceof SimpleWebTable &&
+        geoLeft !== "" &&
+        geoRight !== "" &&
+        method !== ""
       ) {
         try {
           setLoader(true);
-          const clonedTable = await table.cloneTable({
-            outputTable: `${id}Table`,
+          const outputTable = await tableLeft.joinGeo(tableRight, method, {
+            leftTableColumn: geoLeft,
+            rightTableColumn: geoRight,
+            distance,
+            distanceMethod,
+            type: joinType,
+            outputTable: `${id}JoinGeoTable`,
           });
-          await clonedTable.points(lat, lon, newColumn);
 
-          const originalTableName =
-            source?.data?.originalTableName ?? table.name;
-          const code = `await ${originalTableName}.points("${lat}", "${lon}", "${newColumn}");`;
+          const originalTableLeftName =
+            sourceLeft?.data?.originalTableName ?? tableLeft.name;
+          const originalTableRightName =
+            sourceRight?.data?.originalTableName ?? tableRight.name;
+          const code = `const ${id}JoinGeoTable = await ${originalTableLeftName}.joinGeo(${originalTableRightName}, "${method}", {
+  leftTableColumn: "${geoLeft}",
+  rightTableColumn: "${geoRight}",
+  distance: "${distance}",
+  distanceMethod: "${distanceMethod}",
+  type: "${joinType}",
+  outputTable: "${`${id}JoinGeoTable`}",
+})`;
           setCode(code);
           updateNodeData(id, {
-            instance: clonedTable,
-            originalTableName: originalTableName,
+            instance: outputTable,
+            originalTableName: `${id}JoinGeoTable`,
             code,
           });
           setError(null);
           setLoader(false);
+          setSourceReady(true);
         } catch (err) {
           console.error(err);
           //@ts-expect-error okay
           setError(err.message);
           setLoader(false);
+          setSourceReady(true);
         }
       }
     }
 
     run();
-  }, [source, id, updateNodeData, lat, lon, newColumn]);
+  }, [
+    sourceLeft,
+    sourceRight,
+    id,
+    updateNodeData,
+    geoLeft,
+    geoRight,
+    method,
+    distance,
+    distanceMethod,
+    joinType,
+  ]);
 
   return (
     <div>
       <div className="flex justify-evenly -translate-x-[42%]">
-        <Target id="left" />
-        <Target id="right" />
+        <Target targetReady={targetLeftReady} id="left" />
+        <Target targetReady={targetRightReady} id="right" />
       </div>
       <Card className="max-w-xs">
         <Code code={code} />
@@ -111,26 +169,59 @@ export default function JoinGeo({ id }: { id: string }) {
         </CardHeader>
         <CardContent>
           <OptionsSelect
-            label="Latitude:"
-            placeholder=""
-            items={columns}
-            onChange={(e) => setLat(e)}
+            label="Left geometries:"
+            placeholder="Pick a column"
+            items={columnsLeft}
+            onChange={(e) => setGeoLeft(e)}
           />
           <OptionsSelect
-            label="Longitude:"
-            placeholder=""
-            items={columns}
-            onChange={(e) => setLon(e)}
+            label="Right geometries:"
+            placeholder="Pick a column"
+            items={columnsRight}
+            onChange={(e) => setGeoRight(e)}
           />
-          <OptionsInputText
-            label="New column"
-            defaultValue={defaultNewColumn}
-            set={setNewColumn}
+          <OptionsSelect
+            label="Method:"
+            placeholder="Pick a method"
+            items={[
+              { value: "intersect", label: "Intersect" },
+              { value: "inside", label: "Inside" },
+              { value: "within", label: "Within" },
+            ]}
+            onChange={(e) => setMethod(e)}
           />
           <Error error={error} />
+          <Options>
+            <OptionsInputNumber
+              label={"Distance (for method Within):"}
+              defaultValue={0}
+              set={setDistance}
+            />
+            <OptionsSelect
+              label="Distance method (if Haversine or Spheroid, the distance unit is meter):"
+              placeholder="SRS"
+              items={[
+                { value: "SRS", label: "SRS" },
+                { value: "haversine", label: "Haversine" },
+                { value: "spheroid", label: "Spheroid" },
+              ]}
+              onChange={(e) => setDistanceMethod(e)}
+            />
+            <OptionsSelect
+              label="Join type"
+              placeholder="Left"
+              items={[
+                { value: "left", label: "Left" },
+                { value: "inner", label: "Inner" },
+                { value: "full", label: "Full" },
+                { value: "right", label: "right" },
+              ]}
+              onChange={(e) => setJoinType(e)}
+            />
+          </Options>
         </CardContent>
       </Card>
-      <Source />
+      <Source sourceReady={sourceReady} />
     </div>
   );
 }

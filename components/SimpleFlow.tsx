@@ -10,6 +10,7 @@ import {
   addEdge,
   BackgroundVariant,
   MarkerType,
+  ConnectionLineType,
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
@@ -24,6 +25,7 @@ import Points from "./SDA/Points";
 import JoinGeo from "./SDA/JoinGeo";
 
 import { initialNodes, initialEdges } from "./initialState";
+import Summarize from "./SDA/Summarize";
 
 const nodeTypes = {
   SDB: SDB,
@@ -33,6 +35,7 @@ const nodeTypes = {
   LogTable: LogTable,
   Points: Points,
   JoinGeo: JoinGeo,
+  Summarize: Summarize,
 };
 
 export default function SimpleFlow() {
@@ -57,7 +60,13 @@ export default function SimpleFlow() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
   const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge(params, eds)),
+    (params: any) =>
+      setEdges((eds) => {
+        return addEdge(
+          params,
+          eds.filter((d) => d.target !== params.target)
+        );
+      }),
     [setEdges]
   );
 
@@ -85,6 +94,8 @@ export default function SimpleFlow() {
                 type: "smoothstep",
                 markerEnd: { type: MarkerType.Arrow, width: 20, height: 20 },
               }}
+              connectionRadius={50}
+              connectionLineType={ConnectionLineType.SmoothStep}
             >
               <Controls />
               <Background variant={BackgroundVariant.Dots} gap={12} size={1} />

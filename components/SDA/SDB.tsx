@@ -4,14 +4,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Handle, Position, useReactFlow } from "@xyflow/react";
+import { useReactFlow } from "@xyflow/react";
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB";
 import { useEffect, useState } from "react";
 import Code from "../partials/Code";
+import Source from "../partials/Source";
 
 export default function SDB({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow();
   const [code, setCode] = useState("");
+  const [sourceReady, setSourceReady] = useState(false);
 
   useEffect(() => {
     async function start() {
@@ -22,6 +24,7 @@ import { SimpleDB } from "simple-data-analysis";
 const sdb = new SimpleDB();`;
       setCode(code);
       updateNodeData(id, { instance: sdb, code });
+      setSourceReady(true);
     }
     start();
   }, [id, updateNodeData]);
@@ -35,7 +38,7 @@ const sdb = new SimpleDB();`;
           <CardDescription>This is your in-memory database.</CardDescription>
         </CardHeader>
       </Card>
-      <Handle type="source" position={Position.Bottom} />
+      <Source sourceReady={sourceReady} />
     </div>
   );
 }

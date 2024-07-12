@@ -5,8 +5,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import {
-  Handle,
-  Position,
   useHandleConnections,
   useNodesData,
   useReactFlow,
@@ -38,6 +36,8 @@ export default function Points({ id }: { id: string }) {
 
   const target = useHandleConnections({ type: "target" });
   const source = useNodesData(target[0]?.source);
+  const [targetReady, setTargetReady] = useState(false);
+  const [sourceReady, setSourceReady] = useState(false);
 
   useEffect(() => {
     async function run() {
@@ -58,6 +58,9 @@ export default function Points({ id }: { id: string }) {
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance;
+      if (table instanceof SimpleWebTable) {
+        setTargetReady(true);
+      }
       if (
         table instanceof SimpleWebTable &&
         lat !== "" &&
@@ -83,11 +86,13 @@ export default function Points({ id }: { id: string }) {
           });
           setError(null);
           setLoader(false);
+          setSourceReady(true);
         } catch (err) {
           console.error(err);
           //@ts-expect-error okay
           setError(err.message);
           setLoader(false);
+          setSourceReady(false);
         }
       }
     }
@@ -97,7 +102,7 @@ export default function Points({ id }: { id: string }) {
 
   return (
     <div>
-      <Target />
+      <Target targetReady={targetReady} />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>
@@ -109,13 +114,13 @@ export default function Points({ id }: { id: string }) {
         <CardContent>
           <OptionsSelect
             label="Latitude:"
-            placeholder=""
+            placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLat(e)}
           />
           <OptionsSelect
             label="Longitude:"
-            placeholder=""
+            placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLon(e)}
           />
@@ -127,7 +132,7 @@ export default function Points({ id }: { id: string }) {
           <Error error={error} />
         </CardContent>
       </Card>
-      <Source />
+      <Source sourceReady={sourceReady} />
     </div>
   );
 }

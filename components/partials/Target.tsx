@@ -1,6 +1,12 @@
 import { Handle, Position } from "@xyflow/react";
 
-export default function Target({ id }: { id?: string }) {
+export default function Target({
+  targetReady,
+  id,
+}: {
+  targetReady: boolean;
+  id?: string;
+}) {
   return (
     <Handle
       id={id}
@@ -13,7 +19,7 @@ export default function Target({ id }: { id?: string }) {
         border: "none",
         position: "relative",
         transform: "translate(-50%, 1px)",
-        background: "#d3d3d3",
+        background: targetReady ? "#94a3b8" : "#d3d3d3",
       }}
     />
   );
