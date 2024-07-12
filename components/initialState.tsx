@@ -53,7 +53,7 @@ const initialNodes: Node[] = [
   {
     id: "node8",
     type: "LogTable",
-    position: { x: -400, y: 1050 },
+    position: { x: -600, y: 1050 },
     data: { instance: null },
     origin: [0.5, 0],
   },
@@ -67,14 +67,28 @@ const initialNodes: Node[] = [
   {
     id: "node10",
     type: "Summarize",
-    position: { x: 0, y: 1100 },
+    position: { x: -200, y: 1100 },
     data: { instance: null },
     origin: [0, 0],
   },
   {
     id: "node11",
     type: "RenameColumns",
-    position: { x: -100, y: 1375 },
+    position: { x: 400, y: 1200 },
+    data: { instance: null },
+    origin: [0, 0],
+  },
+  {
+    id: "node12",
+    type: "Sort",
+    position: { x: 800, y: 1200 },
+    data: { instance: null },
+    origin: [0, 0],
+  },
+  {
+    id: "node13",
+    type: "LogTable",
+    position: { x: 800, y: 1600 },
     data: { instance: null },
     origin: [0, 0],
   },
@@ -136,6 +150,16 @@ const initialEdges: Edge[] = [
     id: "edge12",
     source: "node10",
     target: "node11",
+  },
+  {
+    id: "edge13",
+    source: "node11",
+    target: "node12",
+  },
+  {
+    id: "edge14",
+    source: "node12",
+    target: "node13",
   },
 ];
 
