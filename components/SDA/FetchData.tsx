@@ -65,10 +65,10 @@ export default function FetchData({ id }: { id: string }) {
           });
           const code = `// For front-end projects, use fetchData. 
 await ${table.name}.loadData("${url}", {
-  fileType: ${fileType},
+  fileType: ${typeof fileType === "string" ? `"${fileType}"` : "undefined"},
   autoDetect: ${autoDetect},
   header: ${header},
-  delim: ${delim},
+  delim: ${typeof delim === "string" ? `"${delim}"` : "undefined"},
   skip: ${skip},
 });`;
           setCode(code);

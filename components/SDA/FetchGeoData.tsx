@@ -69,7 +69,7 @@ await ${table.name}.loadGeoData("${url}");`;
 
   return (
     <div>
-      <Target targetReady={true} />
+      <Target targetReady={targetReady} />
       <Card className="max-w-xs">
         <Code code={code} />
         <CardHeader>

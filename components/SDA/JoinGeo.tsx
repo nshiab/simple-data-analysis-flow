@@ -151,13 +151,15 @@ export default function JoinGeo({ id }: { id: string }) {
             sourceLeft?.data?.originalTableName ?? tableLeft.name;
           const originalTableRightName =
             sourceRight?.data?.originalTableName ?? tableRight.name;
-          const code = `const name = await ${originalTableLeftName}.joinGeo(${originalTableRightName}, "${method}", {
+          const code = `const ${name} = await ${originalTableLeftName}.joinGeo(${originalTableRightName}, "${method}", {
   leftTableColumn: "${geoLeft}",
   rightTableColumn: "${geoRight}",
-  distance: "${distance}",
-  distanceMethod: "${distanceMethod}",
-  type: "${joinType}",
-  outputTable: ${name},
+  distance: ${distance},
+  distanceMethod: ${
+    typeof distanceMethod === "string" ? `"${distanceMethod}"` : "undefined"
+  },
+  type: ${typeof joinType === "string" ? `"${joinType}"` : "undefined"},
+  outputTable: "${name}",
 })`;
           setCode(code);
           updateNodeData(id, {

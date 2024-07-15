@@ -92,7 +92,7 @@ export default function Summarize({ id }: { id: string }) {
   categories: ${JSON.stringify(categories)},
   summaries: ${JSON.stringify(summaries)},
   decimals: ${decimals},
-  outputTable: ${name},
+  outputTable: "${name}",
 });`;
           setCode(code);
           updateNodeData(id, {
