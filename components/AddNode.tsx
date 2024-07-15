@@ -76,6 +76,16 @@ export default function AddNode({
               Add column
             </ContextMenuItem>
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Filter")}
+            >
+              Filter
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Join")}
+            >
+              Join
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "RenameColumns")}
             >
               Rename columns
@@ -94,6 +104,13 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
             >
               Summarize
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) =>
+                addNode(e.clientX, e.clientY, "LinearRegressions")
+              }
+            >
+              Linear regression
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>

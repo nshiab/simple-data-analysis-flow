@@ -9,6 +9,9 @@ import Summarize from "./SDA/Summarize";
 import RenameColumns from "./SDA/RenameColumns";
 import Sort from "./SDA/Sort";
 import AddColumn from "./SDA/AddColumn";
+import Filter from "./SDA/Filter";
+import Join from "./SDA/Join";
+import LinearRegressions from "./SDA/LinearRegressions";
 
 const nodeTypes = {
   SDB: SDB,
@@ -22,6 +25,9 @@ const nodeTypes = {
   RenameColumns: RenameColumns,
   Sort: Sort,
   AddColumn: AddColumn,
+  Filter: Filter,
+  Join: Join,
+  LinearRegressions: LinearRegressions,
 };
 
 export default nodeTypes;

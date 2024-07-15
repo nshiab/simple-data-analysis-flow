@@ -14,7 +14,7 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import AddNode from "./partials/AddNode";
+import AddNode from "./AddNode";
 import AllCode from "./partials/AllCode";
 
 import { initialNodes, initialEdges } from "./initialStateTest";
