@@ -44,9 +44,20 @@ export default function SimpleFlow() {
   const onConnect = useCallback(
     (params: any) =>
       setEdges((eds) => {
+        console.log(params);
+        console.log(eds);
         return addEdge(
           params,
-          eds.filter((d) => d.target !== params.target)
+          eds.filter((d) => {
+            if (!d.targetHandle || !params.targetHandle) {
+              return d.target !== params.target;
+            } else {
+              return (
+                d.target !== params.target ||
+                d.targetHandle !== params.targetHandle
+              );
+            }
+          })
         );
       }),
     [setEdges]
