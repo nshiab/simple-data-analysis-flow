@@ -14,5 +14,5 @@ export default function CopyIcon() {
         clipRule="evenodd"
       ></path>
     </svg>
-  );
+  )
 }

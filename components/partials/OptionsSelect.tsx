@@ -5,9 +5,9 @@ import {
   SelectValue,
   SelectGroup,
   SelectItem,
-} from "../ui/select";
-import OptionsItem from "./OptionsItem";
-import { Label } from "../ui/label";
+} from "../ui/select"
+import OptionsItem from "./OptionsItem"
+import { Label } from "../ui/label"
 
 export default function OptionsSelect({
   label,
@@ -16,11 +16,11 @@ export default function OptionsSelect({
   onChange,
   value,
 }: {
-  label: string;
-  placeholder: string;
-  items: { value: any; label: any }[];
-  onChange: (e: any) => void;
-  value?: any;
+  label: string
+  placeholder: string
+  items: { value: any; label: any }[]
+  onChange: (e: any) => void
+  value?: any
 }) {
   return (
     <OptionsItem>
@@ -40,5 +40,5 @@ export default function OptionsSelect({
         </SelectContent>
       </Select>
     </OptionsItem>
-  );
+  )
 }

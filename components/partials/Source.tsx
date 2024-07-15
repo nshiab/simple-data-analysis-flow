@@ -1,4 +1,4 @@
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react"
 
 export default function Source({ sourceReady }: { sourceReady: boolean }) {
   return (
@@ -15,5 +15,5 @@ export default function Source({ sourceReady }: { sourceReady: boolean }) {
         background: sourceReady ? "#94a3b8" : "#d3d3d3",
       }}
     />
-  );
+  )
 }

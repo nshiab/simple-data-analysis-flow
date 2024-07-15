@@ -5,5 +5,5 @@ export default function Error({ error }: { error: null | string }) {
         <p className={`my-4 text-red-500`}>{error}</p>
       </div>
     )
-  );
+  )
 }

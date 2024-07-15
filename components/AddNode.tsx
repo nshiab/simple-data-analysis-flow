@@ -7,22 +7,22 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu";
-import { Node, useReactFlow } from "@xyflow/react";
-import { Dispatch, SetStateAction, useCallback } from "react";
+} from "@/components/ui/context-menu"
+import { Node, useReactFlow } from "@xyflow/react"
+import { Dispatch, SetStateAction, useCallback } from "react"
 
-let id = 1;
+let id = 1
 
 export default function AddNode({
   start,
   setNodes,
   children,
 }: {
-  start: number;
-  setNodes: Dispatch<SetStateAction<Node[]>>;
-  children: any;
+  start: number
+  setNodes: Dispatch<SetStateAction<Node[]>>
+  children: any
 }) {
-  const { screenToFlowPosition } = useReactFlow();
+  const { screenToFlowPosition } = useReactFlow()
 
   const addNode = useCallback(
     (x: number, y: number, type: string) => {
@@ -37,12 +37,12 @@ export default function AddNode({
           instance: null,
         },
         origin: [0.5, 0.0],
-      };
+      }
       // @ts-expect-error Missing origin in type?
-      setNodes((nodes) => nodes.concat(newNode));
+      setNodes((nodes) => nodes.concat(newNode))
     },
     [setNodes, screenToFlowPosition, start]
-  );
+  )
 
   return (
     <ContextMenu>
@@ -64,6 +64,11 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "FetchGeoData")}
             >
               Fetch geo data
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "LoadFile")}
+            >
+              Load file
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -96,6 +101,13 @@ export default function AddNode({
           <ContextMenuSubTrigger>Analyzing data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
+              onClick={(e) =>
+                addNode(e.clientX, e.clientY, "LinearRegressions")
+              }
+            >
+              Linear regression
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
             >
               Sort
@@ -104,13 +116,6 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
             >
               Summarize
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) =>
-                addNode(e.clientX, e.clientY, "LinearRegressions")
-              }
-            >
-              Linear regression
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -137,5 +142,5 @@ export default function AddNode({
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
-  );
+  )
 }

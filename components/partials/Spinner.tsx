@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export default function Spinner({ show }: { show: boolean }) {
   return (
@@ -26,5 +26,5 @@ export default function Spinner({ show }: { show: boolean }) {
         `}</style>
       </div>
     )
-  );
+  )
 }

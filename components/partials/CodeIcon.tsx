@@ -14,5 +14,5 @@ export default function CodeIcon() {
         clipRule="evenodd"
       ></path>
     </svg>
-  );
+  )
 }

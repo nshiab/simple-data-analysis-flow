@@ -3,66 +3,62 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-} from "@/components/ui/card";
-import {
-  useHandleConnections,
-  useNodesData,
-  useReactFlow,
-} from "@xyflow/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import Options from "../partials/Options";
-import OptionsCheckbox from "../partials/OptionsCheckbox";
-import OptionsSelect from "../partials/OptionsSelect";
-import OptionsInputText from "../partials/OptionsInputText";
-import OptionsInputNumber from "../partials/OptionsInputNumber";
-import Code from "../partials/Code";
-import CardTitleWithLoader from "../partials/CardTitleWithLoader";
-import Error from "../partials/Error";
-import Target from "../partials/Target";
-import Source from "../partials/Source";
+} from "@/components/ui/card"
+import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
+import { ChangeEvent, useEffect, useRef, useState } from "react"
+import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
+import Options from "../partials/Options"
+import OptionsCheckbox from "../partials/OptionsCheckbox"
+import OptionsSelect from "../partials/OptionsSelect"
+import OptionsInputText from "../partials/OptionsInputText"
+import OptionsInputNumber from "../partials/OptionsInputNumber"
+import Code from "../partials/Code"
+import CardTitleWithLoader from "../partials/CardTitleWithLoader"
+import Error from "../partials/Error"
+import Target from "../partials/Target"
+import Source from "../partials/Source"
 
 export default function FetchData({ id }: { id: string }) {
-  const refUrl = useRef<HTMLInputElement | null>(null);
+  const refUrl = useRef<HTMLInputElement | null>(null)
 
-  const [url, setURL] = useState<null | string>(null);
-  const [autoDetect, setAutoDetect] = useState(true);
+  const [url, setURL] = useState<null | string>(null)
+  const [autoDetect, setAutoDetect] = useState(true)
   const [fileType, setFileType] = useState<
     "csv" | "dsv" | "json" | "parquet" | undefined
-  >(undefined);
-  const [header, setHeader] = useState(true);
-  const [delim, setDelim] = useState<string | undefined>(undefined);
-  const [skip, setSkip] = useState<number | undefined>(undefined);
+  >(undefined)
+  const [header, setHeader] = useState(true)
+  const [delim, setDelim] = useState<string | undefined>(undefined)
+  const [skip, setSkip] = useState<number | undefined>(undefined)
 
-  const { updateNodeData } = useReactFlow();
+  const { updateNodeData } = useReactFlow()
 
-  const target = useHandleConnections({ type: "target" });
-  const source = useNodesData(target[0]?.source);
+  const target = useHandleConnections({ type: "target" })
+  const source = useNodesData(target[0]?.source)
 
-  const [code, setCode] = useState("");
-  const [loader, setLoader] = useState(false);
-  const [targetReady, setTargetReady] = useState(false);
-  const [sourceReady, setSourceReady] = useState(false);
-  const [error, setError] = useState<null | string>(null);
+  const [code, setCode] = useState("")
+  const [loader, setLoader] = useState(false)
+  const [targetReady, setTargetReady] = useState(false)
+  const [sourceReady, setSourceReady] = useState(false)
+  const [error, setError] = useState<null | string>(null)
 
   useEffect(() => {
     async function run() {
-      const table = source?.data?.instance;
+      const table = source?.data?.instance
       if (table instanceof SimpleWebTable) {
-        setTargetReady(true);
+        setTargetReady(true)
       }
       if (table instanceof SimpleWebTable && typeof url === "string") {
         try {
-          setLoader(true);
+          setLoader(true)
           await table.fetchData(url, {
             fileType,
             autoDetect,
             header,
             delim,
             skip,
-          });
+          })
           const code = `// More options available. Check documentation.
 await ${table.name}.loadData("${url}", {
   fileType: ${typeof fileType === "string" ? `"${fileType}"` : "undefined"},
@@ -70,26 +66,26 @@ await ${table.name}.loadData("${url}", {
   header: ${header},
   delim: ${typeof delim === "string" ? `"${delim}"` : "undefined"},
   skip: ${skip},
-});`;
-          setCode(code);
+});`
+          setCode(code)
           updateNodeData(id, {
             instance: table,
             code,
-          });
-          setError(null);
-          setLoader(false);
-          setSourceReady(true);
+          })
+          setError(null)
+          setLoader(false)
+          setSourceReady(true)
         } catch (err) {
-          console.error(err);
+          console.error(err)
           // @ts-expect-error okay
-          setError(err.message);
-          setLoader(false);
-          setSourceReady(true);
+          setError(err.message)
+          setLoader(false)
+          setSourceReady(true)
         }
       }
     }
 
-    run();
+    run()
   }, [
     source,
     id,
@@ -100,7 +96,7 @@ await ${table.name}.loadData("${url}", {
     header,
     delim,
     skip,
-  ]);
+  ])
 
   return (
     <div>
@@ -129,7 +125,7 @@ await ${table.name}.loadData("${url}", {
               type="button"
               onClick={() => {
                 if (refUrl.current) {
-                  setURL(refUrl.current.value);
+                  setURL(refUrl.current.value)
                 }
               }}
             >
@@ -178,5 +174,5 @@ await ${table.name}.loadData("${url}", {
       </Card>
       <Source sourceReady={sourceReady} />
     </div>
-  );
+  )
 }

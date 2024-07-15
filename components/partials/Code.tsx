@@ -1,35 +1,35 @@
-import { useCallback, useEffect, useState } from "react";
-import { codeToHtml } from "shiki";
-import CodeIcon from "./CodeIcon";
-import { Button } from "../ui/button";
-import CopyIcon from "./CopyIcon";
+import { useCallback, useEffect, useState } from "react"
+import { codeToHtml } from "shiki"
+import CodeIcon from "./CodeIcon"
+import { Button } from "../ui/button"
+import CopyIcon from "./CopyIcon"
 
 export default function Code({
   code,
   border,
   left,
 }: {
-  code: string;
-  border?: boolean;
-  left?: boolean;
+  code: string
+  border?: boolean
+  left?: boolean
 }) {
-  const [innerHTML, setInnerHTML] = useState<string>("");
-  const [open, setOpen] = useState(false);
+  const [innerHTML, setInnerHTML] = useState<string>("")
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     async function toHtml() {
       const html = await codeToHtml(code, {
         lang: "typescript",
         theme: "slack-ochin",
-      });
-      setInnerHTML(html);
+      })
+      setInnerHTML(html)
     }
-    toHtml();
-  }, [code]);
+    toHtml()
+  }, [code])
 
   const copy = useCallback(() => {
-    navigator.clipboard.writeText(code);
-  }, [code]);
+    navigator.clipboard.writeText(code)
+  }, [code])
 
   return (
     <div>
@@ -66,5 +66,5 @@ export default function Code({
         )}
       </div>
     </div>
-  );
+  )
 }

@@ -2,8 +2,8 @@ export default function OptionsItem({
   smallMargin,
   children,
 }: {
-  smallMargin?: boolean;
-  children: any;
+  smallMargin?: boolean
+  children: any
 }) {
   return (
     <div
@@ -11,5 +11,5 @@ export default function OptionsItem({
     >
       {children}
     </div>
-  );
+  )
 }

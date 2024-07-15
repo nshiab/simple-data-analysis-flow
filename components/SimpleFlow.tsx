@@ -1,6 +1,6 @@
-"use client";
+"use client"
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react"
 import {
   ReactFlow,
   Controls,
@@ -11,57 +11,55 @@ import {
   BackgroundVariant,
   MarkerType,
   ConnectionLineType,
-} from "@xyflow/react";
+} from "@xyflow/react"
 
-import "@xyflow/react/dist/style.css";
-import AddNode from "./AddNode";
-import AllCode from "./partials/AllCode";
+import "@xyflow/react/dist/style.css"
+import AddNode from "./AddNode"
+import AllCode from "./partials/AllCode"
 
-import { initialNodes, initialEdges } from "./initialStateTest";
-import nodeTypes from "./nodeTypes";
+import { initialNodes, initialEdges } from "./initialStateTestGeo"
+import nodeTypes from "./nodeTypes"
 
 export default function SimpleFlow() {
-  const [height, setHeight] = useState("0");
+  const [height, setHeight] = useState("0")
 
   useEffect(() => {
     function dimensions() {
-      const header = document.querySelector("#header");
+      const header = document.querySelector("#header")
       if (header) {
-        const bbox = header.getBoundingClientRect();
-        setHeight(`${window.innerHeight - bbox.height}px`);
+        const bbox = header.getBoundingClientRect()
+        setHeight(`${window.innerHeight - bbox.height}px`)
       }
     }
-    dimensions();
+    dimensions()
 
-    window.addEventListener("resize", dimensions);
+    window.addEventListener("resize", dimensions)
 
-    return () => window.removeEventListener("resize", dimensions);
-  }, []);
+    return () => window.removeEventListener("resize", dimensions)
+  }, [])
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback(
     (params: any) =>
       setEdges((eds) => {
-        console.log(params);
-        console.log(eds);
         return addEdge(
           params,
           eds.filter((d) => {
             if (!d.targetHandle || !params.targetHandle) {
-              return d.target !== params.target;
+              return d.target !== params.target
             } else {
               return (
                 d.target !== params.target ||
                 d.targetHandle !== params.targetHandle
-              );
+              )
             }
           })
-        );
+        )
       }),
     [setEdges]
-  );
+  )
 
   return (
     height !== "0" && (
@@ -97,5 +95,5 @@ export default function SimpleFlow() {
         </AddNode>
       </>
     )
-  );
+  )
 }

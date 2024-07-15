@@ -1,11 +1,11 @@
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Position } from "@xyflow/react"
 
 export default function Target({
   targetReady,
   id,
 }: {
-  targetReady: boolean;
-  id?: string;
+  targetReady: boolean
+  id?: string
 }) {
   return (
     <Handle
@@ -22,5 +22,5 @@ export default function Target({
         background: targetReady ? "#94a3b8" : "#d3d3d3",
       }}
     />
-  );
+  )
 }

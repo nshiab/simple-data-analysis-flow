@@ -3,7 +3,7 @@ import {
   AccordionTrigger,
   AccordionItem,
   AccordionContent,
-} from "../ui/accordion";
+} from "../ui/accordion"
 
 export default function Options({ children }: { children: any }) {
   return (
@@ -13,5 +13,5 @@ export default function Options({ children }: { children: any }) {
         <AccordionContent>{children}</AccordionContent>
       </AccordionItem>
     </Accordion>
-  );
+  )
 }

@@ -1,20 +1,20 @@
-import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
-import OptionsCheckbox from "./OptionsCheckbox";
-import { Separator } from "../ui/separator";
-import { Label } from "../ui/label";
+import { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react"
+import OptionsCheckbox from "./OptionsCheckbox"
+import { Separator } from "../ui/separator"
+import { Label } from "../ui/label"
 
 export default function OptionsMultiplesCheckBoxes({
   label,
   items,
   set,
 }: {
-  label: string;
-  items: { value: string; label: string }[];
-  set: Dispatch<SetStateAction<string[] | undefined>>;
+  label: string
+  items: { value: string; label: string }[]
+  set: Dispatch<SetStateAction<string[] | undefined>>
 }) {
-  const [array, setArray] = useState<string[]>([]);
+  const [array, setArray] = useState<string[]>([])
 
-  useEffect(() => set(array), [array, set]);
+  useEffect(() => set(array), [array, set])
 
   return (
     <div className="my-4">
@@ -36,10 +36,10 @@ export default function OptionsMultiplesCheckBoxes({
               onChange={(e) => {
                 if (e) {
                   if (!array.includes(d.value)) {
-                    setArray([...array, d.value]);
+                    setArray([...array, d.value])
                   }
                 } else {
-                  setArray(array.filter((x) => x !== d.value));
+                  setArray(array.filter((x) => x !== d.value))
                 }
               }}
             />
@@ -47,5 +47,5 @@ export default function OptionsMultiplesCheckBoxes({
         ))}
       </div>
     </div>
-  );
+  )
 }

@@ -4,30 +4,30 @@ import {
   SetStateAction,
   useEffect,
   useState,
-} from "react";
-import OptionsInputText from "./OptionsInputText";
+} from "react"
+import OptionsInputText from "./OptionsInputText"
 
 export default function OptionsMultipleInputText({
   items,
   setValues,
 }: {
   items: {
-    label: string;
-    defaultValue: string;
-  }[];
+    label: string
+    defaultValue: string
+  }[]
   setValues: Dispatch<
     SetStateAction<{
-      [key: string]: string;
+      [key: string]: string
     }>
-  >;
+  >
 }) {
   const [inputValues, setInputValues] = useState<{
-    [key: string]: string;
-  }>({});
+    [key: string]: string
+  }>({})
 
   useEffect(() => {
-    setValues(inputValues);
-  }, [inputValues, setValues]);
+    setValues(inputValues)
+  }, [inputValues, setValues])
 
   return (
     <>
@@ -37,12 +37,12 @@ export default function OptionsMultipleInputText({
           label={d.label}
           defaultValue={d.defaultValue}
           onChange={(e) => {
-            const newInputValues = { ...inputValues };
-            newInputValues[d.label] = e.target.value;
-            setInputValues(newInputValues);
+            const newInputValues = { ...inputValues }
+            newInputValues[d.label] = e.target.value
+            setInputValues(newInputValues)
           }}
         />
       ))}
     </>
-  );
+  )
 }

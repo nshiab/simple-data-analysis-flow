@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../ui/button"
 import {
   Table,
   TableBody,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import { formatDate, formatNumber } from "journalism";
+} from "../ui/table"
+import { formatDate, formatNumber } from "journalism"
 
 export default function DataTable({
   data,
@@ -16,10 +16,10 @@ export default function DataTable({
   types,
   nbRows,
 }: {
-  data: { [key: string]: string | number | Date | boolean | null }[];
-  columns: string[];
-  types: string[];
-  nbRows: number;
+  data: { [key: string]: string | number | Date | boolean | null }[]
+  columns: string[]
+  types: string[]
+  nbRows: number
 }) {
   return (
     <Table>
@@ -45,13 +45,13 @@ export default function DataTable({
                       abbreviations: true,
                     })}
                   </TableCell>
-                );
+                )
               } else if (typeof d[c] === "number") {
-                return <TableCell key={i}>{formatNumber(d[c])}</TableCell>;
+                return <TableCell key={i}>{formatNumber(d[c])}</TableCell>
               } else if (ArrayBuffer.isView(d[c])) {
-                return <TableCell key={i}>{`<Geometry>`}</TableCell>;
+                return <TableCell key={i}>{`<Geometry>`}</TableCell>
               } else {
-                return <TableCell key={i}>{d[c]?.toString()}</TableCell>;
+                return <TableCell key={i}>{d[c]?.toString()}</TableCell>
               }
             })}
           </TableRow>
@@ -67,5 +67,5 @@ export default function DataTable({
         </TableFooter>
       )}
     </Table>
-  );
+  )
 }

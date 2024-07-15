@@ -1,4 +1,4 @@
-import { Edge, Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react"
 
 const initialNodes: Node[] = [
   {
@@ -31,7 +31,7 @@ const initialNodes: Node[] = [
   },
   {
     id: "node5",
-    type: "FetchGeoData",
+    type: "LoadGeoFile",
     position: { x: 500, y: 300 },
     data: { instance: null },
     origin: [0.5, 0],
@@ -92,7 +92,7 @@ const initialNodes: Node[] = [
     data: { instance: null },
     origin: [0, 0],
   },
-];
+]
 const initialEdges: Edge[] = [
   {
     id: "edge1",
@@ -161,6 +161,6 @@ const initialEdges: Edge[] = [
     source: "node12",
     target: "node13",
   },
-];
+]
 
-export { initialNodes, initialEdges };
+export { initialNodes, initialEdges }

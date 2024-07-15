@@ -1,16 +1,16 @@
-import { SetStateAction } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import OptionsItem from "./OptionsItem";
+import { SetStateAction } from "react"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
+import OptionsItem from "./OptionsItem"
 
 export default function OptionsInputNumber({
   label,
   defaultValue,
   set,
 }: {
-  label: string;
-  defaultValue: number;
-  set: (value: SetStateAction<number | undefined>) => void;
+  label: string
+  defaultValue: number
+  set: (value: SetStateAction<number | undefined>) => void
 }) {
   return (
     <OptionsItem>
@@ -22,5 +22,5 @@ export default function OptionsInputNumber({
         onChange={(e) => set(parseInt(e.target.value))}
       />
     </OptionsItem>
-  );
+  )
 }

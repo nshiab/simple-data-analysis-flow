@@ -19,5 +19,5 @@ export default function GithubLogo() {
         ></path>
       </svg>
     </a>
-  );
+  )
 }
