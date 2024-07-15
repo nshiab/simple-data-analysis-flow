@@ -107,7 +107,7 @@ export default function Join({ id }: { id: string }) {
             sourceRight?.data?.originalTableName ?? tableRight.name;
           const code = `const ${name} = await ${originalTableLeftName}.join(${originalTableRightName}, {
   commonColumn: "${commonColumn}",
-  type: ${typeof joinType === "string" ? `"${joinType}"` : "undefined"},
+  type: "${joinType ?? "left"}",
   outputTable: "${name}",
 })`;
           setCode(code);

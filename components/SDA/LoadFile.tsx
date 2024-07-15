@@ -101,7 +101,7 @@ export default function LoadFile({ id }: { id: string }) {
           }
 
           const code = `// More options available. Check documentation.
-await ${table.name}.loadData("${file}", {
+await ${table.name}.loadData("${file.name}", {
   fileType: ${typeof fileType === "string" ? `"${fileType}"` : "undefined"},
   autoDetect: ${autoDetect},
   header: ${header},

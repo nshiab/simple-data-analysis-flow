@@ -158,7 +158,7 @@ export default function JoinGeo({ id }: { id: string }) {
   distanceMethod: ${
     typeof distanceMethod === "string" ? `"${distanceMethod}"` : "undefined"
   },
-  type: ${typeof joinType === "string" ? `"${joinType}"` : "undefined"},
+  type: "${joinType ?? "left"}",
   outputTable: "${name}",
 })`;
           setCode(code);
