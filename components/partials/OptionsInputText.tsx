@@ -9,7 +9,7 @@ export default function OptionsInputText({
   onChange,
 }: {
   label: string;
-  defaultValue: string;
+  defaultValue?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (

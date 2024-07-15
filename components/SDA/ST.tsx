@@ -45,7 +45,7 @@ export default function ST({ id }: { id: string }) {
   return (
     <div>
       <Target targetReady={targetReady} />
-      <Card className="max-w-xs">
+      <Card>
         <Code code={code} />
         <CardHeader>
           <CardTitle>SimpleTable</CardTitle>

@@ -71,14 +71,14 @@ export default function AddNode({
           <ContextMenuSubTrigger>Restructuring data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "AddColumn")}
+            >
+              Add column
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "RenameColumns")}
             >
               Rename columns
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "JoinGeo")}
-            >
-              Join geo
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -100,6 +100,11 @@ export default function AddNode({
         <ContextMenuSub>
           <ContextMenuSubTrigger>Geospatial</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "JoinGeo")}
+            >
+              Join geo
+            </ContextMenuItem>
             <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Points")}
             >

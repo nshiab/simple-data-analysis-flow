@@ -70,7 +70,7 @@ await ${table.name}.loadGeoData("${url}");`;
   return (
     <div>
       <Target targetReady={targetReady} />
-      <Card className="max-w-xs">
+      <Card>
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>
@@ -79,7 +79,7 @@ await ${table.name}.loadGeoData("${url}");`;
           <CardDescription>Fetches spatial data from a URL.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mt-4">
             <Input
               ref={refUrl}
               type="url"

@@ -9,23 +9,24 @@ import {
   useNodesData,
   useReactFlow,
 } from "@xyflow/react";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable";
 
 import Code from "../partials/Code";
+import OptionsSelect from "../partials/OptionsSelect";
+import OptionsInputText from "../partials/OptionsInputText";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
-import OptionsMultipleInputText from "../partials/OptionsMultipleInputText";
+import OptionsTextArea from "../partials/OptionsTextArea";
 
-export default function RenameColumns({ id }: { id: string }) {
-  const [columnsToRename, setColumnsToRename] = useState<{
-    [key: string]: string;
-  }>({});
-  const [columns, setColumns] = useState<
-    { label: string; defaultValue: string }[]
-  >([]);
+export default function AddColumn({ id }: { id: string }) {
+  const [newColumn, setNewColumn] = useState<string | undefined>();
+  const [dataType, setDataType] = useState<
+    "string" | "number" | "boolean" | "date" | "geometry" | undefined
+  >();
+  const [definition, setDefinition] = useState<string | undefined>();
 
   const { updateNodeData } = useReactFlow();
 
@@ -33,18 +34,6 @@ export default function RenameColumns({ id }: { id: string }) {
   const source = useNodesData(target[0]?.source);
   const [targetReady, setTargetReady] = useState(false);
   const [sourceReady, setSourceReady] = useState(false);
-
-  useEffect(() => {
-    async function run() {
-      const table = source?.data?.instance;
-      if (table instanceof SimpleWebTable) {
-        setColumns(
-          (await table.getColumns()).map((d) => ({ label: d, defaultValue: d }))
-        );
-      }
-    }
-    run();
-  }, [source]);
 
   const [code, setCode] = useState("");
   const [loader, setLoader] = useState(false);
@@ -56,19 +45,22 @@ export default function RenameColumns({ id }: { id: string }) {
       if (table instanceof SimpleWebTable) {
         setTargetReady(true);
       }
-      if (table instanceof SimpleWebTable) {
+      if (
+        table instanceof SimpleWebTable &&
+        typeof newColumn === "string" &&
+        typeof dataType === "string" &&
+        typeof definition === "string"
+      ) {
         try {
           setLoader(true);
           const clonedTable = await table.cloneTable({
             outputTable: id,
           });
-          await clonedTable.renameColumns(columnsToRename);
+          await clonedTable.addColumn(newColumn, dataType, definition);
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name;
-          const code = `await ${originalTableName}.renameColumns(${JSON.stringify(
-            columnsToRename
-          )});`;
+          const code = `await ${originalTableName}.addColumn("${newColumn}", "${dataType}", \`${definition}\`);`;
           setCode(code);
           updateNodeData(id, {
             instance: clonedTable,
@@ -89,7 +81,7 @@ export default function RenameColumns({ id }: { id: string }) {
     }
 
     run();
-  }, [source, id, updateNodeData, columnsToRename]);
+  }, [source, id, updateNodeData, newColumn, dataType, definition]);
 
   return (
     <div>
@@ -97,18 +89,31 @@ export default function RenameColumns({ id }: { id: string }) {
       <Card>
         <Code code={code} />
         <CardHeader>
-          <CardTitleWithLoader loader={loader}>
-            Rename columns
-          </CardTitleWithLoader>
+          <CardTitleWithLoader loader={loader}>Add column</CardTitleWithLoader>
           <CardDescription>
-            Avoid spaces and special characters.
+            Adds a column into the table. The definition is in SQL.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <OptionsMultipleInputText
-            items={columns}
-            setValues={setColumnsToRename}
+          <OptionsInputText
+            label="New column"
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNewColumn(e.target.value)
+            }
           />
+          <OptionsSelect
+            label="Data type"
+            placeholder="Pick a type"
+            items={[
+              { value: "string", label: "Text" },
+              { value: "number", label: "Number" },
+              { value: "boolean", label: "Boolean" },
+              { value: "date", label: "Date" },
+              { value: "geometry", label: "Geometry" },
+            ]}
+            onChange={(e) => setDataType(e)}
+          />
+          <OptionsTextArea label="Definition" set={setDefinition} />
           <Error error={error} />
         </CardContent>
       </Card>

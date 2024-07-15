@@ -8,6 +8,7 @@ import JoinGeo from "./SDA/JoinGeo";
 import Summarize from "./SDA/Summarize";
 import RenameColumns from "./SDA/RenameColumns";
 import Sort from "./SDA/Sort";
+import AddColumn from "./SDA/AddColumn";
 
 const nodeTypes = {
   SDB: SDB,
@@ -20,6 +21,7 @@ const nodeTypes = {
   Summarize: Summarize,
   RenameColumns: RenameColumns,
   Sort: Sort,
+  AddColumn: AddColumn,
 };
 
 export default nodeTypes;

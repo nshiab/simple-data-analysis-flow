@@ -103,7 +103,7 @@ export default function Points({ id }: { id: string }) {
   return (
     <div>
       <Target targetReady={targetReady} />
-      <Card className="max-w-xs">
+      <Card>
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>Points</CardTitleWithLoader>

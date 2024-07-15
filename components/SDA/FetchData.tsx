@@ -105,7 +105,7 @@ await ${table.name}.loadData("${url}", {
   return (
     <div>
       <Target targetReady={targetReady} />
-      <Card className="max-w-xs">
+      <Card>
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>Fetch data</CardTitleWithLoader>
@@ -114,7 +114,7 @@ await ${table.name}.loadData("${url}", {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 my-4">
             <Input
               ref={refUrl}
               type="url"
