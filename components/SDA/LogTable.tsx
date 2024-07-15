@@ -19,7 +19,6 @@ import { dataAsCsv } from "journalism";
 import Code from "../partials/Code";
 import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Target from "../partials/Target";
-import { Label } from "../ui/label";
 
 const defaultNbRows = 5;
 
@@ -96,7 +95,7 @@ export default function LogTable({ id }: { id: string }) {
         const a = document.createElement("a");
         const file = new Blob([string as BlobPart], { type: "text/plain" });
         a.href = URL.createObjectURL(file);
-        a.download = "data.geojson";
+        a.download = `${name}.geojson`;
         a.click();
       } else {
         const data = await table.getData();
@@ -104,11 +103,11 @@ export default function LogTable({ id }: { id: string }) {
         const a = document.createElement("a");
         const file = new Blob([csv as BlobPart], { type: "text/plain" });
         a.href = URL.createObjectURL(file);
-        a.download = "data.csv";
+        a.download = `${name}.csv`;
         a.click();
       }
     }
-  }, [source]);
+  }, [source, name]);
 
   return (
     <div>

@@ -3,6 +3,8 @@ import Code from "./Code";
 import { useNodes, useNodesData } from "@xyflow/react";
 
 export default function AllCode() {
+  const [open, setOpen] = useState(false);
+
   const [code, setCode] = useState("");
 
   const nodes = useNodes();
@@ -10,12 +12,17 @@ export default function AllCode() {
   const nodesData = useNodesData(ids);
 
   useEffect(() => {
-    const code = nodesData.map((d) => d.data.code).join("\n\n");
-    setCode(code);
-  }, [nodesData]);
+    if (open) {
+      const code = nodesData
+        .map((d) => d.data.code)
+        .filter((d) => d !== "" && d !== null && d !== undefined)
+        .join("\n\n");
+      setCode(code);
+    }
+  }, [nodesData, open]);
 
   return (
-    <div className="z-10">
+    <div className="z-10" onClick={() => setOpen(!open)}>
       <Code code={code} border={true} left={true} />
     </div>
   );

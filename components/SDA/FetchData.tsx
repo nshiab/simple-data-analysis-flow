@@ -109,7 +109,9 @@ await ${table.name}.loadData("${url}", {
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>Fetch data</CardTitleWithLoader>
-          <CardDescription>Fetches data from a URL.</CardDescription>
+          <CardDescription>
+            Fetches data (CSV, JSON, and Parquet files) from a URL.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2">

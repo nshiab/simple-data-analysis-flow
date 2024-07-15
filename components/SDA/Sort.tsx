@@ -59,7 +59,6 @@ export default function Sort({ id }: { id: string }) {
       if (table instanceof SimpleWebTable) {
         setTargetReady(true);
       }
-      console.log(columnToSort);
       if (table instanceof SimpleWebTable && typeof columnToSort === "string") {
         try {
           setLoader(true);

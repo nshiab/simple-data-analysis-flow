@@ -23,7 +23,15 @@ export default function Home() {
               simple-data-analysis
             </a>{" "}
             that runs in your browser. To add nodes, right-click on the panel
-            below.
+            below. Not all methods are implemented. If you need one,{" "}
+            <a
+              className="font-medium underline underline-offset-2"
+              target="_blank"
+              href="https://github.com/nshiab/simple-data-analysis-flow/issues"
+            >
+              create an issue
+            </a>
+            .
           </p>
         </div>
         <ReactFlowProvider>
