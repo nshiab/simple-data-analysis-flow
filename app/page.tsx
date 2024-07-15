@@ -23,7 +23,16 @@ export default function Home() {
               simple-data-analysis
             </a>{" "}
             that runs in your browser. To add nodes, right-click on the panel
-            below. Not all methods are implemented. If you need one,{" "}
+            below. Not{" "}
+            <a
+              className="font-medium underline underline-offset-2"
+              target="_blank"
+              href="https://nshiab.github.io/simple-data-analysis/classes/SimpleWebTable.html"
+            >
+              {" "}
+              all methods
+            </a>{" "}
+            are implemented. If you need one,{" "}
             <a
               className="font-medium underline underline-offset-2"
               target="_blank"

@@ -14,33 +14,11 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import SDB from "./SDA/SDB";
-import ST from "./SDA/ST";
-import FetchData from "./SDA/FetchData";
-import LogTable from "./SDA/LogTable";
 import AddNode from "./partials/AddNode";
 import AllCode from "./partials/AllCode";
-import FetchGeoData from "./SDA/FetchGeoData";
-import Points from "./SDA/Points";
-import JoinGeo from "./SDA/JoinGeo";
 
 import { initialNodes, initialEdges } from "./initialState";
-import Summarize from "./SDA/Summarize";
-import RenameColumns from "./SDA/RenameColumns";
-import Sort from "./SDA/Sort";
-
-const nodeTypes = {
-  SDB: SDB,
-  ST: ST,
-  FetchData: FetchData,
-  FetchGeoData: FetchGeoData,
-  LogTable: LogTable,
-  Points: Points,
-  JoinGeo: JoinGeo,
-  Summarize: Summarize,
-  RenameColumns: RenameColumns,
-  Sort: Sort,
-};
+import nodeTypes from "./nodeTypes";
 
 export default function SimpleFlow() {
   const [height, setHeight] = useState("0");
