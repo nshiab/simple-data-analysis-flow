@@ -23,11 +23,16 @@ import CardTitleWithLoader from "../partials/CardTitleWithLoader";
 import Error from "../partials/Error";
 import Target from "../partials/Target";
 import Source from "../partials/Source";
+import {
+  AsyncDuckDB,
+  AsyncDuckDBConnection,
+  DuckDBDataProtocol,
+} from "@duckdb/duckdb-wasm";
 
-export default function FetchData({ id }: { id: string }) {
+export default function LoadFile({ id }: { id: string }) {
   const refUrl = useRef<HTMLInputElement | null>(null);
 
-  const [url, setURL] = useState<null | string>(null);
+  const [file, setFile] = useState<null | File>(null);
   const [autoDetect, setAutoDetect] = useState(true);
   const [fileType, setFileType] = useState<
     "csv" | "dsv" | "json" | "parquet" | undefined
@@ -53,18 +58,50 @@ export default function FetchData({ id }: { id: string }) {
       if (table instanceof SimpleWebTable) {
         setTargetReady(true);
       }
-      if (table instanceof SimpleWebTable && typeof url === "string") {
+      if (table instanceof SimpleWebTable && file instanceof File) {
         try {
           setLoader(true);
-          await table.fetchData(url, {
-            fileType,
-            autoDetect,
-            header,
-            delim,
-            skip,
-          });
+          const db = table.db as AsyncDuckDB;
+          const c = table.connection as AsyncDuckDBConnection;
+
+          const fileExtension = file.name.split(".").at(-1);
+
+          if (
+            fileType === "csv" ||
+            fileExtension === "csv" ||
+            fileType === "dsv" ||
+            typeof delim === "string"
+          ) {
+            await db.registerFileHandle(
+              file.name,
+              file,
+              DuckDBDataProtocol.BROWSER_FILEREADER,
+              true
+            );
+            await c.insertCSVFromPath(file.name, {
+              name: table.name,
+              detect: autoDetect ?? true,
+              header: header ?? true,
+              delimiter: delim ?? ",",
+              skip: skip,
+            });
+          } else if (fileType === "json" || fileExtension === "json") {
+            await db.registerFileText(file.name, await file.text());
+            await c.insertJSONFromPath(file.name, { name: table.name });
+          } else if (fileType === "parquet" || fileExtension === "parquet") {
+            await db.registerFileHandle(
+              file.name,
+              file,
+              DuckDBDataProtocol.BROWSER_FILEREADER,
+              true
+            );
+            await table.sdb.customQuery(
+              `CREATE OR REPLACE TABLE ${table.name} AS SELECT * FROM parquet_scan('${file.name}')`
+            );
+          }
+
           const code = `// More options available. Check documentation.
-await ${table.name}.loadData("${url}", {
+await ${table.name}.loadData("${file}", {
   fileType: ${typeof fileType === "string" ? `"${fileType}"` : "undefined"},
   autoDetect: ${autoDetect},
   header: ${header},
@@ -94,7 +131,7 @@ await ${table.name}.loadData("${url}", {
     source,
     id,
     updateNodeData,
-    url,
+    file,
     fileType,
     autoDetect,
     header,
@@ -108,33 +145,23 @@ await ${table.name}.loadData("${url}", {
       <Card>
         <Code code={code} />
         <CardHeader>
-          <CardTitleWithLoader loader={loader}>Fetch data</CardTitleWithLoader>
+          <CardTitleWithLoader loader={loader}>Load file</CardTitleWithLoader>
           <CardDescription>
-            Fetches data (CSV, JSON, and Parquet files) from a URL.
+            Loads data from a local CSV, JSON or Parquet file.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center space-x-2 my-4">
             <Input
               ref={refUrl}
-              type="url"
-              placeholder="URL"
-              onKeyDown={(e) =>
-                e.key === "Enter" && refUrl.current
-                  ? setURL(refUrl.current.value)
-                  : null
-              }
-            />
-            <Button
-              type="button"
-              onClick={() => {
-                if (refUrl.current) {
-                  setURL(refUrl.current.value);
+              type="file"
+              onChange={(e) => {
+                const files = e.target.files;
+                if (files) {
+                  setFile(files[0]);
                 }
               }}
-            >
-              Fetch
-            </Button>
+            />
           </div>
           <Error error={error} />
           <Options>

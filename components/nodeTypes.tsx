@@ -12,11 +12,13 @@ import AddColumn from "./SDA/AddColumn";
 import Filter from "./SDA/Filter";
 import Join from "./SDA/Join";
 import LinearRegressions from "./SDA/LinearRegressions";
+import LoadFile from "./SDA/LoadFile";
 
 const nodeTypes = {
   SDB: SDB,
   ST: ST,
   FetchData: FetchData,
+  LoadFile: LoadFile,
   FetchGeoData: FetchGeoData,
   LogTable: LogTable,
   Points: Points,
