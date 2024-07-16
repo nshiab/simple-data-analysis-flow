@@ -2,7 +2,7 @@
 const nextConfig = {
   output: "export",
   transpilePackages: ["shiki"],
-  basePath: "/github-pages",
+  basePath: "/simple-data-analysis-flow/",
 }
 
 export default nextConfig
