@@ -11,6 +11,7 @@ import {
   BackgroundVariant,
   MarkerType,
   ConnectionLineType,
+  ReactFlowInstance,
 } from "@xyflow/react"
 
 import "@xyflow/react/dist/style.css"
@@ -19,8 +20,11 @@ import AllCode from "./partials/AllCode"
 
 import { initialNodes, initialEdges } from "./initialState"
 import nodeTypes from "./nodeTypes"
+import SaveImport from "./partials/SaveImport"
 
 export default function SimpleFlow() {
+  const [rfInstance, setRfInstance] = useState<ReactFlowInstance>()
+
   const [height, setHeight] = useState("0")
 
   useEffect(() => {
@@ -64,6 +68,11 @@ export default function SimpleFlow() {
   return (
     height !== "0" && (
       <>
+        <SaveImport
+          rfInstance={rfInstance}
+          setNodes={setNodes}
+          setEdges={setEdges}
+        />
         <AllCode />
         <AddNode start={initialNodes.length} setNodes={setNodes}>
           <div
@@ -87,6 +96,7 @@ export default function SimpleFlow() {
               }}
               connectionRadius={50}
               connectionLineType={ConnectionLineType.SmoothStep}
+              onInit={setRfInstance}
             >
               <Controls />
               <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
