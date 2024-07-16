@@ -18,6 +18,8 @@ export default function SDB({ id }: { id: string }) {
   useEffect(() => {
     async function start() {
       const sdb = await new SimpleWebDB().start()
+      await sdb.customQuery(`ATTACH DATABASE 'duckdb' as mydb;
+use mydb;`)
       const code = `// For front-end projects, switch to SimpleWebDB
 import { SimpleDB } from "simple-data-analysis";
 
