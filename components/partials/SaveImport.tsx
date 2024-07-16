@@ -45,7 +45,12 @@ export default function SaveImport({
             if (files) {
               const flow = JSON.parse(await files[0].text())
               const { x = 0, y = 0, zoom = 1 } = flow.viewport
-              setNodes(flow.nodes || [])
+              const nodes = flow.nodes.map((d: Node) => ({
+                ...d,
+                data: { ...d.data, imported: true },
+              }))
+              console.log(nodes)
+              setNodes(nodes || [])
               setEdges(flow.edges || [])
               setViewport({ x, y, zoom })
             }

@@ -5,22 +5,17 @@ import OptionsItem from "./OptionsItem"
 
 export default function OptionsInputText({
   label,
-  defaultValue,
+  value,
   onChange,
 }: {
   label: string
-  defaultValue?: string
+  value: string
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 }) {
   return (
     <OptionsItem>
       <Label>{label}</Label>
-      <Input
-        type="text"
-        className="w-50"
-        defaultValue={defaultValue}
-        onChange={onChange}
-      />
+      <Input type="text" className="w-50" value={value} onChange={onChange} />
     </OptionsItem>
   )
 }
