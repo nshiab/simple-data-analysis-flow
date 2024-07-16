@@ -17,7 +17,7 @@ import "@xyflow/react/dist/style.css"
 import AddNode from "./AddNode"
 import AllCode from "./partials/AllCode"
 
-import { initialNodes, initialEdges } from "./initialStateTestGeo"
+import { initialNodes, initialEdges } from "./initialState"
 import nodeTypes from "./nodeTypes"
 
 export default function SimpleFlow() {
