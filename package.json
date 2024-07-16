@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run format && rm -rf docs 2>/dev/null || true && next build",
+    "build": "npm run format && rm -rf docs 2>/dev/null || true && next build && cp -R out docs",
     "start": "next start",
     "lint": "next lint",
     "check-format": "prettier --ignore-path .prettierignore --check .",
