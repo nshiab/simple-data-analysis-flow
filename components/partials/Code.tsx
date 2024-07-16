@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import { codeToHtml } from "shiki"
+import codeToHtml from "@/lib/shiki"
 import CodeIcon from "./CodeIcon"
 import { Button } from "../ui/button"
 import CopyIcon from "./CopyIcon"
@@ -18,10 +18,7 @@ export default function Code({
 
   useEffect(() => {
     async function toHtml() {
-      const html = await codeToHtml(code, {
-        lang: "typescript",
-        theme: "slack-ochin",
-      })
+      const html = await codeToHtml(code)
       setInnerHTML(html)
     }
     toHtml()
