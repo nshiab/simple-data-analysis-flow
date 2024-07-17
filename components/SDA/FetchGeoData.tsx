@@ -5,19 +5,17 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
 import Code from "../partials/Code"
 import CardTitleWithLoader from "../partials/CardTitleWithLoader"
 import Error from "../partials/Error"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
+import OptionsInputText from "../partials/OptionsInputText"
 
 export default function FetchGeoData({ id }: { id: string }) {
-  const refUrl = useRef<HTMLInputElement | null>(null)
-  const [url, setURL] = useState<null | string>(null)
+  const [url, setURL] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -29,6 +27,16 @@ export default function FetchGeoData({ id }: { id: string }) {
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.url === "string") {
+        setURL(nodeData.data.url)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -46,6 +54,7 @@ await ${table.name}.loadGeoData("${url}");`
           updateNodeData(id, {
             instance: table,
             code,
+            url,
           })
           setError(null)
           setLoader(false)
@@ -75,28 +84,11 @@ await ${table.name}.loadGeoData("${url}");`
           <CardDescription>Fetches spatial data from a URL.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2 mt-4">
-            <Input
-              ref={refUrl}
-              type="url"
-              placeholder="URL"
-              onKeyDown={(e) =>
-                e.key === "Enter" && refUrl.current
-                  ? setURL(refUrl.current.value)
-                  : null
-              }
-            />
-            <Button
-              type="button"
-              onClick={() => {
-                if (refUrl.current) {
-                  setURL(refUrl.current.value)
-                }
-              }}
-            >
-              Fetch
-            </Button>
-          </div>
+          <OptionsInputText
+            label="URL"
+            value={url ?? ""}
+            onClick={(e: string) => setURL(e)}
+          />
           <Error error={error} />
         </CardContent>
       </Card>

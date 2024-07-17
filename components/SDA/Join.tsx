@@ -15,15 +15,16 @@ import Error from "../partials/Error"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
 import Options from "../partials/Options"
-import OptionsInputNumber from "../partials/OptionsInputNumber"
 import OptionsInputText from "../partials/OptionsInputText"
 
 export default function Join({ id }: { id: string }) {
-  const [name, setName] = useState<string | undefined>(`${id}Join`)
+  const [name, setName] = useState<string>(`${id}Join`)
   const [commonColumns, setCommonColumns] = useState<
     { value: string; label: string }[]
   >([])
-  const [commonColumn, setCommonColumn] = useState("")
+  const [commonColumn, setCommonColumn] = useState<string | undefined>(
+    undefined
+  )
   const [joinType, setJoinType] = useState<
     "inner" | "left" | "right" | "full" | undefined
   >(undefined)
@@ -65,6 +66,23 @@ export default function Join({ id }: { id: string }) {
   const [targetRightReady, setTargetRightReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.commonColumn === "string") {
+        setCommonColumn(nodeData.data.commonColumn)
+      }
+      if (typeof nodeData.data.joinType === "string") {
+        // @ts-ignore okay
+        setJoinType(nodeData.data.joinType)
+      }
+      if (typeof nodeData.data.outputTable === "string") {
+        setName(nodeData.data.outputTable)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       if (commonColumns.length === 1) {
@@ -87,7 +105,7 @@ export default function Join({ id }: { id: string }) {
       if (
         tableLeft instanceof SimpleWebTable &&
         tableRight instanceof SimpleWebTable &&
-        commonColumn !== ""
+        typeof commonColumn === "string"
       ) {
         try {
           setLoader(true)
@@ -111,6 +129,9 @@ export default function Join({ id }: { id: string }) {
             instance: outputTable,
             originalTableName: name,
             code,
+            commonColumn,
+            joinType,
+            outputTable: name,
           })
           setError(null)
           setLoader(false)
@@ -153,23 +174,21 @@ export default function Join({ id }: { id: string }) {
         <CardContent>
           <OptionsInputText
             label="Table name"
-            defaultValue={`${id}Join`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
+            value={name}
+            onClick={(e: string) => setName(e)}
           />
           <OptionsSelect
             label="Common column"
             placeholder="Pick a column"
             items={commonColumns}
             onChange={(e) => setCommonColumn(e)}
-            value={commonColumn}
+            value={commonColumn ?? ""}
           />
           <Error error={error} />
           <Options>
             <OptionsSelect
               label="Join type"
-              placeholder="Left"
+              value={joinType ?? ""}
               items={[
                 { value: "left", label: "Left" },
                 { value: "inner", label: "Inner" },

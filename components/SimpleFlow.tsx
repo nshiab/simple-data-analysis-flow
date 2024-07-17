@@ -74,7 +74,7 @@ export default function SimpleFlow() {
           setEdges={setEdges}
         />
         <AllCode />
-        <AddNode start={initialNodes.length} setNodes={setNodes}>
+        <AddNode setNodes={setNodes}>
           <div
             style={{
               width: "100vw",
@@ -89,6 +89,7 @@ export default function SimpleFlow() {
               onConnect={onConnect}
               nodeTypes={nodeTypes}
               fitView
+              fitViewOptions={{ padding: 0.1 }}
               minZoom={0.25}
               defaultEdgeOptions={{
                 type: "smoothstep",

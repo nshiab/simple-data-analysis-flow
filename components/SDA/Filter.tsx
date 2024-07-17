@@ -16,7 +16,7 @@ import Source from "../partials/Source"
 import OptionsTextArea from "../partials/OptionsTextArea"
 
 export default function Filter({ id }: { id: string }) {
-  const [definition, setDefinition] = useState<string | undefined>()
+  const [definition, setDefinition] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -28,6 +28,16 @@ export default function Filter({ id }: { id: string }) {
   const [code, setCode] = useState("")
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.definition === "string") {
+        setDefinition(nodeData.data.definition)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -51,6 +61,7 @@ export default function Filter({ id }: { id: string }) {
             instance: clonedTable,
             originalTableName: originalTableName,
             code,
+            definition,
           })
           setError(null)
           setLoader(false)
@@ -80,7 +91,11 @@ export default function Filter({ id }: { id: string }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <OptionsTextArea label="Condition" set={setDefinition} />
+          <OptionsTextArea
+            label="Condition"
+            set={setDefinition}
+            value={definition ?? ""}
+          />
           <Error error={error} />
         </CardContent>
       </Card>

@@ -1,4 +1,10 @@
-import { Edge, Node, ReactFlowInstance, useReactFlow } from "@xyflow/react"
+import {
+  Edge,
+  getNodesBounds,
+  Node,
+  ReactFlowInstance,
+  useReactFlow,
+} from "@xyflow/react"
 import { Button } from "../ui/button"
 import { Dispatch, SetStateAction, useCallback, useRef } from "react"
 import { Input } from "../ui/input"
@@ -44,15 +50,15 @@ export default function SaveImport({
             const files = e.target.files
             if (files) {
               const flow = JSON.parse(await files[0].text())
-              const { x = 0, y = 0, zoom = 1 } = flow.viewport
               const nodes = flow.nodes.map((d: Node) => ({
                 ...d,
                 data: { ...d.data, imported: true },
               }))
-              console.log(nodes)
+
               setNodes(nodes || [])
               setEdges(flow.edges || [])
-              setViewport({ x, y, zoom })
+              const bounds = getNodesBounds(nodes)
+              rfInstance?.fitBounds(bounds, { padding: 0 })
             }
           }}
         />

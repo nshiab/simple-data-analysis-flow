@@ -19,7 +19,7 @@ import OptionsInputText from "../partials/OptionsInputText"
 import OptionsSelect from "../partials/OptionsSelect"
 
 export default function LinearRegressions({ id }: { id: string }) {
-  const [name, setName] = useState<string | undefined>(`${id}LinearRegression`)
+  const [name, setName] = useState<string>(`${id}LinearRegression`)
   const [x, setX] = useState<string | undefined>()
   const [y, setY] = useState<string | undefined>()
   const [categories, setCategories] = useState<string[] | undefined>(["count"])
@@ -48,6 +48,28 @@ export default function LinearRegressions({ id }: { id: string }) {
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.x === "string") {
+        setX(nodeData.data.x)
+      }
+      if (typeof nodeData.data.y === "string") {
+        setY(nodeData.data.y)
+      }
+      if (Array.isArray(nodeData.data.categories)) {
+        setCategories(nodeData.data.categories)
+      }
+      if (typeof nodeData.data.decimals === "number") {
+        setDecimals(nodeData.data.decimals)
+      }
+      if (typeof nodeData.data.outputTable === "string") {
+        setName(nodeData.data.outputTable)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -85,6 +107,11 @@ export default function LinearRegressions({ id }: { id: string }) {
             instance: outputTable,
             originalTableName: name,
             code,
+            x,
+            y,
+            categories,
+            decimals,
+            outputTable: name,
           })
           setError(null)
           setLoader(false)
@@ -118,10 +145,8 @@ export default function LinearRegressions({ id }: { id: string }) {
         <CardContent>
           <OptionsInputText
             label="Table name"
-            defaultValue={`${id}LinearRegression`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
+            value={name}
+            onClick={(e: string) => setName(e)}
           />
           {targetReady && (
             <>
@@ -129,12 +154,14 @@ export default function LinearRegressions({ id }: { id: string }) {
                 label="X"
                 items={columns}
                 placeholder="Pick a column"
+                value={x ?? ""}
                 onChange={(e) => setX(e)}
               />
               <OptionsSelect
                 label="Y"
                 items={columns}
                 placeholder="Pick a column"
+                value={y ?? ""}
                 onChange={(e) => setY(e)}
               />
               <OptionsMultiplesCheckBoxes

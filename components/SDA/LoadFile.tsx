@@ -47,6 +47,29 @@ export default function LoadFile({ id }: { id: string }) {
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.fileType === "string") {
+        //@ts-expect-error okay
+        setFileType(nodeData.data.fileType)
+      }
+      if (typeof nodeData.data.autoDetect === "boolean") {
+        setAutoDetect(nodeData.data.autoDetect)
+      }
+      if (typeof nodeData.data.header === "boolean") {
+        setHeader(nodeData.data.header)
+      }
+      if (typeof nodeData.data.delim === "string") {
+        setDelim(nodeData.data.delim)
+      }
+      if (typeof nodeData.data.skip === "number") {
+        setSkip(nodeData.data.skip)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance
@@ -107,6 +130,11 @@ await ${table.name}.loadData("${file.name}", {
           updateNodeData(id, {
             instance: table,
             code,
+            fileType,
+            autoDetect,
+            header,
+            delim,
+            skip,
           })
           setError(null)
           setLoader(false)
@@ -177,6 +205,7 @@ await ${table.name}.loadData("${file.name}", {
               onChange={(e: "csv" | "dsv" | "json" | "parquet") =>
                 setFileType(e)
               }
+              value={fileType ?? ""}
             />
             <OptionsCheckbox
               defaultChecked={true}
@@ -185,10 +214,8 @@ await ${table.name}.loadData("${file.name}", {
             />
             <OptionsInputText
               label="Delimiter:"
-              defaultValue=""
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setDelim(e.target.value)
-              }
+              value={delim ?? ""}
+              onClick={(e: string) => setDelim(e)}
             />
             <OptionsInputNumber
               label="Skip rows:"

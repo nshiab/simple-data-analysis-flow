@@ -1,31 +1,33 @@
+import getId from "@/lib/getId"
 import { Edge, Node } from "@xyflow/react"
+
+const dbId = `node_${getId()}`
+const tableId = `node_${getId()}`
 
 const initialNodes: Node[] = [
   {
-    id: "node1",
+    id: dbId,
     type: "SDB",
-    position: { x: 0, y: -100 },
+    position: { x: 0, y: 0 },
     data: { instance: null },
     origin: [0.5, 0],
   },
   {
-    id: "node2",
+    id: tableId,
     type: "ST",
-    position: { x: -100, y: 50 },
-    data: { instance: null, name: "node2" },
+    position: { x: -50, y: 150 },
+    data: { instance: null, name: tableId },
     origin: [0.5, 0],
   },
 ]
+
+const edgeId = `edge_${getId()}`
+
 const initialEdges: Edge[] = [
   {
-    id: "edge1",
-    source: "node1",
-    target: "node2",
-  },
-  {
-    id: "edge2",
-    source: "node2",
-    target: "node3",
+    id: edgeId,
+    source: dbId,
+    target: tableId,
   },
 ]
 

@@ -18,11 +18,11 @@ import Source from "../partials/Source"
 import OptionsTextArea from "../partials/OptionsTextArea"
 
 export default function AddColumn({ id }: { id: string }) {
-  const [newColumn, setNewColumn] = useState<string | undefined>()
+  const [newColumn, setNewColumn] = useState<string>("newColumn")
   const [dataType, setDataType] = useState<
     "string" | "number" | "boolean" | "date" | "geometry" | undefined
-  >()
-  const [definition, setDefinition] = useState<string | undefined>()
+  >(undefined)
+  const [definition, setDefinition] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -34,6 +34,23 @@ export default function AddColumn({ id }: { id: string }) {
   const [code, setCode] = useState("")
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.newColumn === "string") {
+        setNewColumn(nodeData.data.newColumn)
+      }
+      if (typeof nodeData.data.dataType === "string") {
+        // @ts-expect-error okay
+        setDataType(nodeData.data.dataType)
+      }
+      if (typeof nodeData.data.definition === "string") {
+        setDefinition(nodeData.data.definition)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -62,6 +79,9 @@ export default function AddColumn({ id }: { id: string }) {
             instance: clonedTable,
             originalTableName: originalTableName,
             code,
+            newColumn,
+            dataType,
+            definition,
           })
           setError(null)
           setLoader(false)
@@ -93,13 +113,12 @@ export default function AddColumn({ id }: { id: string }) {
         <CardContent>
           <OptionsInputText
             label="New column"
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewColumn(e.target.value)
-            }
+            value={newColumn}
+            onClick={(e: string) => setNewColumn(e)}
           />
           <OptionsSelect
             label="Data type"
-            placeholder="Pick a type"
+            value={dataType ?? ""}
             items={[
               { value: "string", label: "Text" },
               { value: "number", label: "Number" },
@@ -109,7 +128,11 @@ export default function AddColumn({ id }: { id: string }) {
             ]}
             onChange={(e) => setDataType(e)}
           />
-          <OptionsTextArea label="Definition" set={setDefinition} />
+          <OptionsTextArea
+            label="Definition"
+            set={setDefinition}
+            value={definition ?? ""}
+          />
           <Error error={error} />
         </CardContent>
       </Card>
