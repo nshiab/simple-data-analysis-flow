@@ -26,7 +26,7 @@ export default function FetchData({ id }: { id: string }) {
   >(undefined)
   const [header, setHeader] = useState(true)
   const [delim, setDelim] = useState<string | undefined>(undefined)
-  const [skip, setSkip] = useState<number | undefined>(undefined)
+  const [skip, setSkip] = useState<number | undefined>(0)
 
   const { updateNodeData } = useReactFlow()
 
@@ -147,7 +147,7 @@ await ${table.name}.loadData("${url}", {
           <Options>
             <OptionsCheckbox
               label="Auto-detect"
-              defaultChecked={true}
+              checked={autoDetect}
               onChange={(e) => setAutoDetect(e)}
             />
             <OptionsSelect
@@ -164,7 +164,7 @@ await ${table.name}.loadData("${url}", {
               }
             />
             <OptionsCheckbox
-              defaultChecked={true}
+              checked={header}
               onChange={(e) => setHeader(e)}
               label="Header"
             />
@@ -173,11 +173,7 @@ await ${table.name}.loadData("${url}", {
               value={delim ?? ","}
               onClick={(e: string) => setDelim(e)}
             />
-            <OptionsInputNumber
-              label="Skip rows:"
-              defaultValue={0}
-              set={setSkip}
-            />
+            <OptionsInputNumber label="Skip rows:" value={skip} set={setSkip} />
           </Options>
         </CardContent>
       </Card>

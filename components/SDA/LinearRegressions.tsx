@@ -167,11 +167,12 @@ export default function LinearRegressions({ id }: { id: string }) {
               <OptionsMultiplesCheckBoxes
                 label="Categories"
                 items={columns}
+                values={categories ?? []}
                 set={setCategories}
               />
               <OptionsInputNumber
                 label="Decimals"
-                defaultValue={2}
+                value={decimals}
                 set={setDecimals}
               />
             </>
