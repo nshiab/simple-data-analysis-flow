@@ -46,6 +46,20 @@ export default function RenameColumns({ id }: { id: string }) {
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.columnsToRename === "object") {
+        //@ts-expect-error okay
+        setColumnsToRename(nodeData.data.columnsToRename)
+      }
+      if (Array.isArray(nodeData.data.columns)) {
+        setColumns(nodeData.data.columns)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance
@@ -70,6 +84,8 @@ export default function RenameColumns({ id }: { id: string }) {
             instance: clonedTable,
             originalTableName: originalTableName,
             code,
+            columnsToRename,
+            columns,
           })
           setError(null)
           setLoader(false)
@@ -85,7 +101,7 @@ export default function RenameColumns({ id }: { id: string }) {
     }
 
     run()
-  }, [source, id, updateNodeData, columnsToRename])
+  }, [source, id, updateNodeData, columnsToRename, columns])
 
   return (
     <div>
@@ -103,6 +119,7 @@ export default function RenameColumns({ id }: { id: string }) {
         <CardContent>
           <OptionsMultipleInputText
             items={columns}
+            values={columnsToRename}
             setValues={setColumnsToRename}
           />
           <Error error={error} />

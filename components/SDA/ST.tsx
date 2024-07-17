@@ -6,34 +6,50 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB"
 import Code from "../partials/Code"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
 import OptionsInputText from "../partials/OptionsInputText"
+import CardTitleWithLoader from "../partials/CardTitleWithLoader"
 
 export default function ST({ id }: { id: string }) {
   const { updateNodeData } = useReactFlow()
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
+  const [loader, setLoader] = useState(false)
 
   const targetConnection = useHandleConnections({ type: "target" })
+
+  const [name, setName] = useState<string>(`${id}`)
+  const [code, setCode] = useState("")
+
   const source = useNodesData(targetConnection[0]?.source)
 
-  const [name, setName] = useState<string | undefined>(`${id}`)
-  const [code, setCode] = useState("")
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.name === "string") {
+        setName(nodeData.data.name)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     const sdb = source?.data?.instance
     if (sdb instanceof SimpleWebDB) {
       setTargetReady(true)
+      setLoader(true)
       const code = `const ${name} = sdb.newTable("${name}");`
       setCode(code)
       updateNodeData(id, {
+        name,
         instance: sdb.newTable(name),
         code: code,
       })
+      setLoader(false)
       setSourceReady(true)
     }
   }, [source, id, updateNodeData, name])
@@ -44,16 +60,14 @@ export default function ST({ id }: { id: string }) {
       <Card>
         <Code code={code} />
         <CardHeader>
-          <CardTitle>SimpleTable</CardTitle>
+          <CardTitleWithLoader loader={loader}>SimpleTable</CardTitleWithLoader>
           <CardDescription>This is a table in the database.</CardDescription>
         </CardHeader>
         <CardContent>
           <OptionsInputText
             label="Name"
-            defaultValue={`${id}`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
+            value={name}
+            onClick={(e: string) => setName(e)}
           />
         </CardContent>
       </Card>

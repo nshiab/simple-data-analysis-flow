@@ -19,10 +19,10 @@ import OptionsInputText from "../partials/OptionsInputText"
 import OptionsSelect from "../partials/OptionsSelect"
 
 export default function LinearRegressions({ id }: { id: string }) {
-  const [name, setName] = useState<string | undefined>(`${id}LinearRegression`)
+  const [name, setName] = useState<string>(`${id}LinearRegression`)
   const [x, setX] = useState<string | undefined>()
   const [y, setY] = useState<string | undefined>()
-  const [categories, setCategories] = useState<string[] | undefined>(["count"])
+  const [categories, setCategories] = useState<string[] | undefined>(undefined)
   const [decimals, setDecimals] = useState<number | undefined>(2)
   const [columns, setColumns] = useState<{ value: string; label: string }[]>([])
 
@@ -48,6 +48,31 @@ export default function LinearRegressions({ id }: { id: string }) {
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.x === "string") {
+        setX(nodeData.data.x)
+      }
+      if (typeof nodeData.data.y === "string") {
+        setY(nodeData.data.y)
+      }
+      if (Array.isArray(nodeData.data.categories)) {
+        setCategories(nodeData.data.categories)
+      }
+      if (typeof nodeData.data.decimals === "number") {
+        setDecimals(nodeData.data.decimals)
+      }
+      if (typeof nodeData.data.outputTable === "string") {
+        setName(nodeData.data.outputTable)
+      }
+      if (Array.isArray(nodeData.data.columns)) {
+        setColumns(nodeData.data.columns)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -85,6 +110,12 @@ export default function LinearRegressions({ id }: { id: string }) {
             instance: outputTable,
             originalTableName: name,
             code,
+            x,
+            y,
+            categories,
+            decimals,
+            outputTable: name,
+            columns,
           })
           setError(null)
           setLoader(false)
@@ -100,7 +131,7 @@ export default function LinearRegressions({ id }: { id: string }) {
     }
 
     run()
-  }, [source, id, updateNodeData, x, y, categories, decimals, name])
+  }, [source, id, updateNodeData, x, y, categories, decimals, name, columns])
 
   return (
     <div>
@@ -118,37 +149,38 @@ export default function LinearRegressions({ id }: { id: string }) {
         <CardContent>
           <OptionsInputText
             label="Table name"
-            defaultValue={`${id}LinearRegression`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
+            value={name}
+            onClick={(e: string) => setName(e)}
           />
-          {targetReady && (
-            <>
-              <OptionsSelect
-                label="X"
-                items={columns}
-                placeholder="Pick a column"
-                onChange={(e) => setX(e)}
-              />
-              <OptionsSelect
-                label="Y"
-                items={columns}
-                placeholder="Pick a column"
-                onChange={(e) => setY(e)}
-              />
-              <OptionsMultiplesCheckBoxes
-                label="Categories"
-                items={columns}
-                set={setCategories}
-              />
-              <OptionsInputNumber
-                label="Decimals"
-                defaultValue={2}
-                set={setDecimals}
-              />
-            </>
-          )}
+
+          <>
+            {console.log({ x, y, columns })}
+            <OptionsSelect
+              label="X"
+              items={columns}
+              placeholder="Pick a column"
+              value={x ?? ""}
+              onChange={(e) => setX(e)}
+            />
+            <OptionsSelect
+              label="Y"
+              items={columns}
+              placeholder="Pick a column"
+              value={y ?? ""}
+              onChange={(e) => setY(e)}
+            />
+            <OptionsMultiplesCheckBoxes
+              label="Categories"
+              items={columns}
+              values={categories ?? []}
+              set={setCategories}
+            />
+            <OptionsInputNumber
+              label="Decimals"
+              value={decimals}
+              set={setDecimals}
+            />
+          </>
 
           <Error error={error} />
         </CardContent>

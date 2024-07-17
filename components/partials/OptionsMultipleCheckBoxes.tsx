@@ -7,15 +7,13 @@ export default function OptionsMultiplesCheckBoxes({
   label,
   items,
   set,
+  values,
 }: {
   label: string
   items: { value: string; label: string }[]
   set: Dispatch<SetStateAction<string[] | undefined>>
+  values: string[]
 }) {
-  const [array, setArray] = useState<string[]>([])
-
-  useEffect(() => set(array), [array, set])
-
   return (
     <div className="my-4">
       <Label>{label}</Label>
@@ -33,13 +31,14 @@ export default function OptionsMultiplesCheckBoxes({
               smallMargin={true}
               key={`${label}-check-${i}`}
               label={d.label}
+              checked={values.includes(d.value)}
               onChange={(e) => {
                 if (e) {
-                  if (!array.includes(d.value)) {
-                    setArray([...array, d.value])
+                  if (!values.includes(d.value)) {
+                    set([...values, d.value])
                   }
                 } else {
-                  setArray(array.filter((x) => x !== d.value))
+                  set(values.filter((x) => x !== d.value))
                 }
               }}
             />

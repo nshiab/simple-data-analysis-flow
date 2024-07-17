@@ -5,11 +5,11 @@ import OptionsItem from "./OptionsItem"
 
 export default function OptionsInputNumber({
   label,
-  defaultValue,
+  value,
   set,
 }: {
   label: string
-  defaultValue: number
+  value: number | undefined
   set: (value: SetStateAction<number | undefined>) => void
 }) {
   return (
@@ -18,7 +18,7 @@ export default function OptionsInputNumber({
       <Input
         type="number"
         className="w-20"
-        defaultValue={defaultValue}
+        value={value}
         onChange={(e) => set(parseInt(e.target.value))}
       />
     </OptionsItem>

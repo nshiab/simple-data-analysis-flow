@@ -16,14 +16,10 @@ import Error from "../partials/Error"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
 
-const defaultNewColumn = "geom"
-
 export default function Points({ id }: { id: string }) {
-  const [lat, setLat] = useState("")
-  const [lon, setLon] = useState("")
-  const [newColumn, setNewColumn] = useState<string | undefined>(
-    defaultNewColumn
-  )
+  const [lat, setLat] = useState<string | undefined>(undefined)
+  const [lon, setLon] = useState<string | undefined>(undefined)
+  const [newColumn, setNewColumn] = useState<string>("geom")
   const [columns, setColumns] = useState<{ value: string; label: string }[]>([])
 
   const { updateNodeData } = useReactFlow()
@@ -49,6 +45,26 @@ export default function Points({ id }: { id: string }) {
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (nodeData.data.columns && typeof nodeData.data.columns === "object") {
+        //@ts-expect-error okay
+        setColumns(nodeData.data.columns)
+      }
+      if (typeof nodeData.data.lat === "string") {
+        setLat(nodeData.data.lat)
+      }
+      if (typeof nodeData.data.lon === "string") {
+        setLon(nodeData.data.lon)
+      }
+      if (typeof nodeData.data.newColumn === "string") {
+        setNewColumn(nodeData.data.newColumn)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance
@@ -57,10 +73,9 @@ export default function Points({ id }: { id: string }) {
       }
       if (
         table instanceof SimpleWebTable &&
-        lat !== "" &&
-        lon !== "" &&
-        typeof newColumn === "string" &&
-        newColumn !== ""
+        typeof lat === "string" &&
+        typeof lon === "string" &&
+        typeof newColumn === "string"
       ) {
         try {
           setLoader(true)
@@ -75,8 +90,12 @@ export default function Points({ id }: { id: string }) {
           setCode(code)
           updateNodeData(id, {
             instance: clonedTable,
-            originalTableName: originalTableName,
+            originalTableName,
             code,
+            lat,
+            lon,
+            newColumn,
+            columns,
           })
           setError(null)
           setLoader(false)
@@ -92,7 +111,7 @@ export default function Points({ id }: { id: string }) {
     }
 
     run()
-  }, [source, id, updateNodeData, lat, lon, newColumn])
+  }, [source, id, updateNodeData, lat, lon, columns, newColumn])
 
   return (
     <div>
@@ -102,7 +121,7 @@ export default function Points({ id }: { id: string }) {
         <CardHeader>
           <CardTitleWithLoader loader={loader}>Points</CardTitleWithLoader>
           <CardDescription>
-            Creates point geometries from longitude a latitude columns.
+            Creates point geometries from longitude and latitude columns.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -111,19 +130,19 @@ export default function Points({ id }: { id: string }) {
             placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLat(e)}
+            value={lat ?? ""}
           />
           <OptionsSelect
             label="Longitude"
             placeholder="Pick a column"
             items={columns}
             onChange={(e) => setLon(e)}
+            value={lon ?? ""}
           />
           <OptionsInputText
             label="New column"
-            defaultValue={defaultNewColumn}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewColumn(e.target.value)
-            }
+            value={newColumn}
+            onClick={(e: string) => setNewColumn(e)}
           />
           <Error error={error} />
         </CardContent>

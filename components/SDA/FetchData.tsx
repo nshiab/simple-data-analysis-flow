@@ -5,10 +5,8 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
-import { Input } from "../ui/input"
-import { Button } from "../ui/button"
 import Options from "../partials/Options"
 import OptionsCheckbox from "../partials/OptionsCheckbox"
 import OptionsSelect from "../partials/OptionsSelect"
@@ -21,16 +19,14 @@ import Target from "../partials/Target"
 import Source from "../partials/Source"
 
 export default function FetchData({ id }: { id: string }) {
-  const refUrl = useRef<HTMLInputElement | null>(null)
-
-  const [url, setURL] = useState<null | string>(null)
+  const [url, setURL] = useState<string | undefined>(undefined)
   const [autoDetect, setAutoDetect] = useState(true)
   const [fileType, setFileType] = useState<
     "csv" | "dsv" | "json" | "parquet" | undefined
   >(undefined)
   const [header, setHeader] = useState(true)
   const [delim, setDelim] = useState<string | undefined>(undefined)
-  const [skip, setSkip] = useState<number | undefined>(undefined)
+  const [skip, setSkip] = useState<number | undefined>(0)
 
   const { updateNodeData } = useReactFlow()
 
@@ -42,6 +38,32 @@ export default function FetchData({ id }: { id: string }) {
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.url === "string") {
+        setURL(nodeData.data.url)
+      }
+      if (typeof nodeData.data.fileType === "string") {
+        // @ts-expect-error okay
+        setFileType(nodeData.data.fileType)
+      }
+      if (typeof nodeData.data.autoDetect === "boolean") {
+        setAutoDetect(nodeData.data.autoDetect)
+      }
+      if (typeof nodeData.data.header === "boolean") {
+        setHeader(nodeData.data.header)
+      }
+      if (typeof nodeData.data.delim === "string") {
+        setDelim(nodeData.data.delim)
+      }
+      if (typeof nodeData.data.skip === "number") {
+        setSkip(nodeData.data.skip)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -71,6 +93,12 @@ await ${table.name}.loadData("${url}", {
           updateNodeData(id, {
             instance: table,
             code,
+            url,
+            fileType,
+            autoDetect,
+            header,
+            delim,
+            skip,
           })
           setError(null)
           setLoader(false)
@@ -110,38 +138,21 @@ await ${table.name}.loadData("${url}", {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center space-x-2 my-4">
-            <Input
-              ref={refUrl}
-              type="url"
-              placeholder="URL"
-              onKeyDown={(e) =>
-                e.key === "Enter" && refUrl.current
-                  ? setURL(refUrl.current.value)
-                  : null
-              }
-            />
-            <Button
-              type="button"
-              onClick={() => {
-                if (refUrl.current) {
-                  setURL(refUrl.current.value)
-                }
-              }}
-            >
-              Fetch
-            </Button>
-          </div>
+          <OptionsInputText
+            label="URL"
+            value={url ?? ""}
+            onClick={(e: string) => setURL(e)}
+          />
           <Error error={error} />
           <Options>
             <OptionsCheckbox
               label="Auto-detect"
-              defaultChecked={true}
+              checked={autoDetect}
               onChange={(e) => setAutoDetect(e)}
             />
             <OptionsSelect
               label="File type:"
-              placeholder=""
+              value={fileType ?? ""}
               items={[
                 { value: "csv", label: "CSV" },
                 { value: "dsv", label: "DSV" },
@@ -153,22 +164,16 @@ await ${table.name}.loadData("${url}", {
               }
             />
             <OptionsCheckbox
-              defaultChecked={true}
+              checked={header}
               onChange={(e) => setHeader(e)}
               label="Header"
             />
             <OptionsInputText
               label="Delimiter:"
-              defaultValue=""
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setDelim(e.target.value)
-              }
+              value={delim ?? ","}
+              onClick={(e: string) => setDelim(e)}
             />
-            <OptionsInputNumber
-              label="Skip rows:"
-              defaultValue={0}
-              set={setSkip}
-            />
+            <OptionsInputNumber label="Skip rows:" value={skip} set={setSkip} />
           </Options>
         </CardContent>
       </Card>

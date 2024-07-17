@@ -17,10 +17,10 @@ export default function OptionsSelect({
   value,
 }: {
   label: string
-  placeholder: string
+  placeholder?: string | undefined
   items: { value: any; label: any }[]
   onChange: (e: any) => void
-  value?: any
+  value: string
 }) {
   return (
     <OptionsItem>

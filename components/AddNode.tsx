@@ -8,17 +8,14 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import getId from "@/lib/getId"
 import { Node, useReactFlow } from "@xyflow/react"
 import { Dispatch, SetStateAction, useCallback } from "react"
 
-let id = 1
-
 export default function AddNode({
-  start,
   setNodes,
   children,
 }: {
-  start: number
   setNodes: Dispatch<SetStateAction<Node[]>>
   children: any
 }) {
@@ -27,7 +24,7 @@ export default function AddNode({
   const addNode = useCallback(
     (x: number, y: number, type: string) => {
       const newNode = {
-        id: `node${start + id++}`,
+        id: `random${getId()}`,
         position: screenToFlowPosition({
           x,
           y,
@@ -41,7 +38,7 @@ export default function AddNode({
       // @ts-expect-error Missing origin in type?
       setNodes((nodes) => nodes.concat(newNode))
     },
-    [setNodes, screenToFlowPosition, start]
+    [setNodes, screenToFlowPosition]
   )
 
   return (

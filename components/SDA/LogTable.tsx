@@ -40,6 +40,16 @@ export default function LogTable({ id }: { id: string }) {
   const [downloadLabel, setDownloadLabel] = useState("")
   const [loader, setLoader] = useState(false)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.nbRowsToLog === "number") {
+        setNbRowsToLog(nodeData.data.nbRowsToLog)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance
@@ -62,7 +72,11 @@ export default function LogTable({ id }: { id: string }) {
           nbRowsToLog ?? defaultNbRows
         })`
         setCode(code)
-        updateNodeData(id, { instance: table, code })
+        updateNodeData(id, {
+          instance: table,
+          code,
+          nbRowsToLog: nbRowsToLog ?? defaultNbRows,
+        })
 
         if (types.some((d) => d === "GEOMETRY")) {
           setDownloadLabel("Download as GeoJSON")
@@ -108,7 +122,7 @@ export default function LogTable({ id }: { id: string }) {
   return (
     <div>
       <Target targetReady={targetRead} />
-      <Card className="min-w-60">
+      <Card className="min-w-96">
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>
@@ -123,7 +137,7 @@ export default function LogTable({ id }: { id: string }) {
             <CardContent>
               <OptionsInputNumber
                 label="Number of rows to show:"
-                defaultValue={defaultNbRows}
+                value={nbRowsToLog}
                 set={setNbRowsToLog}
               />
               <DataTable

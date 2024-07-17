@@ -34,7 +34,7 @@ export default function LoadFile({ id }: { id: string }) {
   >(undefined)
   const [header, setHeader] = useState(true)
   const [delim, setDelim] = useState<string | undefined>(undefined)
-  const [skip, setSkip] = useState<number | undefined>(undefined)
+  const [skip, setSkip] = useState<number | undefined>(0)
 
   const { updateNodeData } = useReactFlow()
 
@@ -46,6 +46,29 @@ export default function LoadFile({ id }: { id: string }) {
   const [targetReady, setTargetReady] = useState(false)
   const [sourceReady, setSourceReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
+
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.fileType === "string") {
+        //@ts-expect-error okay
+        setFileType(nodeData.data.fileType)
+      }
+      if (typeof nodeData.data.autoDetect === "boolean") {
+        setAutoDetect(nodeData.data.autoDetect)
+      }
+      if (typeof nodeData.data.header === "boolean") {
+        setHeader(nodeData.data.header)
+      }
+      if (typeof nodeData.data.delim === "string") {
+        setDelim(nodeData.data.delim)
+      }
+      if (typeof nodeData.data.skip === "number") {
+        setSkip(nodeData.data.skip)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -107,6 +130,11 @@ await ${table.name}.loadData("${file.name}", {
           updateNodeData(id, {
             instance: table,
             code,
+            fileType,
+            autoDetect,
+            header,
+            delim,
+            skip,
           })
           setError(null)
           setLoader(false)
@@ -162,7 +190,7 @@ await ${table.name}.loadData("${file.name}", {
           <Options>
             <OptionsCheckbox
               label="Auto-detect"
-              defaultChecked={true}
+              checked={autoDetect}
               onChange={(e) => setAutoDetect(e)}
             />
             <OptionsSelect
@@ -177,24 +205,19 @@ await ${table.name}.loadData("${file.name}", {
               onChange={(e: "csv" | "dsv" | "json" | "parquet") =>
                 setFileType(e)
               }
+              value={fileType ?? ""}
             />
             <OptionsCheckbox
-              defaultChecked={true}
+              checked={header}
               onChange={(e) => setHeader(e)}
               label="Header"
             />
             <OptionsInputText
               label="Delimiter:"
-              defaultValue=""
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                setDelim(e.target.value)
-              }
+              value={delim ?? ""}
+              onClick={(e: string) => setDelim(e)}
             />
-            <OptionsInputNumber
-              label="Skip rows:"
-              defaultValue={0}
-              set={setSkip}
-            />
+            <OptionsInputNumber label="Skip rows:" value={skip} set={setSkip} />
           </Options>
         </CardContent>
       </Card>

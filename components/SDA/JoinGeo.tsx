@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
 
 import Code from "../partials/Code"
@@ -19,18 +19,18 @@ import OptionsInputNumber from "../partials/OptionsInputNumber"
 import OptionsInputText from "../partials/OptionsInputText"
 
 export default function JoinGeo({ id }: { id: string }) {
-  const [name, setName] = useState<string | undefined>(`${id}JoinGeo`)
+  const [name, setName] = useState<string>(`${id}JoinGeo`)
   const [columnsLeft, setColumnsLeft] = useState<
     { value: string; label: string }[]
   >([])
   const [columnsRight, setColumnsRight] = useState<
     { value: string; label: string }[]
   >([])
-  const [geoLeft, setGeoLeft] = useState("")
-  const [geoRight, setGeoRight] = useState("")
-  const [method, setMethod] = useState<"intersect" | "inside" | "within" | "">(
-    ""
-  )
+  const [geoLeft, setGeoLeft] = useState<string | undefined>(undefined)
+  const [geoRight, setGeoRight] = useState<string | undefined>(undefined)
+  const [method, setMethod] = useState<
+    "intersect" | "inside" | "within" | undefined
+  >(undefined)
   const [distance, setDistance] = useState<number | undefined>(undefined)
   const [distanceMethod, setDistanceMethod] = useState<
     "srs" | "haversine" | "spheroid" | undefined
@@ -78,42 +78,42 @@ export default function JoinGeo({ id }: { id: string }) {
   const [targetRightReady, setTargetRightReady] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
   useEffect(() => {
-    async function run() {
-      if (targetLeftReady) {
-        const tableLeft = sourceLeft?.data?.instance
-        if (tableLeft instanceof SimpleWebTable) {
-          const types = await tableLeft.getTypes()
-          for (const key of Object.keys(types)) {
-            if (types[key] === "GEOMETRY") {
-              setGeoLeft(key)
-              break
-            }
-          }
-        }
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.method === "string") {
+        //@ts-ignore okay
+        setMethod(nodeData.data.method)
       }
-      if (targetRightReady) {
-        const tableRight = sourceRight?.data?.instance
-        if (tableRight instanceof SimpleWebTable) {
-          const types = await tableRight.getTypes()
-          for (const key of Object.keys(types)) {
-            if (types[key] === "GEOMETRY") {
-              setGeoRight(key)
-              break
-            }
-          }
-        }
+      if (typeof nodeData.data.outputTable === "string") {
+        setName(nodeData.data.outputTable)
       }
+      if (typeof nodeData.data.geoLeft === "string") {
+        setGeoLeft(nodeData.data.geoLeft)
+      }
+      if (typeof nodeData.data.geoRight === "string") {
+        setGeoRight(nodeData.data.geoRight)
+      }
+      if (typeof nodeData.data.distance === "number") {
+        setDistance(nodeData.data.distance)
+      }
+      if (typeof nodeData.data.distanceMethod === "string") {
+        //@ts-expect-error okay
+        setDistanceMethod(nodeData.data.distanceMethod)
+      }
+      if (typeof nodeData.data.joinType === "string") {
+        //@ts-expect-error okay
+        setJoinType(nodeData.data.joinType)
+      }
+      if (Array.isArray(nodeData.data.columnsLeft)) {
+        setColumnsLeft(nodeData.data.columnsLeft)
+      }
+      if (Array.isArray(nodeData.data.columnsRight)) {
+        setColumnsRight(nodeData.data.columnsRight)
+      }
+      nodeData.data.imported = false
     }
-    run()
-  }, [
-    targetLeftReady,
-    targetRightReady,
-    setGeoRight,
-    setGeoLeft,
-    sourceLeft,
-    sourceRight,
-  ])
+  }, [nodeData])
 
   useEffect(() => {
     async function run() {
@@ -128,20 +128,14 @@ export default function JoinGeo({ id }: { id: string }) {
       if (
         tableLeft instanceof SimpleWebTable &&
         tableRight instanceof SimpleWebTable &&
-        geoLeft !== "" &&
-        geoRight !== "" &&
-        method !== ""
+        typeof geoLeft === "string" &&
+        typeof geoRight === "string" &&
+        (await tableLeft.hasColumn(geoLeft)) &&
+        (await tableRight.hasColumn(geoRight)) &&
+        typeof method === "string"
       ) {
         try {
           setLoader(true)
-          const outputTable = await tableLeft.joinGeo(tableRight, method, {
-            leftTableColumn: geoLeft,
-            rightTableColumn: geoRight,
-            distance,
-            distanceMethod,
-            type: joinType,
-            outputTable: name,
-          })
 
           const originalTableLeftName =
             sourceLeft?.data?.originalTableName ?? tableLeft.name
@@ -158,10 +152,29 @@ export default function JoinGeo({ id }: { id: string }) {
   outputTable: "${name}",
 })`
           setCode(code)
+
+          const outputTable = await tableLeft.joinGeo(tableRight, method, {
+            leftTableColumn: geoLeft,
+            rightTableColumn: geoRight,
+            distance,
+            distanceMethod,
+            type: joinType,
+            outputTable: name,
+          })
+
           updateNodeData(id, {
             instance: outputTable,
             originalTableName: name,
             code,
+            method,
+            outputTable: name,
+            geoLeft,
+            geoRight,
+            distance,
+            distanceMethod,
+            joinType,
+            columnsLeft,
+            columnsRight,
           })
           setError(null)
           setLoader(false)
@@ -189,6 +202,8 @@ export default function JoinGeo({ id }: { id: string }) {
     distanceMethod,
     joinType,
     name,
+    columnsLeft,
+    columnsRight,
   ])
 
   return (
@@ -208,28 +223,27 @@ export default function JoinGeo({ id }: { id: string }) {
         <CardContent>
           <OptionsInputText
             label="Table name"
-            defaultValue={`${id}JoinGeo`}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
+            value={name}
+            onClick={(e: string) => setName(e)}
           />
           <OptionsSelect
             label="Left geometries"
             placeholder="Pick a column"
             items={columnsLeft}
             onChange={(e) => setGeoLeft(e)}
-            value={geoLeft}
+            value={geoLeft ?? ""}
           />
           <OptionsSelect
             label="Right geometries"
             placeholder="Pick a column"
             items={columnsRight}
             onChange={(e) => setGeoRight(e)}
-            value={geoRight}
+            value={geoRight ?? ""}
           />
           <OptionsSelect
             label="Method:"
             placeholder="Pick a method"
+            value={method ?? ""}
             items={[
               { value: "intersect", label: "Intersect" },
               { value: "inside", label: "Inside" },
@@ -241,12 +255,12 @@ export default function JoinGeo({ id }: { id: string }) {
           <Options>
             <OptionsInputNumber
               label={"Distance (for method Within):"}
-              defaultValue={0}
+              value={distance ?? 0}
               set={setDistance}
             />
             <OptionsSelect
               label="Distance method (if Haversine or Spheroid, the distance unit is meter):"
-              placeholder="SRS"
+              value={distanceMethod ?? ""}
               items={[
                 { value: "SRS", label: "SRS" },
                 { value: "haversine", label: "Haversine" },
@@ -256,7 +270,7 @@ export default function JoinGeo({ id }: { id: string }) {
             />
             <OptionsSelect
               label="Join type"
-              placeholder="Left"
+              value={joinType ?? ""}
               items={[
                 { value: "left", label: "Left" },
                 { value: "inner", label: "Inner" },

@@ -13,8 +13,6 @@ import CardTitleWithLoader from "../partials/CardTitleWithLoader"
 import Error from "../partials/Error"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
-import OptionsMultipleInputText from "../partials/OptionsMultipleInputText"
-import OptionsInputText from "../partials/OptionsInputText"
 import OptionsSelect from "../partials/OptionsSelect"
 
 export default function Sort({ id }: { id: string }) {
@@ -47,13 +45,31 @@ export default function Sort({ id }: { id: string }) {
   const [loader, setLoader] = useState(false)
   const [error, setError] = useState<null | string>(null)
 
+  const nodeData = useNodesData(id)
+  useEffect(() => {
+    if (nodeData?.data.imported) {
+      if (typeof nodeData.data.columnToSort === "string") {
+        setColumnToSort(nodeData.data.columnToSort)
+      }
+      if (typeof nodeData.data.order === "string") {
+        //@ts-expect-error okay
+        setOrder(nodeData.data.order)
+      }
+      nodeData.data.imported = false
+    }
+  }, [nodeData])
+
   useEffect(() => {
     async function run() {
       const table = source?.data?.instance
       if (table instanceof SimpleWebTable) {
         setTargetReady(true)
       }
-      if (table instanceof SimpleWebTable && typeof columnToSort === "string") {
+      if (
+        table instanceof SimpleWebTable &&
+        typeof columnToSort === "string" &&
+        typeof order === "string"
+      ) {
         try {
           setLoader(true)
           const clonedTable = await table.cloneTable({
@@ -73,6 +89,8 @@ export default function Sort({ id }: { id: string }) {
             instance: clonedTable,
             originalTableName: originalTableName,
             code,
+            columnToSort,
+            order,
           })
           setError(null)
           setLoader(false)
@@ -105,12 +123,13 @@ export default function Sort({ id }: { id: string }) {
           <OptionsSelect
             label="Column"
             placeholder="Pick a column"
+            value={columnToSort ?? ""}
             onChange={(e) => setColumnToSort(e)}
             items={columns}
           />
           <OptionsSelect
             label="Order"
-            placeholder="Ascending"
+            value={order}
             onChange={(e) => setOrder(e)}
             items={[
               { value: "asc", label: "Ascending" },
