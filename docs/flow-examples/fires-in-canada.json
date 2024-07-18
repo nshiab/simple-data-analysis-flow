@@ -1,7 +1,7 @@
 {
   "nodes": [
     {
-      "id": "node_6TLrcJ",
+      "id": "node_vKcRlg",
       "type": "SDB",
       "position": { "x": 0, "y": 0 },
       "data": {
@@ -16,7 +16,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -25,7 +25,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -39,9 +39,9 @@
       "measured": { "width": 271, "height": 105 }
     },
     {
-      "id": "node_Ae2Br5",
+      "id": "node_j1Y3XB",
       "type": "ST",
-      "position": { "x": -333.66701485941314, "y": 147.94444192130857 },
+      "position": { "x": -50, "y": 150 },
       "data": {
         "instance": {
           "nbRowsToLog": 10,
@@ -49,8 +49,8 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "dailyTemp",
-          "projections": {},
+          "name": "fires",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -62,7 +62,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -71,7 +71,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -82,7 +82,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -91,308 +91,24 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "name": "dailyTemp",
-        "code": "const dailyTemp = sdb.newTable(\"dailyTemp\");",
+        "name": "fires",
+        "code": "const fires = sdb.newTable(\"fires\");",
         "imported": false
       },
       "origin": [0.5, 0],
       "measured": { "width": 378, "height": 206 },
-      "selected": false,
-      "dragging": false
+      "selected": false
     },
     {
-      "id": "random8bDLiQ",
-      "position": { "x": -249.91250782694124, "y": 452.49978441638973 },
-      "type": "LoadFile",
-      "data": {
-        "instance": {
-          "nbRowsToLog": 10,
-          "debug": false,
-          "worker": null,
-          "tableIncrement": 1,
-          "defaultTableName": false,
-          "name": "dailyTemp",
-          "projections": {},
-          "sdb": {
-            "nbRowsToLog": 10,
-            "debug": false,
-            "worker": {},
-            "tableIncrement": 1,
-            "defaultTableName": false,
-            "cacheSourcesUsed": [],
-            "db": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "connection": {
-              "_bindings": {
-                "_onInstantiationProgress": [],
-                "_worker": {},
-                "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
-                "_pendingRequests": {},
-                "_logger": {}
-              },
-              "_conn": 3514336
-            }
-          },
-          "db": {
-            "_onInstantiationProgress": [],
-            "_worker": {},
-            "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
-            "_pendingRequests": {},
-            "_logger": {}
-          },
-          "connection": {
-            "_bindings": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "_conn": 3514336
-          }
-        },
-        "code": "// More options available. Check documentation.\nawait dailyTemp.loadData(\"dailyTemperatures.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});",
-        "autoDetect": true,
-        "header": true,
-        "skip": 0,
-        "imported": false
-      },
-      "origin": [0.5, 0],
-      "measured": { "width": 382, "height": 262 },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "randomQDmZUV",
-      "position": { "x": -312.8372471137096, "y": 791.372315609399 },
-      "type": "AddColumn",
-      "data": {
-        "instance": {
-          "nbRowsToLog": 10,
-          "debug": false,
-          "worker": null,
-          "tableIncrement": 1,
-          "defaultTableName": false,
-          "name": "randomQDmZUV",
-          "projections": {},
-          "sdb": {
-            "nbRowsToLog": 10,
-            "debug": false,
-            "worker": {},
-            "tableIncrement": 1,
-            "defaultTableName": false,
-            "cacheSourcesUsed": [],
-            "db": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "connection": {
-              "_bindings": {
-                "_onInstantiationProgress": [],
-                "_worker": {},
-                "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
-                "_pendingRequests": {},
-                "_logger": {}
-              },
-              "_conn": 3514336
-            }
-          },
-          "db": {
-            "_onInstantiationProgress": [],
-            "_worker": {},
-            "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
-            "_pendingRequests": {},
-            "_logger": {}
-          },
-          "connection": {
-            "_bindings": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "_conn": 3514336
-          }
-        },
-        "originalTableName": "dailyTemp",
-        "code": "await dailyTemp.addColumn(\"decade\", \"number\", `FLOOR(YEAR(time)/10)*10\n`);",
-        "newColumn": "decade",
-        "dataType": "number",
-        "definition": "FLOOR(YEAR(time)/10)*10\n",
-        "imported": false
-      },
-      "origin": [0.5, 0],
-      "measured": { "width": 422, "height": 406 },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "randomwv8BF2",
-      "position": { "x": -477.3224775071142, "y": 1287.162287202608 },
-      "type": "LogTable",
-      "data": {
-        "instance": {
-          "nbRowsToLog": 10,
-          "debug": false,
-          "worker": null,
-          "tableIncrement": 1,
-          "defaultTableName": false,
-          "name": "randomQDmZUV",
-          "projections": {},
-          "sdb": {
-            "nbRowsToLog": 10,
-            "debug": false,
-            "worker": {},
-            "tableIncrement": 1,
-            "defaultTableName": false,
-            "cacheSourcesUsed": [],
-            "db": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "connection": {
-              "_bindings": {
-                "_onInstantiationProgress": [],
-                "_worker": {},
-                "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
-                "_pendingRequests": {},
-                "_logger": {}
-              },
-              "_conn": 3514336
-            }
-          },
-          "db": {
-            "_onInstantiationProgress": [],
-            "_worker": {},
-            "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
-            "_pendingRequests": {},
-            "_logger": {}
-          },
-          "connection": {
-            "_bindings": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "_conn": 3514336
-          }
-        },
-        "code": "await dailyTemp.logTable(5)",
-        "nbRowsToLog": 5,
-        "imported": false
-      },
-      "origin": [0.5, 0],
-      "measured": { "width": 540, "height": 590 },
-      "selected": false,
-      "dragging": false
-    },
-    {
-      "id": "randomwcphSK",
-      "position": { "x": 389.8327807665834, "y": 454.77726810433705 },
-      "type": "LoadFile",
-      "data": {
-        "instance": {
-          "nbRowsToLog": 10,
-          "debug": false,
-          "worker": null,
-          "tableIncrement": 1,
-          "defaultTableName": false,
-          "name": "cities",
-          "projections": {},
-          "sdb": {
-            "nbRowsToLog": 10,
-            "debug": false,
-            "worker": {},
-            "tableIncrement": 1,
-            "defaultTableName": false,
-            "cacheSourcesUsed": [],
-            "db": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "connection": {
-              "_bindings": {
-                "_onInstantiationProgress": [],
-                "_worker": {},
-                "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
-                "_pendingRequests": {},
-                "_logger": {}
-              },
-              "_conn": 3514336
-            }
-          },
-          "db": {
-            "_onInstantiationProgress": [],
-            "_worker": {},
-            "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
-            "_pendingRequests": {},
-            "_logger": {}
-          },
-          "connection": {
-            "_bindings": {
-              "_onInstantiationProgress": [],
-              "_worker": {},
-              "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
-              "_pendingRequests": {},
-              "_logger": {}
-            },
-            "_conn": 3514336
-          }
-        },
-        "code": "// More options available. Check documentation.\nawait cities.loadData(\"cities.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});",
-        "autoDetect": true,
-        "header": true,
-        "skip": 0,
-        "imported": false
-      },
-      "origin": [0.5, 0],
-      "measured": { "width": 382, "height": 262 },
-      "selected": true,
-      "dragging": false
-    },
-    {
-      "id": "randomUlC2Gm",
-      "position": { "x": 316.7775406030084, "y": 181.61100261626973 },
+      "id": "randomfTbCxm",
+      "position": { "x": 371.9466142303766, "y": 170.24913810249654 },
       "type": "ST",
       "data": {
         "instance": {
@@ -401,8 +117,8 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "cities",
-          "projections": {},
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -414,7 +130,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -423,7 +139,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -434,7 +150,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -443,15 +159,15 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "name": "cities",
-        "code": "const cities = sdb.newTable(\"cities\");",
+        "name": "provinces",
+        "code": "const provinces = sdb.newTable(\"provinces\");",
         "imported": false
       },
       "origin": [0.5, 0],
@@ -460,8 +176,148 @@
       "dragging": false
     },
     {
-      "id": "randomOwAPFJ",
-      "position": { "x": 728.7225275216593, "y": 831.3882707206069 },
+      "id": "random04NW4y",
+      "position": { "x": -260.36969097995654, "y": 415.6084953342537 },
+      "type": "FetchData",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "fires",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 176,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 176,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// More options available. Check documentation.\nawait fires.loadData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: undefined,\n});",
+        "url": "https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv",
+        "autoDetect": true,
+        "header": true,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 423, "height": 262 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random4lzgff",
+      "position": { "x": 495.2497134526524, "y": 491.1475311818891 },
+      "type": "FetchGeoData",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 176,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 176,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// For front-end projects, use fetchGeoData. \nawait provinces.loadGeoData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json\");",
+        "url": "https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 366, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random2t5C7r",
+      "position": { "x": 733.674573452018, "y": 757.7709792339921 },
       "type": "LogTable",
       "data": {
         "instance": {
@@ -470,8 +326,8 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "cities",
-          "projections": {},
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -483,7 +339,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -492,7 +348,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -503,7 +359,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -512,26 +368,26 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "code": "await cities.logTable(5)",
+        "code": "await provinces.logTable(5)",
         "nbRowsToLog": 5,
         "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 384, "height": 484 },
+      "measured": { "width": 392, "height": 325 },
       "selected": false,
       "dragging": false
     },
     {
-      "id": "random7KNXY6",
-      "position": { "x": 249.45149884148967, "y": 1035.0786662510275 },
-      "type": "Join",
+      "id": "randomJG2JSD",
+      "position": { "x": -465.74258781001663, "y": 739.5049414599889 },
+      "type": "Points",
       "data": {
         "instance": {
           "nbRowsToLog": 10,
@@ -539,8 +395,8 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "citiesTemp",
-          "projections": {},
+          "name": "randomJG2JSD",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -552,7 +408,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -561,7 +417,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -572,7 +428,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -581,27 +437,104 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "originalTableName": "citiesTemp",
-        "code": "const citiesTemp = await dailyTemp.join(cities, {\n  commonColumn: \"id\",\n  type: \"left\",\n  outputTable: \"citiesTemp\",\n})",
-        "commonColumn": "id",
-        "outputTable": "citiesTemp",
+        "originalTableName": "fires",
+        "code": "await fires.points(\"lat\", \"lon\", \"geom\");",
+        "lat": "lat",
+        "lon": "lon",
+        "newColumn": "geom",
+        "columns": [
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" }
+        ],
         "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 416, "height": 318 },
+      "measured": { "width": 463, "height": 318 },
       "selected": false,
       "dragging": false
     },
     {
-      "id": "randomtbBKnU",
-      "position": { "x": 116.27715330941908, "y": 1437.7380643197125 },
+      "id": "randompG00ia",
+      "position": { "x": -586.4167117320112, "y": 1166.5044585522405 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomJG2JSD",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 176,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 176,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await fires.logTable(5)",
+        "nbRowsToLog": 5,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 672, "height": 590 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomSF1TA2",
+      "position": { "x": 216.95202732398027, "y": 1404.9060593317158 },
       "type": "Summarize",
       "data": {
         "instance": {
@@ -610,8 +543,11 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "decadeTemp",
-          "projections": {},
+          "name": "firesSummary",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -623,7 +559,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -632,7 +568,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -643,7 +579,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -652,39 +588,42 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "originalTableName": "decadeTemp",
-        "code": "const decadeTemp = await citiesTemp.summarize({\n  values: [\"t\"],\n  categories: [\"city\",\"decade\"],\n  summaries: [\"count\",\"mean\"],\n  decimals: 2,\n  outputTable: \"decadeTemp\",\n});",
-        "outputTable": "decadeTemp",
-        "values": ["t"],
-        "categories": ["city", "decade"],
-        "summaries": ["count", "mean"],
-        "decimals": 2,
+        "originalTableName": "firesSummary",
+        "code": "const firesSummary = await randomgDqDDBJoinGeo.summarize({\n  values: [\"hectares\"],\n  categories: [\"nameEnglish\"],\n  summaries: [\"count\",\"sum\"],\n  decimals: 0,\n  outputTable: \"firesSummary\",\n});",
+        "outputTable": "firesSummary",
+        "values": ["hectares"],
+        "categories": ["nameEnglish"],
+        "summaries": ["count", "sum"],
+        "decimals": 0,
         "columns": [
-          { "value": "time", "label": "time" },
-          { "value": "t", "label": "t" },
-          { "value": "id", "label": "id" },
-          { "value": "decade", "label": "decade" },
-          { "value": "id:1", "label": "id:1" },
-          { "value": "city", "label": "city" }
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" },
+          { "value": "geomRandomJG2JSD", "label": "geomRandomJG2JSD" },
+          { "value": "nameEnglish", "label": "nameEnglish" },
+          { "value": "nameFrench", "label": "nameFrench" },
+          { "value": "geomProvinces", "label": "geomProvinces" }
         ],
         "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 448, "height": 558 },
+      "measured": { "width": 448, "height": 718 },
       "selected": false,
       "dragging": false
     },
     {
-      "id": "randomERrNk5",
-      "position": { "x": 674.8955521889357, "y": 1437.2024623816474 },
-      "type": "Filter",
+      "id": "randomgDqDDB",
+      "position": { "x": 111.46725328604344, "y": 841.5939352934918 },
+      "type": "JoinGeo",
       "data": {
         "instance": {
           "nbRowsToLog": 10,
@@ -692,8 +631,11 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "randomERrNk5",
-          "projections": {},
+          "name": "randomgDqDDBJoinGeo",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -705,7 +647,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -714,7 +656,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -725,7 +667,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -734,27 +676,42 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "originalTableName": "decadeTemp",
-        "code": "await decadeTemp.filter(`count > 365*10*0.7`);",
-        "definition": "count > 365*10*0.7",
+        "originalTableName": "randomgDqDDBJoinGeo",
+        "code": "const randomgDqDDBJoinGeo = await fires.joinGeo(provinces, \"inside\", {\n  leftTableColumn: \"geom\",\n  rightTableColumn: \"geom\",\n  distance: undefined,\n  distanceMethod: undefined,\n  type: \"left\",\n  outputTable: \"randomgDqDDBJoinGeo\",\n})",
+        "method": "inside",
+        "outputTable": "randomgDqDDBJoinGeo",
+        "geoLeft": "geom",
+        "geoRight": "geom",
+        "columnsLeft": [
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" }
+        ],
+        "columnsRight": [
+          { "value": "nameEnglish", "label": "nameEnglish" },
+          { "value": "nameFrench", "label": "nameFrench" },
+          { "value": "geom", "label": "geom" }
+        ],
         "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 361, "height": 294 },
+      "measured": { "width": 416, "height": 430 },
       "selected": false,
       "dragging": false
     },
     {
-      "id": "randomMyvdjE",
-      "position": { "x": 687.6847350419075, "y": 1806.9359190912842 },
-      "type": "LinearRegressions",
+      "id": "randomaWKJaH",
+      "position": { "x": 768.5868547494927, "y": 1503.876657351383 },
+      "type": "RenameColumns",
       "data": {
         "instance": {
           "nbRowsToLog": 10,
@@ -762,8 +719,11 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "trends",
-          "projections": {},
+          "name": "randomaWKJaH",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -775,7 +735,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -784,7 +744,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -795,7 +755,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -804,37 +764,32 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "originalTableName": "trends",
-        "code": "const trends = await decadeTemp.linearRegressions({\n  x: \"decade\",\n  y: \"mean\",\n  categories: [\"city\"],\n  decimals: 4,\n  outputTable: \"trends\",\n});",
-        "x": "decade",
-        "y": "mean",
-        "categories": ["city"],
-        "decimals": 4,
-        "outputTable": "trends",
-        "imported": false,
+        "originalTableName": "firesSummary",
+        "code": "await firesSummary.renameColumns({\"count\":\"nbFires\",\"sum\":\"areaBurnt\"});",
+        "columnsToRename": { "count": "nbFires", "sum": "areaBurnt" },
         "columns": [
-          { "value": "value", "label": "value" },
-          { "value": "city", "label": "city" },
-          { "value": "decade", "label": "decade" },
-          { "value": "count", "label": "count" },
-          { "value": "mean", "label": "mean" }
-        ]
+          { "label": "value", "defaultValue": "value" },
+          { "label": "nameEnglish", "defaultValue": "nameEnglish" },
+          { "label": "count", "defaultValue": "count" },
+          { "label": "sum", "defaultValue": "sum" }
+        ],
+        "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 448, "height": 466 },
+      "measured": { "width": 424, "height": 374 },
       "selected": false,
       "dragging": false
     },
     {
-      "id": "random2fvAoo",
-      "position": { "x": -69.22760752008492, "y": 2072.65083072377 },
+      "id": "randomqXBzhp",
+      "position": { "x": 139.18249618791117, "y": 2278.5693209472333 },
       "type": "LogTable",
       "data": {
         "instance": {
@@ -843,8 +798,11 @@
           "worker": null,
           "tableIncrement": 1,
           "defaultTableName": false,
-          "name": "trends",
-          "projections": {},
+          "name": "random2AULYj",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
           "sdb": {
             "nbRowsToLog": 10,
             "debug": false,
@@ -856,7 +814,7 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
@@ -865,7 +823,7 @@
                 "_onInstantiationProgress": [],
                 "_worker": {},
                 "_workerShutdownPromise": {},
-                "_nextMessageId": 51,
+                "_nextMessageId": 176,
                 "_pendingRequests": {},
                 "_logger": {}
               },
@@ -876,7 +834,7 @@
             "_onInstantiationProgress": [],
             "_worker": {},
             "_workerShutdownPromise": {},
-            "_nextMessageId": 51,
+            "_nextMessageId": 176,
             "_pendingRequests": {},
             "_logger": {}
           },
@@ -885,115 +843,188 @@
               "_onInstantiationProgress": [],
               "_worker": {},
               "_workerShutdownPromise": {},
-              "_nextMessageId": 51,
+              "_nextMessageId": 176,
               "_pendingRequests": {},
               "_logger": {}
             },
             "_conn": 3514336
           }
         },
-        "code": "await trends.logTable(5)",
-        "nbRowsToLog": 5,
+        "code": "await firesSummary.logTable(13)",
+        "nbRowsToLog": 13,
         "imported": false
       },
       "origin": [0.5, 0],
-      "measured": { "width": 645, "height": 484 },
+      "measured": { "width": 551, "height": 1014 },
+      "selected": true,
+      "dragging": false
+    },
+    {
+      "id": "random2AULYj",
+      "position": { "x": 879.9350936238611, "y": 1974.1263386012283 },
+      "type": "Sort",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "random2AULYj",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 176,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 176,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 176,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "firesSummary",
+        "code": "await firesSummary.sort({\"areaBurnt\":\"desc\"});",
+        "columnToSort": "areaBurnt",
+        "order": "desc"
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 353, "height": 262 },
       "selected": false,
       "dragging": false
     }
   ],
   "edges": [
-    { "id": "edge_KL8Urm", "source": "node_6TLrcJ", "target": "node_Ae2Br5" },
+    { "id": "edge_ISZEuq", "source": "node_vKcRlg", "target": "node_j1Y3XB" },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "node_Ae2Br5",
-      "target": "random8bDLiQ",
-      "id": "xy-edge__node_Ae2Br5-random8bDLiQ"
+      "source": "node_vKcRlg",
+      "target": "randomfTbCxm",
+      "id": "xy-edge__node_vKcRlg-randomfTbCxm"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "random8bDLiQ",
-      "target": "randomQDmZUV",
-      "id": "xy-edge__random8bDLiQ-randomQDmZUV"
+      "source": "randomfTbCxm",
+      "target": "random4lzgff",
+      "id": "xy-edge__randomfTbCxm-random4lzgff"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomQDmZUV",
-      "target": "randomwv8BF2",
-      "id": "xy-edge__randomQDmZUV-randomwv8BF2"
+      "source": "node_j1Y3XB",
+      "target": "random04NW4y",
+      "id": "xy-edge__node_j1Y3XB-random04NW4y"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "node_6TLrcJ",
-      "target": "randomUlC2Gm",
-      "id": "xy-edge__node_6TLrcJ-randomUlC2Gm"
+      "source": "random4lzgff",
+      "target": "random2t5C7r",
+      "id": "xy-edge__random4lzgff-random2t5C7r"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomUlC2Gm",
-      "target": "randomwcphSK",
-      "id": "xy-edge__randomUlC2Gm-randomwcphSK"
+      "source": "random04NW4y",
+      "target": "randomJG2JSD",
+      "id": "xy-edge__random04NW4y-randomJG2JSD"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomwcphSK",
-      "target": "randomOwAPFJ",
-      "id": "xy-edge__randomwcphSK-randomOwAPFJ"
+      "source": "randomJG2JSD",
+      "target": "randompG00ia",
+      "id": "xy-edge__randomJG2JSD-randompG00ia"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomQDmZUV",
-      "target": "random7KNXY6",
+      "source": "randomJG2JSD",
+      "target": "randomgDqDDB",
       "targetHandle": "left",
-      "id": "xy-edge__randomQDmZUV-random7KNXY6left"
+      "id": "xy-edge__randomJG2JSD-randomgDqDDBleft"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomwcphSK",
-      "target": "random7KNXY6",
+      "source": "random4lzgff",
+      "target": "randomgDqDDB",
       "targetHandle": "right",
-      "id": "xy-edge__randomwcphSK-random7KNXY6right"
+      "id": "xy-edge__random4lzgff-randomgDqDDBright"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "random7KNXY6",
-      "target": "randomtbBKnU",
-      "id": "xy-edge__random7KNXY6-randomtbBKnU"
+      "source": "randomgDqDDB",
+      "target": "randomSF1TA2",
+      "id": "xy-edge__randomgDqDDB-randomSF1TA2"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomtbBKnU",
-      "target": "randomERrNk5",
-      "id": "xy-edge__randomtbBKnU-randomERrNk5"
+      "source": "randomSF1TA2",
+      "target": "randomaWKJaH",
+      "id": "xy-edge__randomSF1TA2-randomaWKJaH"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomERrNk5",
-      "target": "randomMyvdjE",
-      "id": "xy-edge__randomERrNk5-randomMyvdjE"
+      "source": "randomaWKJaH",
+      "target": "random2AULYj",
+      "id": "xy-edge__randomaWKJaH-random2AULYj"
     },
     {
       "type": "smoothstep",
       "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
-      "source": "randomMyvdjE",
-      "target": "random2fvAoo",
-      "id": "xy-edge__randomMyvdjE-random2fvAoo"
+      "source": "random2AULYj",
+      "target": "randomqXBzhp",
+      "id": "xy-edge__random2AULYj-randomqXBzhp"
     }
   ],
   "viewport": {
-    "x": 581.2170908068495,
-    "y": -306.5887835946037,
-    "zoom": 0.4143058526191176
+    "x": 616.4680221983921,
+    "y": -505.75499889322236,
+    "zoom": 0.39595291242014824
   }
 }
