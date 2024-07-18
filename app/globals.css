@@ -23,7 +23,7 @@ code .line::before {
   color: rgba(115, 138, 148, 0.4);
 }
 
-.react-flow__nodes .selected > div > div {
+.react-flow__nodes .selected > div > div:not(.flex) {
   border: 1px solid black;
 }
 

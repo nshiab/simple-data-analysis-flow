@@ -78,11 +78,6 @@ export default function AddNode({
               Add column
             </ContextMenuItem>
             <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Filter")}
-            >
-              Filter
-            </ContextMenuItem>
-            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Join")}
             >
               Join
@@ -91,6 +86,23 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "RenameColumns")}
             >
               Rename columns
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
+            >
+              Sort
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>
+            Selecting or filtering data
+          </ContextMenuSubTrigger>
+          <ContextMenuSubContent className="w-48">
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Filter")}
+            >
+              Filter
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -103,11 +115,6 @@ export default function AddNode({
               }
             >
               Linear regression
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
-            >
-              Sort
             </ContextMenuItem>
             <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
