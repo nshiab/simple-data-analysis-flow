@@ -130,6 +130,11 @@ export default function AddNode({
           <ContextMenuSubTrigger>Analyzing data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Describe")}
+            >
+              Describe
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) =>
                 addNode(e.clientX, e.clientY, "LinearRegressions")
               }

@@ -68,7 +68,7 @@ export default function CleanColumnNames({ id }: { id: string }) {
   return (
     <div>
       <Target targetReady={targetReady} />
-      <Card>
+      <Card className="max-w-80">
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>
