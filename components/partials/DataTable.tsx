@@ -17,8 +17,8 @@ export default function DataTable({
 }: {
   data: { [key: string]: string | number | Date | boolean | null }[]
   columns: string[]
-  types: string[]
-  nbRows: number
+  types?: string[]
+  nbRows?: number
 }) {
   return (
     <Table>
@@ -27,7 +27,7 @@ export default function DataTable({
           {columns.map((d, i) => (
             <TableHead key={i} className="pb-4">
               <div>{d}</div>
-              <div>{types[i]}</div>
+              {types && <div>{types[i]}</div>}
             </TableHead>
           ))}
         </TableRow>

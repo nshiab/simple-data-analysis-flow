@@ -15,6 +15,11 @@ import LinearRegressions from "./SDA/LinearRegressions"
 import LoadFile from "./SDA/LoadFile"
 import LoadGeoFile from "./SDA/LoadGeoFile"
 import Note from "./SDA/Note"
+import SelectColumns from "./SDA/SelectColumns"
+import Longer from "./SDA/Longer"
+import Wider from "./SDA/Wider"
+import CleanColumnNames from "./SDA/CleanColumnNames"
+import Describe from "./SDA/Describe"
 
 const nodeTypes = {
   SDB: SDB,
@@ -34,6 +39,11 @@ const nodeTypes = {
   Join: Join,
   LinearRegressions: LinearRegressions,
   Note: Note,
+  SelectColumns: SelectColumns,
+  Longer: Longer,
+  Wider: Wider,
+  CleanColumnNames: CleanColumnNames,
+  Describe: Describe,
 }
 
 export default nodeTypes

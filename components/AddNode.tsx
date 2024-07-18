@@ -78,9 +78,9 @@ export default function AddNode({
               Add column
             </ContextMenuItem>
             <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Filter")}
+              onClick={(e) => addNode(e.clientX, e.clientY, "CleanColumnNames")}
             >
-              Filter
+              Clean column names
             </ContextMenuItem>
             <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Join")}
@@ -88,9 +88,41 @@ export default function AddNode({
               Join
             </ContextMenuItem>
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Longer")}
+            >
+              Longer
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "RenameColumns")}
             >
               Rename columns
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "SelectColumns")}
+            >
+              Select columns
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
+            >
+              Sort
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Wider")}
+            >
+              Wider
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>
+            Selecting or filtering data
+          </ContextMenuSubTrigger>
+          <ContextMenuSubContent className="w-48">
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Filter")}
+            >
+              Filter
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -98,16 +130,16 @@ export default function AddNode({
           <ContextMenuSubTrigger>Analyzing data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Describe")}
+            >
+              Describe
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) =>
                 addNode(e.clientX, e.clientY, "LinearRegressions")
               }
             >
               Linear regression
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
-            >
-              Sort
             </ContextMenuItem>
             <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
