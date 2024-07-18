@@ -23,6 +23,10 @@ code .line::before {
   color: rgba(115, 138, 148, 0.4);
 }
 
+.react-flow__nodes .selected > div > div {
+  border: 1px solid black;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
