@@ -17,6 +17,7 @@ import LoadGeoFile from "./SDA/LoadGeoFile"
 import Note from "./SDA/Note"
 import SelectColumns from "./SDA/SelectColumns"
 import Longer from "./SDA/Longer"
+import Wider from "./SDA/Wider"
 
 const nodeTypes = {
   SDB: SDB,
@@ -38,6 +39,7 @@ const nodeTypes = {
   Note: Note,
   SelectColumns: SelectColumns,
   Longer: Longer,
+  Wider: Wider,
 }
 
 export default nodeTypes

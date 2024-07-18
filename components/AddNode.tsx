@@ -102,6 +102,11 @@ export default function AddNode({
             >
               Sort
             </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Wider")}
+            >
+              Wider
+            </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSub>
