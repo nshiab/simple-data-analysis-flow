@@ -18,6 +18,7 @@ import Note from "./SDA/Note"
 import SelectColumns from "./SDA/SelectColumns"
 import Longer from "./SDA/Longer"
 import Wider from "./SDA/Wider"
+import CleanColumnNames from "./SDA/CleanColumnNames"
 
 const nodeTypes = {
   SDB: SDB,
@@ -40,6 +41,7 @@ const nodeTypes = {
   SelectColumns: SelectColumns,
   Longer: Longer,
   Wider: Wider,
+  CleanColumnNames: CleanColumnNames,
 }
 
 export default nodeTypes
