@@ -1,4 +1,4 @@
-import getId from "@/lib/getId"
+import { getId } from "journalism"
 import { Edge, Node } from "@xyflow/react"
 
 const dbId = `node_${getId()}`

@@ -20,7 +20,7 @@ import AllCode from "./partials/AllCode"
 
 import { initialNodes, initialEdges } from "./initialState"
 import nodeTypes from "./nodeTypes"
-import SaveImport from "./partials/SaveImport"
+import { MenuBar } from "./partials/MenuBar"
 
 export default function SimpleFlow() {
   const [rfInstance, setRfInstance] = useState<ReactFlowInstance>()
@@ -68,7 +68,7 @@ export default function SimpleFlow() {
   return (
     height !== "0" && (
       <>
-        <SaveImport
+        <MenuBar
           rfInstance={rfInstance}
           setNodes={setNodes}
           setEdges={setEdges}

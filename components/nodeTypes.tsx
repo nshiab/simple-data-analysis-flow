@@ -14,6 +14,7 @@ import Join from "./SDA/Join"
 import LinearRegressions from "./SDA/LinearRegressions"
 import LoadFile from "./SDA/LoadFile"
 import LoadGeoFile from "./SDA/LoadGeoFile"
+import Note from "./SDA/Note"
 
 const nodeTypes = {
   SDB: SDB,
@@ -32,6 +33,7 @@ const nodeTypes = {
   Filter: Filter,
   Join: Join,
   LinearRegressions: LinearRegressions,
+  Note: Note,
 }
 
 export default nodeTypes

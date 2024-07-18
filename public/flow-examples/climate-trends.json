@@ -1,0 +1,1025 @@
+{
+  "nodes": [
+    {
+      "id": "node_6TLrcJ",
+      "type": "SDB",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": {},
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "cacheSourcesUsed": [],
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 4,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 4,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// For front-end projects, switch to SimpleWebDB\nimport { SimpleDB } from \"simple-data-analysis\";\n\nconst sdb = new SimpleDB();",
+        "imported": true
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 271, "height": 105 }
+    },
+    {
+      "id": "node_Ae2Br5",
+      "type": "ST",
+      "position": { "x": -333.66701485941314, "y": 147.94444192130857 },
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "dailyTemp",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 4,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 4,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 4,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 4,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "name": "dailyTemp",
+        "code": "const dailyTemp = sdb.newTable(\"dailyTemp\");",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 378, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random8bDLiQ",
+      "position": { "x": -249.91250782694124, "y": 452.49978441638973 },
+      "type": "LoadFile",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "dailyTemp",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// More options available. Check documentation.\nawait dailyTemp.loadData(\"dailyTemperatures.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});",
+        "autoDetect": true,
+        "header": true,
+        "skip": 0,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 382, "height": 262 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomQDmZUV",
+      "position": { "x": -312.8372471137096, "y": 791.372315609399 },
+      "type": "AddColumn",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomQDmZUV",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "dailyTemp",
+        "code": "await dailyTemp.addColumn(\"decade\", \"number\", `FLOOR(YEAR(time)/10)*10\n`);",
+        "newColumn": "decade",
+        "dataType": "number",
+        "definition": "FLOOR(YEAR(time)/10)*10\n",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 422, "height": 406 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomwv8BF2",
+      "position": { "x": -477.3224775071142, "y": 1287.162287202608 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomQDmZUV",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await dailyTemp.logTable(5)",
+        "nbRowsToLog": 5,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 384, "height": 105 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomwcphSK",
+      "position": { "x": 389.8327807665834, "y": 454.77726810433705 },
+      "type": "LoadFile",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "cities",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// More options available. Check documentation.\nawait cities.loadData(\"cities.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});",
+        "autoDetect": true,
+        "header": true,
+        "skip": 0,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 382, "height": 262 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomUlC2Gm",
+      "position": { "x": 316.7775406030084, "y": 181.61100261626973 },
+      "type": "ST",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "cities",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 4,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 4,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 4,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 4,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "name": "cities",
+        "code": "const cities = sdb.newTable(\"cities\");",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 378, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomOwAPFJ",
+      "position": { "x": 728.7225275216593, "y": 831.3882707206069 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "cities",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await cities.logTable(5)",
+        "nbRowsToLog": 5,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 384, "height": 105 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random7KNXY6",
+      "position": { "x": 249.45149884148967, "y": 1035.0786662510275 },
+      "type": "Join",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "citiesTemp",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "citiesTemp",
+        "code": "const citiesTemp = await dailyTemp.join(cities, {\n  commonColumn: \"id\",\n  type: \"left\",\n  outputTable: \"citiesTemp\",\n})",
+        "commonColumn": "id",
+        "outputTable": "citiesTemp",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 416, "height": 318 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomtbBKnU",
+      "position": { "x": 116.27715330941908, "y": 1437.7380643197125 },
+      "type": "Summarize",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "decadeTemp",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "decadeTemp",
+        "code": "const decadeTemp = await citiesTemp.summarize({\n  values: [\"t\"],\n  categories: [\"city\",\"decade\"],\n  summaries: [\"count\",\"mean\"],\n  decimals: 2,\n  outputTable: \"decadeTemp\",\n});",
+        "outputTable": "decadeTemp",
+        "values": ["t"],
+        "categories": ["city", "decade"],
+        "summaries": ["count", "mean"],
+        "decimals": 2,
+        "columns": [
+          { "value": "time", "label": "time" },
+          { "value": "t", "label": "t" },
+          { "value": "id", "label": "id" },
+          { "value": "decade", "label": "decade" },
+          { "value": "id:1", "label": "id:1" },
+          { "value": "city", "label": "city" }
+        ],
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 448, "height": 558 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomERrNk5",
+      "position": { "x": 674.8955521889357, "y": 1437.2024623816474 },
+      "type": "Filter",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomERrNk5",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "decadeTemp",
+        "code": "await decadeTemp.filter(`count > 365*10*0.7`);",
+        "definition": "count > 365*10*0.7",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 361, "height": 294 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomMyvdjE",
+      "position": { "x": 687.6847350419075, "y": 1806.9359190912842 },
+      "type": "LinearRegressions",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "trends",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "trends",
+        "code": "const trends = await decadeTemp.linearRegressions({\n  x: \"decade\",\n  y: \"mean\",\n  categories: [\"city\"],\n  decimals: 4,\n  outputTable: \"trends\",\n});",
+        "x": "decade",
+        "y": "mean",
+        "categories": ["city"],
+        "decimals": 4,
+        "outputTable": "trends",
+        "imported": false,
+        "columns": [
+          { "value": "value", "label": "value" },
+          { "value": "city", "label": "city" },
+          { "value": "decade", "label": "decade" },
+          { "value": "count", "label": "count" },
+          { "value": "mean", "label": "mean" }
+        ]
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 448, "height": 466 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random2fvAoo",
+      "position": { "x": -69.22760752008492, "y": 2072.65083072377 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "trends",
+          "projections": {},
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 51,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 51,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 51,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await trends.logTable(5)",
+        "nbRowsToLog": 5,
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 384, "height": 105 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomA4RopF",
+      "position": { "x": -641.0055305227452, "y": 491.9909392907455 },
+      "type": "Note",
+      "data": {
+        "instance": null,
+        "text": "Download this CSV file, click on \"Choose file\" and select it.\n\nhttps://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv"
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 386, "height": 194 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomCTQqlL",
+      "position": { "x": 784.577925954836, "y": 489.9261816052982 },
+      "type": "Note",
+      "data": {
+        "instance": null,
+        "text": "Download this CSV file, click on \"Choose file\" and select it.\n\nhttps://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/data/files/cities.csv"
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 386, "height": 194 },
+      "selected": false,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    { "id": "edge_KL8Urm", "source": "node_6TLrcJ", "target": "node_Ae2Br5" },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "node_Ae2Br5",
+      "target": "random8bDLiQ",
+      "id": "xy-edge__node_Ae2Br5-random8bDLiQ"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "random8bDLiQ",
+      "target": "randomQDmZUV",
+      "id": "xy-edge__random8bDLiQ-randomQDmZUV"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomQDmZUV",
+      "target": "randomwv8BF2",
+      "id": "xy-edge__randomQDmZUV-randomwv8BF2"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "node_6TLrcJ",
+      "target": "randomUlC2Gm",
+      "id": "xy-edge__node_6TLrcJ-randomUlC2Gm"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomUlC2Gm",
+      "target": "randomwcphSK",
+      "id": "xy-edge__randomUlC2Gm-randomwcphSK"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomwcphSK",
+      "target": "randomOwAPFJ",
+      "id": "xy-edge__randomwcphSK-randomOwAPFJ"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomQDmZUV",
+      "target": "random7KNXY6",
+      "targetHandle": "left",
+      "id": "xy-edge__randomQDmZUV-random7KNXY6left"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomwcphSK",
+      "target": "random7KNXY6",
+      "targetHandle": "right",
+      "id": "xy-edge__randomwcphSK-random7KNXY6right"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "random7KNXY6",
+      "target": "randomtbBKnU",
+      "id": "xy-edge__random7KNXY6-randomtbBKnU"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomtbBKnU",
+      "target": "randomERrNk5",
+      "id": "xy-edge__randomtbBKnU-randomERrNk5"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomERrNk5",
+      "target": "randomMyvdjE",
+      "id": "xy-edge__randomERrNk5-randomMyvdjE"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomMyvdjE",
+      "target": "random2fvAoo",
+      "id": "xy-edge__randomMyvdjE-random2fvAoo"
+    }
+  ],
+  "viewport": {
+    "x": 862.1194635437877,
+    "y": -2.6352977941132565,
+    "zoom": 0.3606741933744534
+  }
+}

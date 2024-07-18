@@ -8,7 +8,7 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
-import getId from "@/lib/getId"
+import { getId } from "journalism"
 import { Node, useReactFlow } from "@xyflow/react"
 import { Dispatch, SetStateAction, useCallback } from "react"
 
@@ -132,6 +132,9 @@ export default function AddNode({
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSeparator />
+        <ContextMenuItem onClick={(e) => addNode(e.clientX, e.clientY, "Note")}>
+          Note
+        </ContextMenuItem>
         <ContextMenuItem
           onClick={(e) => addNode(e.clientX, e.clientY, "LogTable")}
         >
