@@ -88,6 +88,11 @@ export default function AddNode({
               Rename columns
             </ContextMenuItem>
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "SelectColumns")}
+            >
+              Select columns
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
             >
               Sort
