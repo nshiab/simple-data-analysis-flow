@@ -83,6 +83,11 @@ export default function AddNode({
               Join
             </ContextMenuItem>
             <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Longer")}
+            >
+              Longer
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "RenameColumns")}
             >
               Rename columns
