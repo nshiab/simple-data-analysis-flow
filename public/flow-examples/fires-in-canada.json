@@ -1,1 +1,1045 @@
-{"nodes":[{"id":"node_vKcRlg","type":"SDB","position":{"x":0,"y":0},"data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"// For front-end projects, switch to SimpleWebDB\nimport { SimpleDB } from \"simple-data-analysis\";\n\nconst sdb = new SimpleDB();","imported":true},"origin":[0.5,0],"measured":{"width":271,"height":105}},{"id":"node_j1Y3XB","type":"ST","position":{"x":-197.94328574565486,"y":154.5288760942547},"data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"fires","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"name":"fires","code":"const fires = sdb.newTable(\"fires\");","imported":false},"origin":[0.5,0],"measured":{"width":378,"height":206},"selected":false,"dragging":false},{"id":"randomfTbCxm","position":{"x":260.8099858098842,"y":151.14753009272437},"type":"ST","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"provinces","projections":{"geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"name":"provinces","code":"const provinces = sdb.newTable(\"provinces\");","imported":false},"origin":[0.5,0],"measured":{"width":378,"height":206},"selected":false,"dragging":false},{"id":"randomfw5VnU","position":{"x":-309.8304630407067,"y":425.2776650744498},"type":"FetchData","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"fires","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"// More options available. Check documentation.\nawait fires.loadData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});","url":"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv","autoDetect":true,"header":true,"skip":0},"origin":[0.5,0],"measured":{"width":423,"height":262},"selected":false,"dragging":false},{"id":"random8WqT0r","position":{"x":-479.83891043504696,"y":751.4970912098008},"type":"Points","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"random8WqT0r","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"originalTableName":"fires","code":"await fires.points(\"lat\", \"lon\", \"geom\");","lat":"lat","lon":"lon","newColumn":"geom","columns":[{"value":"firename","label":"firename"},{"value":"hectares","label":"hectares"},{"value":"cause","label":"cause"},{"value":"lat","label":"lat"},{"value":"lon","label":"lon"}]},"origin":[0.5,0],"measured":{"width":463,"height":318},"selected":false,"dragging":false},{"id":"randomByQEMi","position":{"x":-554.6874831640142,"y":1174.036661056769},"type":"LogTable","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"random8WqT0r","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"await fires.logTable(5)","nbRowsToLog":5},"origin":[0.5,0],"measured":{"width":672,"height":590},"selected":false,"dragging":false},{"id":"randomE8R2M0","position":{"x":304.0700408214405,"y":441.1997627971556},"type":"FetchGeoData","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"provinces","projections":{"geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"// For front-end projects, use fetchGeoData. \nawait provinces.loadGeoData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json\");","url":"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json"},"origin":[0.5,0],"measured":{"width":366,"height":206},"selected":false,"dragging":false},{"id":"randomvTW0oj","position":{"x":665.8599854305367,"y":786.5864083473389},"type":"LogTable","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"provinces","projections":{"geom":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"await provinces.logTable(5)","nbRowsToLog":5},"origin":[0.5,0],"measured":{"width":588,"height":590},"selected":false,"dragging":false},{"id":"randomKXArS3","position":{"x":98.94442228299583,"y":885.8410481434196},"type":"JoinGeo","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"firesAndProvinces","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geomRandom8WqT0r":"+proj=latlong +datum=WGS84 +no_defs","geomProvinces":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"originalTableName":"firesAndProvinces","code":"const firesAndProvinces = await fires.joinGeo(provinces, \"inside\", {\n  leftTableColumn: \"geom\",\n  rightTableColumn: \"geom\",\n  distance: undefined,\n  distanceMethod: undefined,\n  type: \"left\",\n  outputTable: \"firesAndProvinces\",\n})","method":"inside","outputTable":"firesAndProvinces","geoLeft":"geom","geoRight":"geom","columnsLeft":[{"value":"firename","label":"firename"},{"value":"hectares","label":"hectares"},{"value":"cause","label":"cause"},{"value":"lat","label":"lat"},{"value":"lon","label":"lon"},{"value":"geom","label":"geom"}],"columnsRight":[{"value":"nameEnglish","label":"nameEnglish"},{"value":"nameFrench","label":"nameFrench"},{"value":"geom","label":"geom"}]},"origin":[0.5,0],"measured":{"width":416,"height":430},"selected":false,"dragging":false},{"id":"randomC8TWwr","position":{"x":169.64163044531946,"y":1416.5723966075802},"type":"Summarize","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"perProvince","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geomRandom8WqT0r":"+proj=latlong +datum=WGS84 +no_defs","geomProvinces":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"originalTableName":"perProvince","code":"const perProvince = await firesAndProvinces.summarize({\n  values: [\"hectares\"],\n  categories: [\"nameEnglish\"],\n  summaries: [\"count\",\"sum\"],\n  decimals: 0,\n  outputTable: \"perProvince\",\n});","outputTable":"perProvince","values":["hectares"],"categories":["nameEnglish"],"summaries":["count","sum"],"decimals":0,"columns":[{"value":"firename","label":"firename"},{"value":"hectares","label":"hectares"},{"value":"cause","label":"cause"},{"value":"lat","label":"lat"},{"value":"lon","label":"lon"},{"value":"geomRandom8WqT0r","label":"geomRandom8WqT0r"},{"value":"nameEnglish","label":"nameEnglish"},{"value":"nameFrench","label":"nameFrench"},{"value":"geomProvinces","label":"geomProvinces"}]},"origin":[0.5,0],"measured":{"width":448,"height":718},"selected":false,"dragging":false},{"id":"randomxaAqHK","position":{"x":731.020629537737,"y":1454.8636750094329},"type":"RenameColumns","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"randomxaAqHK","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geomRandom8WqT0r":"+proj=latlong +datum=WGS84 +no_defs","geomProvinces":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"originalTableName":"perProvince","code":"await perProvince.renameColumns({\"nameEnglish\":\"provinces\",\"count\":\"nbFires\",\"sum\":\"areaBurnt\"});","columnsToRename":{"nameEnglish":"provinces","count":"nbFires","sum":"areaBurnt"},"columns":[{"label":"value","defaultValue":"value"},{"label":"nameEnglish","defaultValue":"nameEnglish"},{"label":"count","defaultValue":"count"},{"label":"sum","defaultValue":"sum"}]},"origin":[0.5,0],"measured":{"width":424,"height":374},"selected":false,"dragging":false},{"id":"randomRuUdR4","position":{"x":784.1518195285026,"y":1897.0214933296083},"type":"Sort","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"randomRuUdR4","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geomRandom8WqT0r":"+proj=latlong +datum=WGS84 +no_defs","geomProvinces":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"originalTableName":"perProvince","code":"await perProvince.sort({\"areaBurnt\":\"desc\"});","columnToSort":"areaBurnt","order":"desc"},"origin":[0.5,0],"measured":{"width":353,"height":262},"selected":false,"dragging":false},{"id":"random24Dvyd","position":{"x":31.910097438269077,"y":2259.34040669512},"type":"LogTable","data":{"instance":{"nbRowsToLog":10,"debug":false,"worker":null,"tableIncrement":1,"defaultTableName":false,"name":"randomRuUdR4","projections":{"geomRandomJG2JSD":"+proj=latlong +datum=WGS84 +no_defs","geomRandom8WqT0r":"+proj=latlong +datum=WGS84 +no_defs","geomProvinces":"+proj=latlong +datum=WGS84 +no_defs"},"sdb":{"nbRowsToLog":10,"debug":false,"worker":{},"tableIncrement":1,"defaultTableName":false,"cacheSourcesUsed":[],"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"db":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"connection":{"_bindings":{"_onInstantiationProgress":[],"_worker":{},"_workerShutdownPromise":{},"_nextMessageId":158,"_pendingRequests":{},"_logger":{}},"_conn":3514336}},"code":"await perProvince.logTable(13)","nbRowsToLog":13},"origin":[0.5,0],"measured":{"width":551,"height":1014},"selected":false,"dragging":false}],"edges":[{"id":"edge_ISZEuq","source":"node_vKcRlg","target":"node_j1Y3XB"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"node_vKcRlg","target":"randomfTbCxm","id":"xy-edge__node_vKcRlg-randomfTbCxm"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"node_j1Y3XB","target":"randomfw5VnU","id":"xy-edge__node_j1Y3XB-randomfw5VnU"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomfw5VnU","target":"random8WqT0r","id":"xy-edge__randomfw5VnU-random8WqT0r"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"random8WqT0r","target":"randomByQEMi","id":"xy-edge__random8WqT0r-randomByQEMi"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomfTbCxm","target":"randomE8R2M0","id":"xy-edge__randomfTbCxm-randomE8R2M0"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomE8R2M0","target":"randomvTW0oj","id":"xy-edge__randomE8R2M0-randomvTW0oj"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"random8WqT0r","target":"randomKXArS3","targetHandle":"left","id":"xy-edge__random8WqT0r-randomKXArS3left"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomE8R2M0","target":"randomKXArS3","targetHandle":"right","id":"xy-edge__randomE8R2M0-randomKXArS3right"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomKXArS3","target":"randomC8TWwr","id":"xy-edge__randomKXArS3-randomC8TWwr"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomC8TWwr","target":"randomxaAqHK","id":"xy-edge__randomC8TWwr-randomxaAqHK"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomxaAqHK","target":"randomRuUdR4","id":"xy-edge__randomxaAqHK-randomRuUdR4"},{"type":"smoothstep","markerEnd":{"type":"arrow","width":20,"height":20},"source":"randomRuUdR4","target":"random24Dvyd","id":"xy-edge__randomRuUdR4-random24Dvyd"}],"viewport":{"x":519.8678003436328,"y":-293.6283798843864,"zoom":0.3340185195975254}}
+{
+  "nodes": [
+    {
+      "id": "node_vKcRlg",
+      "type": "SDB",
+      "position": { "x": 0, "y": 0 },
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": {},
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "cacheSourcesUsed": [],
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// For front-end projects, switch to SimpleWebDB\nimport { SimpleDB } from \"simple-data-analysis\";\n\nconst sdb = new SimpleDB();",
+        "imported": true
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 271, "height": 105 }
+    },
+    {
+      "id": "node_j1Y3XB",
+      "type": "ST",
+      "position": { "x": -197.94328574565486, "y": 154.5288760942547 },
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "fires",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geom": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "name": "fires",
+        "code": "const fires = sdb.newTable(\"fires\");",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 378, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomfTbCxm",
+      "position": { "x": 260.8099858098842, "y": 151.14753009272437 },
+      "type": "ST",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "name": "provinces",
+        "code": "const provinces = sdb.newTable(\"provinces\");",
+        "imported": false
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 378, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomfw5VnU",
+      "position": { "x": -309.8304630407067, "y": 425.2776650744498 },
+      "type": "FetchData",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "fires",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geom": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// More options available. Check documentation.\nawait fires.loadData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv\", {\n  fileType: undefined,\n  autoDetect: true,\n  header: true,\n  delim: undefined,\n  skip: 0,\n});",
+        "url": "https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv",
+        "autoDetect": true,
+        "header": true,
+        "skip": 0
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 423, "height": 262 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random8WqT0r",
+      "position": { "x": -479.83891043504696, "y": 751.4970912098008 },
+      "type": "Points",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "random8WqT0r",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geom": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "fires",
+        "code": "await fires.points(\"lat\", \"lon\", \"geom\");",
+        "lat": "lat",
+        "lon": "lon",
+        "newColumn": "geom",
+        "columns": [
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" }
+        ]
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 463, "height": 318 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomByQEMi",
+      "position": { "x": -554.6874831640142, "y": 1174.036661056769 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "random8WqT0r",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geom": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await fires.logTable(5)",
+        "nbRowsToLog": 5
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 672, "height": 590 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomE8R2M0",
+      "position": { "x": 304.0700408214405, "y": 441.1997627971556 },
+      "type": "FetchGeoData",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "// For front-end projects, use fetchGeoData. \nawait provinces.loadGeoData(\"https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json\");",
+        "url": "https://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/CanadianProvincesAndTerritories.json"
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 366, "height": 206 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomvTW0oj",
+      "position": { "x": 665.8599854305367, "y": 786.5864083473389 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "provinces",
+          "projections": { "geom": "+proj=latlong +datum=WGS84 +no_defs" },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await provinces.logTable(5)",
+        "nbRowsToLog": 5
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 588, "height": 590 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomKXArS3",
+      "position": { "x": 98.94442228299583, "y": 885.8410481434196 },
+      "type": "JoinGeo",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "firesAndProvinces",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomRandom8WqT0r": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "firesAndProvinces",
+        "code": "const firesAndProvinces = await fires.joinGeo(provinces, \"inside\", {\n  leftTableColumn: \"geom\",\n  rightTableColumn: \"geom\",\n  distance: undefined,\n  distanceMethod: undefined,\n  type: \"left\",\n  outputTable: \"firesAndProvinces\",\n})",
+        "method": "inside",
+        "outputTable": "firesAndProvinces",
+        "geoLeft": "geom",
+        "geoRight": "geom",
+        "columnsLeft": [
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" },
+          { "value": "geom", "label": "geom" }
+        ],
+        "columnsRight": [
+          { "value": "nameEnglish", "label": "nameEnglish" },
+          { "value": "nameFrench", "label": "nameFrench" },
+          { "value": "geom", "label": "geom" }
+        ]
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 416, "height": 430 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomC8TWwr",
+      "position": { "x": 169.64163044531946, "y": 1416.5723966075802 },
+      "type": "Summarize",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "perProvince",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomRandom8WqT0r": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "perProvince",
+        "code": "const perProvince = await firesAndProvinces.summarize({\n  values: [\"hectares\"],\n  categories: [\"nameEnglish\"],\n  summaries: [\"count\",\"sum\"],\n  decimals: 0,\n  outputTable: \"perProvince\",\n});",
+        "outputTable": "perProvince",
+        "values": ["hectares"],
+        "categories": ["nameEnglish"],
+        "summaries": ["count", "sum"],
+        "decimals": 0,
+        "columns": [
+          { "value": "firename", "label": "firename" },
+          { "value": "hectares", "label": "hectares" },
+          { "value": "cause", "label": "cause" },
+          { "value": "lat", "label": "lat" },
+          { "value": "lon", "label": "lon" },
+          { "value": "geomRandom8WqT0r", "label": "geomRandom8WqT0r" },
+          { "value": "nameEnglish", "label": "nameEnglish" },
+          { "value": "nameFrench", "label": "nameFrench" },
+          { "value": "geomProvinces", "label": "geomProvinces" }
+        ]
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 448, "height": 718 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomxaAqHK",
+      "position": { "x": 731.020629537737, "y": 1454.8636750094329 },
+      "type": "RenameColumns",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomxaAqHK",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomRandom8WqT0r": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "perProvince",
+        "code": "await perProvince.renameColumns({\"nameEnglish\":\"provinces\",\"count\":\"nbFires\",\"sum\":\"areaBurnt\"});",
+        "columnsToRename": {
+          "nameEnglish": "provinces",
+          "count": "nbFires",
+          "sum": "areaBurnt"
+        },
+        "columns": [
+          { "label": "value", "defaultValue": "value" },
+          { "label": "nameEnglish", "defaultValue": "nameEnglish" },
+          { "label": "count", "defaultValue": "count" },
+          { "label": "sum", "defaultValue": "sum" }
+        ]
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 424, "height": 374 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "randomRuUdR4",
+      "position": { "x": 784.1518195285026, "y": 1897.0214933296083 },
+      "type": "Sort",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomRuUdR4",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomRandom8WqT0r": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "originalTableName": "perProvince",
+        "code": "await perProvince.sort({\"areaBurnt\":\"desc\"});",
+        "columnToSort": "areaBurnt",
+        "order": "desc"
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 353, "height": 262 },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "random24Dvyd",
+      "position": { "x": 31.910097438269077, "y": 2259.34040669512 },
+      "type": "LogTable",
+      "data": {
+        "instance": {
+          "nbRowsToLog": 10,
+          "debug": false,
+          "worker": null,
+          "tableIncrement": 1,
+          "defaultTableName": false,
+          "name": "randomRuUdR4",
+          "projections": {
+            "geomRandomJG2JSD": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomRandom8WqT0r": "+proj=latlong +datum=WGS84 +no_defs",
+            "geomProvinces": "+proj=latlong +datum=WGS84 +no_defs"
+          },
+          "sdb": {
+            "nbRowsToLog": 10,
+            "debug": false,
+            "worker": {},
+            "tableIncrement": 1,
+            "defaultTableName": false,
+            "cacheSourcesUsed": [],
+            "db": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "connection": {
+              "_bindings": {
+                "_onInstantiationProgress": [],
+                "_worker": {},
+                "_workerShutdownPromise": {},
+                "_nextMessageId": 158,
+                "_pendingRequests": {},
+                "_logger": {}
+              },
+              "_conn": 3514336
+            }
+          },
+          "db": {
+            "_onInstantiationProgress": [],
+            "_worker": {},
+            "_workerShutdownPromise": {},
+            "_nextMessageId": 158,
+            "_pendingRequests": {},
+            "_logger": {}
+          },
+          "connection": {
+            "_bindings": {
+              "_onInstantiationProgress": [],
+              "_worker": {},
+              "_workerShutdownPromise": {},
+              "_nextMessageId": 158,
+              "_pendingRequests": {},
+              "_logger": {}
+            },
+            "_conn": 3514336
+          }
+        },
+        "code": "await perProvince.logTable(13)",
+        "nbRowsToLog": 13
+      },
+      "origin": [0.5, 0],
+      "measured": { "width": 551, "height": 1014 },
+      "selected": false,
+      "dragging": false
+    }
+  ],
+  "edges": [
+    { "id": "edge_ISZEuq", "source": "node_vKcRlg", "target": "node_j1Y3XB" },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "node_vKcRlg",
+      "target": "randomfTbCxm",
+      "id": "xy-edge__node_vKcRlg-randomfTbCxm"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "node_j1Y3XB",
+      "target": "randomfw5VnU",
+      "id": "xy-edge__node_j1Y3XB-randomfw5VnU"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomfw5VnU",
+      "target": "random8WqT0r",
+      "id": "xy-edge__randomfw5VnU-random8WqT0r"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "random8WqT0r",
+      "target": "randomByQEMi",
+      "id": "xy-edge__random8WqT0r-randomByQEMi"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomfTbCxm",
+      "target": "randomE8R2M0",
+      "id": "xy-edge__randomfTbCxm-randomE8R2M0"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomE8R2M0",
+      "target": "randomvTW0oj",
+      "id": "xy-edge__randomE8R2M0-randomvTW0oj"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "random8WqT0r",
+      "target": "randomKXArS3",
+      "targetHandle": "left",
+      "id": "xy-edge__random8WqT0r-randomKXArS3left"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomE8R2M0",
+      "target": "randomKXArS3",
+      "targetHandle": "right",
+      "id": "xy-edge__randomE8R2M0-randomKXArS3right"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomKXArS3",
+      "target": "randomC8TWwr",
+      "id": "xy-edge__randomKXArS3-randomC8TWwr"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomC8TWwr",
+      "target": "randomxaAqHK",
+      "id": "xy-edge__randomC8TWwr-randomxaAqHK"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomxaAqHK",
+      "target": "randomRuUdR4",
+      "id": "xy-edge__randomxaAqHK-randomRuUdR4"
+    },
+    {
+      "type": "smoothstep",
+      "markerEnd": { "type": "arrow", "width": 20, "height": 20 },
+      "source": "randomRuUdR4",
+      "target": "random24Dvyd",
+      "id": "xy-edge__randomRuUdR4-random24Dvyd"
+    }
+  ],
+  "viewport": {
+    "x": 519.8678003436328,
+    "y": -293.6283798843864,
+    "zoom": 0.3340185195975254
+  }
+}

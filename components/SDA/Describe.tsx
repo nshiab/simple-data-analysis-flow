@@ -25,7 +25,6 @@ export default function Describe({ id }: { id: string }) {
 
   const [targetRead, setTargetReady] = useState(false)
   const [code, setCode] = useState("")
-  const [downloadLabel, setDownloadLabel] = useState("")
   const [loader, setLoader] = useState(false)
 
   useEffect(() => {
