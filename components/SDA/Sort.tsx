@@ -19,7 +19,7 @@ export default function Sort({ id }: { id: string }) {
   const [columnToSort, setColumnToSort] = useState<string | undefined>(
     undefined
   )
-  const [order, setOrder] = useState<"asc" | "desc">("asc")
+  const [order, setOrder] = useState<string>("asc")
   const [columns, setColumns] = useState<{ value: string; label: string }[]>([])
 
   const { updateNodeData } = useReactFlow()
@@ -52,7 +52,6 @@ export default function Sort({ id }: { id: string }) {
         setColumnToSort(nodeData.data.columnToSort)
       }
       if (typeof nodeData.data.order === "string") {
-        //@ts-expect-error okay
         setOrder(nodeData.data.order)
       }
       nodeData.data.imported = false
@@ -76,7 +75,7 @@ export default function Sort({ id }: { id: string }) {
             outputTable: id,
           })
           const toSort: { [key: string]: "asc" | "desc" } = {}
-          toSort[columnToSort] = order
+          toSort[columnToSort] = order as "asc" | "desc"
           await clonedTable.sort(toSort)
 
           const originalTableName =
