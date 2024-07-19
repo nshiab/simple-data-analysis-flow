@@ -143,6 +143,13 @@ export default function AddNode({
               Linear regression
             </ContextMenuItem>
             <ContextMenuItem
+              onClick={(e) =>
+                addNode(e.clientX, e.clientY, "ProportionsVertical")
+              }
+            >
+              Proportions vertical
+            </ContextMenuItem>
+            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
             >
               Summarize

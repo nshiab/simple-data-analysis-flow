@@ -20,6 +20,7 @@ import Longer from "./SDA/Longer"
 import Wider from "./SDA/Wider"
 import CleanColumnNames from "./SDA/CleanColumnNames"
 import Describe from "./SDA/Describe"
+import ProportionsVertical from "./SDA/ProportionsVertical"
 
 const nodeTypes = {
   SDB: SDB,
@@ -44,6 +45,7 @@ const nodeTypes = {
   Wider: Wider,
   CleanColumnNames: CleanColumnNames,
   Describe: Describe,
+  ProportionsVertical: ProportionsVertical,
 }
 
 export default nodeTypes

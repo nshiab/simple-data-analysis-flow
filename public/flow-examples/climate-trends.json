@@ -907,7 +907,7 @@
       "type": "Note",
       "data": {
         "instance": null,
-        "text": "Download this CSV file, click on \"Choose file\" and select it.\n\nhttps://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/geodata/files/firesCanada2023.csv"
+        "text": "Download this CSV file, click on \"Choose file\" and select it.\n\nhttps://raw.githubusercontent.com/nshiab/simple-data-analysis/main/test/data/files/dailyTemperatures.csv"
       },
       "origin": [0.5, 0],
       "measured": { "width": 386, "height": 194 },
