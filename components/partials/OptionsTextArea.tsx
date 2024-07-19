@@ -26,27 +26,28 @@ export default function OptionsTextArea({
       <div className="grid w-full gap-2">
         <div className="flex items-center gap-2">
           <Label>{label}</Label>
-          <Textarea
-            ref={ref}
-            value={localValue}
-            onChange={(e) => setLocalValue(e.target.value)}
-            onKeyDown={(e) =>
-              e.key === "Enter" && e.shiftKey && ref.current
-                ? set(ref.current.value)
-                : null
-            }
-          />
+          <div className="flex flex-col gap-2 w-full">
+            <Textarea
+              ref={ref}
+              value={localValue}
+              onChange={(e) => setLocalValue(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" && e.shiftKey && ref.current
+                  ? set(ref.current.value)
+                  : null
+              }
+            />
+            <Button
+              onClick={() => {
+                ref.current &&
+                  typeof ref.current.value === "string" &&
+                  set(ref.current.value)
+              }}
+            >
+              Run
+            </Button>
+          </div>
         </div>
-
-        <Button
-          onClick={() => {
-            ref.current &&
-              typeof ref.current.value === "string" &&
-              set(ref.current.value)
-          }}
-        >
-          Run
-        </Button>
       </div>
     </OptionsItem>
   )

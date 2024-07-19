@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardDescription, CardHeader } from "@/components/ui/card"
 import { useReactFlow } from "@xyflow/react"
 import SimpleWebDB from "../../node_modules/simple-data-analysis/dist/class/SimpleWebDB"
 import { useEffect, useState } from "react"

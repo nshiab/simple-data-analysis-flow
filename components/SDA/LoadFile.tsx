@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { ChangeEvent, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
 import { Input } from "../ui/input"
 import Options from "../partials/Options"
@@ -29,9 +29,7 @@ export default function LoadFile({ id }: { id: string }) {
 
   const [file, setFile] = useState<null | File>(null)
   const [autoDetect, setAutoDetect] = useState(true)
-  const [fileType, setFileType] = useState<
-    "csv" | "dsv" | "json" | "parquet" | undefined
-  >(undefined)
+  const [fileType, setFileType] = useState<string | undefined>(undefined)
   const [header, setHeader] = useState(true)
   const [delim, setDelim] = useState<string | undefined>(undefined)
   const [skip, setSkip] = useState<number | undefined>(0)
@@ -51,7 +49,6 @@ export default function LoadFile({ id }: { id: string }) {
   useEffect(() => {
     if (nodeData?.data.imported) {
       if (typeof nodeData.data.fileType === "string") {
-        //@ts-expect-error okay
         setFileType(nodeData.data.fileType)
       }
       if (typeof nodeData.data.autoDetect === "boolean") {
@@ -202,9 +199,7 @@ await ${table.name}.loadData("${file.name}", {
                 { value: "json", label: "JSON" },
                 { value: "parquet", label: "Parquet" },
               ]}
-              onChange={(e: "csv" | "dsv" | "json" | "parquet") =>
-                setFileType(e)
-              }
+              onChange={(e) => setFileType(e)}
               value={fileType ?? ""}
             />
             <OptionsCheckbox

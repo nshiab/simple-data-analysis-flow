@@ -19,7 +19,7 @@ export default function OptionsSelect({
   label: string
   placeholder?: string | undefined
   items: { value: any; label: any }[]
-  onChange: (e: any) => void
+  onChange: (e: string) => void
   value: string
 }) {
   return (

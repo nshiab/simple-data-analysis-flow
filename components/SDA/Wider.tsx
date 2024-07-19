@@ -13,8 +13,6 @@ import CardTitleWithLoader from "../partials/CardTitleWithLoader"
 import Error from "../partials/Error"
 import Target from "../partials/Target"
 import Source from "../partials/Source"
-import OptionsMultiplesCheckBoxes from "../partials/OptionsMultipleCheckBoxes"
-import OptionsInputText from "../partials/OptionsInputText"
 import OptionsSelect from "../partials/OptionsSelect"
 
 export default function Wider({ id }: { id: string }) {

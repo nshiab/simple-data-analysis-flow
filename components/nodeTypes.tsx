@@ -20,6 +20,9 @@ import Longer from "./SDA/Longer"
 import Wider from "./SDA/Wider"
 import CleanColumnNames from "./SDA/CleanColumnNames"
 import Describe from "./SDA/Describe"
+import ProportionsVertical from "./SDA/ProportionsVertical"
+import RemoveDuplicates from "./SDA/RemoveDuplicates"
+import UpdateColumn from "./SDA/UpdateColumn"
 
 const nodeTypes = {
   SDB: SDB,
@@ -44,6 +47,9 @@ const nodeTypes = {
   Wider: Wider,
   CleanColumnNames: CleanColumnNames,
   Describe: Describe,
+  ProportionsVertical: ProportionsVertical,
+  RemoveDuplicates: RemoveDuplicates,
+  UpdateColumn: UpdateColumn,
 }
 
 export default nodeTypes

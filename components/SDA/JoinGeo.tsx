@@ -28,16 +28,12 @@ export default function JoinGeo({ id }: { id: string }) {
   >([])
   const [geoLeft, setGeoLeft] = useState<string | undefined>(undefined)
   const [geoRight, setGeoRight] = useState<string | undefined>(undefined)
-  const [method, setMethod] = useState<
-    "intersect" | "inside" | "within" | undefined
-  >(undefined)
+  const [method, setMethod] = useState<string | undefined>(undefined)
   const [distance, setDistance] = useState<number | undefined>(undefined)
-  const [distanceMethod, setDistanceMethod] = useState<
-    "srs" | "haversine" | "spheroid" | undefined
-  >(undefined)
-  const [joinType, setJoinType] = useState<
-    "inner" | "left" | "right" | "full" | undefined
-  >(undefined)
+  const [distanceMethod, setDistanceMethod] = useState<string | undefined>(
+    undefined
+  )
+  const [joinType, setJoinType] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -98,11 +94,9 @@ export default function JoinGeo({ id }: { id: string }) {
         setDistance(nodeData.data.distance)
       }
       if (typeof nodeData.data.distanceMethod === "string") {
-        //@ts-expect-error okay
         setDistanceMethod(nodeData.data.distanceMethod)
       }
       if (typeof nodeData.data.joinType === "string") {
-        //@ts-expect-error okay
         setJoinType(nodeData.data.joinType)
       }
       if (Array.isArray(nodeData.data.columnsLeft)) {
@@ -153,14 +147,22 @@ export default function JoinGeo({ id }: { id: string }) {
 })`
           setCode(code)
 
-          const outputTable = await tableLeft.joinGeo(tableRight, method, {
-            leftTableColumn: geoLeft,
-            rightTableColumn: geoRight,
-            distance,
-            distanceMethod,
-            type: joinType,
-            outputTable: name,
-          })
+          const outputTable = await tableLeft.joinGeo(
+            tableRight,
+            method as "intersect" | "inside" | "within",
+            {
+              leftTableColumn: geoLeft,
+              rightTableColumn: geoRight,
+              distance,
+              distanceMethod: distanceMethod as
+                | "srs"
+                | "haversine"
+                | "spheroid"
+                | undefined,
+              type: joinType as "inner" | "left" | "right" | "full" | undefined,
+              outputTable: name,
+            }
+          )
 
           updateNodeData(id, {
             instance: outputTable,

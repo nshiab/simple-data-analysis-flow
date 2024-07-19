@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import { useHandleConnections, useNodesData, useReactFlow } from "@xyflow/react"
-import { ChangeEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import SimpleWebTable from "../../node_modules/simple-data-analysis/dist/class/SimpleWebTable"
 
 import Code from "../partials/Code"
@@ -25,9 +25,7 @@ export default function Join({ id }: { id: string }) {
   const [commonColumn, setCommonColumn] = useState<string | undefined>(
     undefined
   )
-  const [joinType, setJoinType] = useState<
-    "inner" | "left" | "right" | "full" | undefined
-  >(undefined)
+  const [joinType, setJoinType] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -72,6 +70,9 @@ export default function Join({ id }: { id: string }) {
       if (typeof nodeData.data.commonColumn === "string") {
         setCommonColumn(nodeData.data.commonColumn)
       }
+      if (Array.isArray(nodeData.data.commonColumns)) {
+        setCommonColumns(nodeData.data.commonColumns)
+      }
       if (typeof nodeData.data.joinType === "string") {
         // @ts-ignore okay
         setJoinType(nodeData.data.joinType)
@@ -111,7 +112,7 @@ export default function Join({ id }: { id: string }) {
           setLoader(true)
           const outputTable = await tableLeft.join(tableRight, {
             commonColumn,
-            type: joinType,
+            type: joinType as "inner" | "left" | "right" | "full",
             outputTable: name,
           })
 
@@ -130,6 +131,7 @@ export default function Join({ id }: { id: string }) {
             originalTableName: name,
             code,
             commonColumn,
+            commonColumns,
             joinType,
             outputTable: name,
           })
@@ -153,6 +155,7 @@ export default function Join({ id }: { id: string }) {
     id,
     updateNodeData,
     commonColumn,
+    commonColumns,
     joinType,
     name,
   ])

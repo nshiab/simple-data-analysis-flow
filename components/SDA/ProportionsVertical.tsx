@@ -18,10 +18,9 @@ import OptionsInputNumber from "../partials/OptionsInputNumber"
 import OptionsInputText from "../partials/OptionsInputText"
 import OptionsSelect from "../partials/OptionsSelect"
 
-export default function LinearRegressions({ id }: { id: string }) {
-  const [name, setName] = useState<string>(`${id}LinearRegression`)
-  const [x, setX] = useState<string | undefined>()
-  const [y, setY] = useState<string | undefined>()
+export default function ProportionsVertical({ id }: { id: string }) {
+  const [column, setColumn] = useState<string | undefined>(undefined)
+  const [newColumn, setNewColumn] = useState<string | undefined>(undefined)
   const [categories, setCategories] = useState<string[] | undefined>(undefined)
   const [decimals, setDecimals] = useState<number | undefined>(2)
   const [columns, setColumns] = useState<{ value: string; label: string }[]>([])
@@ -52,20 +51,17 @@ export default function LinearRegressions({ id }: { id: string }) {
   const nodeData = useNodesData(id)
   useEffect(() => {
     if (nodeData?.data.imported) {
-      if (typeof nodeData.data.x === "string") {
-        setX(nodeData.data.x)
+      if (typeof nodeData.data.column === "string") {
+        setColumn(nodeData.data.column)
       }
-      if (typeof nodeData.data.y === "string") {
-        setY(nodeData.data.y)
+      if (typeof nodeData.data.newColumn === "string") {
+        setNewColumn(nodeData.data.newColumn)
       }
       if (Array.isArray(nodeData.data.categories)) {
         setCategories(nodeData.data.categories)
       }
       if (typeof nodeData.data.decimals === "number") {
         setDecimals(nodeData.data.decimals)
-      }
-      if (typeof nodeData.data.outputTable === "string") {
-        setName(nodeData.data.outputTable)
       }
       if (Array.isArray(nodeData.data.columns)) {
         setColumns(nodeData.data.columns)
@@ -82,39 +78,33 @@ export default function LinearRegressions({ id }: { id: string }) {
       }
       if (
         table instanceof SimpleWebTable &&
-        typeof x === "string" &&
-        typeof y === "string"
+        typeof column === "string" &&
+        typeof newColumn === "string"
       ) {
         try {
           setLoader(true)
 
-          const outputTable = await table.linearRegressions({
-            x,
-            y,
+          const clonedTable = await table.cloneTable({ outputTable: id })
+          await clonedTable.proportionsVertical(column, newColumn, {
             categories,
             decimals,
-            outputTable: name,
           })
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name
-          const code = `const ${name} = await ${originalTableName}.linearRegressions({
-  x: "${x}",
-  y: "${y}",
+          const code = `await ${originalTableName}.proportionsVertical("${column}", "${newColumn}", {
   categories: ${JSON.stringify(categories)},
   decimals: ${decimals},
-  outputTable: "${name}",
 });`
           setCode(code)
           updateNodeData(id, {
-            instance: outputTable,
-            originalTableName: name,
+            instance: clonedTable,
+            originalTableName,
             code,
-            x,
-            y,
+            column,
+            newColumn,
             categories,
             decimals,
-            outputTable: name,
             columns,
           })
           setError(null)
@@ -131,7 +121,16 @@ export default function LinearRegressions({ id }: { id: string }) {
     }
 
     run()
-  }, [source, id, updateNodeData, x, y, categories, decimals, name, columns])
+  }, [
+    source,
+    id,
+    updateNodeData,
+    column,
+    newColumn,
+    categories,
+    decimals,
+    columns,
+  ])
 
   return (
     <div>
@@ -140,33 +139,25 @@ export default function LinearRegressions({ id }: { id: string }) {
         <Code code={code} />
         <CardHeader>
           <CardTitleWithLoader loader={loader}>
-            Linear regressions
+            Proportions vertical
           </CardTitleWithLoader>
           <CardDescription>
-            The results include the slope, the y-intercept the R-squared.
+            Computes the proportions in a column.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <OptionsInputText
-            label="Table name"
-            value={name}
-            onClick={(e: string) => setName(e)}
-          />
-
           <>
             <OptionsSelect
-              label="X"
+              label="Column"
               items={columns}
               placeholder="Pick a column"
-              value={x ?? ""}
-              onChange={(e) => setX(e)}
+              value={column ?? ""}
+              onChange={(e) => setColumn(e)}
             />
-            <OptionsSelect
-              label="Y"
-              items={columns}
-              placeholder="Pick a column"
-              value={y ?? ""}
-              onChange={(e) => setY(e)}
+            <OptionsInputText
+              label="New column"
+              value={newColumn ?? ""}
+              onClick={(e) => setNewColumn(e)}
             />
             <OptionsMultiplesCheckBoxes
               label="Categories"
