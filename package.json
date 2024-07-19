@@ -30,7 +30,7 @@
     "npm": "^10.8.1",
     "react": "^18",
     "react-dom": "^18",
-    "simple-data-analysis": "^3.4.2",
+    "simple-data-analysis": "^3.4.3",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
