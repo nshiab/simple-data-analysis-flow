@@ -72,6 +72,9 @@ export default function Join({ id }: { id: string }) {
       if (typeof nodeData.data.commonColumn === "string") {
         setCommonColumn(nodeData.data.commonColumn)
       }
+      if (Array.isArray(nodeData.data.commonColumns)) {
+        setCommonColumns(nodeData.data.commonColumns)
+      }
       if (typeof nodeData.data.joinType === "string") {
         // @ts-ignore okay
         setJoinType(nodeData.data.joinType)
@@ -130,6 +133,7 @@ export default function Join({ id }: { id: string }) {
             originalTableName: name,
             code,
             commonColumn,
+            commonColumns,
             joinType,
             outputTable: name,
           })
@@ -153,6 +157,7 @@ export default function Join({ id }: { id: string }) {
     id,
     updateNodeData,
     commonColumn,
+    commonColumns,
     joinType,
     name,
   ])

@@ -1,16 +1,12 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card } from "@/components/ui/card"
 import { useNodesData, useReactFlow } from "@xyflow/react"
 import { useEffect, useState } from "react"
-import OptionsTextArea from "../partials/OptionsTextArea"
 import { Textarea } from "../ui/textarea"
 
 export default function Note({ id }: { id: string }) {
+  const [importedText, setImportedText] = useState<string | undefined>(
+    undefined
+  )
   const [text, setText] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
@@ -19,7 +15,7 @@ export default function Note({ id }: { id: string }) {
   useEffect(() => {
     if (nodeData?.data.imported) {
       if (typeof nodeData.data.text === "string") {
-        setText(nodeData.data.text)
+        setImportedText(nodeData.data.text)
       }
       nodeData.data.imported = false
     }
@@ -40,7 +36,7 @@ export default function Note({ id }: { id: string }) {
       <Card>
         <Textarea
           className="w-96 h-48 text-pink-500 text-md"
-          value={text}
+          value={text ?? importedText}
           onChange={(e) => setText(e.target.value)}
         />
       </Card>

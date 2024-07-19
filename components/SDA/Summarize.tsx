@@ -77,7 +77,6 @@ export default function Summarize({ id }: { id: string }) {
         setSummaries(nodeData.data.summaries)
       }
       if (typeof nodeData.data.decimals === "number") {
-        console.log("coucou", nodeData.data.decimals)
         setDecimals(nodeData.data.decimals)
       }
       if (Array.isArray(nodeData.data.columns)) {

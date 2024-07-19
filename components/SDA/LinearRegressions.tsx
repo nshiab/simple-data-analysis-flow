@@ -154,7 +154,6 @@ export default function LinearRegressions({ id }: { id: string }) {
           />
 
           <>
-            {console.log({ x, y, columns })}
             <OptionsSelect
               label="X"
               items={columns}

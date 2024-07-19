@@ -24,15 +24,13 @@ export default function AddNode({
   const addNode = useCallback(
     (x: number, y: number, type: string) => {
       const newNode = {
-        id: `random${getId()}`,
+        id: `node_${getId()}`,
         position: screenToFlowPosition({
           x,
           y,
         }),
         type,
-        data: {
-          instance: null,
-        },
+        data: {},
         origin: [0.5, 0.0],
       }
       // @ts-expect-error Missing origin in type?
@@ -45,6 +43,9 @@ export default function AddNode({
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent className="w-64">
+        <ContextMenuItem onClick={(e) => addNode(e.clientX, e.clientY, "SDB")}>
+          New SimpleDB
+        </ContextMenuItem>
         <ContextMenuItem onClick={(e) => addNode(e.clientX, e.clientY, "ST")}>
           New SimpleTable
         </ContextMenuItem>

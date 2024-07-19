@@ -49,7 +49,6 @@ export function MenuBar({
     async (example: string) => {
       const res = await fetch(example)
       const flow = await res.json()
-      console.log(flow)
       const nodes = flow.nodes.map((d: Node) => ({
         ...d,
         data: { ...d.data, imported: true },
