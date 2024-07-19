@@ -125,6 +125,11 @@ export default function AddNode({
             >
               Filter
             </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "RemoveDuplicates")}
+            >
+              Remove duplicates
+            </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSub>
