@@ -51,6 +51,35 @@ export default function AddNode({
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuSub>
+          <ContextMenuSubTrigger>Analyzing data</ContextMenuSubTrigger>
+          <ContextMenuSubContent className="w-48">
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Describe")}
+            >
+              Describe
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) =>
+                addNode(e.clientX, e.clientY, "LinearRegressions")
+              }
+            >
+              Linear regression
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) =>
+                addNode(e.clientX, e.clientY, "ProportionsVertical")
+              }
+            >
+              Proportions vertical
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
+            >
+              Summarize
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+        <ContextMenuSub>
           <ContextMenuSubTrigger>Importing data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
@@ -67,6 +96,21 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "LoadFile")}
             >
               Load file
+            </ContextMenuItem>
+          </ContextMenuSubContent>
+        </ContextMenuSub>
+        <ContextMenuSub>
+          <ContextMenuSubTrigger>Geospatial</ContextMenuSubTrigger>
+          <ContextMenuSubContent className="w-48">
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "JoinGeo")}
+            >
+              Join geo
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "Points")}
+            >
+              Points
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -133,46 +177,12 @@ export default function AddNode({
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSub>
-          <ContextMenuSubTrigger>Analyzing data</ContextMenuSubTrigger>
+          <ContextMenuSubTrigger>Updating data</ContextMenuSubTrigger>
           <ContextMenuSubContent className="w-48">
             <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Describe")}
+              onClick={(e) => addNode(e.clientX, e.clientY, "UpdateColumn")}
             >
-              Describe
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) =>
-                addNode(e.clientX, e.clientY, "LinearRegressions")
-              }
-            >
-              Linear regression
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) =>
-                addNode(e.clientX, e.clientY, "ProportionsVertical")
-              }
-            >
-              Proportions vertical
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Summarize")}
-            >
-              Summarize
-            </ContextMenuItem>
-          </ContextMenuSubContent>
-        </ContextMenuSub>
-        <ContextMenuSub>
-          <ContextMenuSubTrigger>Geospatial</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="w-48">
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "JoinGeo")}
-            >
-              Join geo
-            </ContextMenuItem>
-            <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "Points")}
-            >
-              Points
+              Update column
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>

@@ -25,9 +25,7 @@ export default function Join({ id }: { id: string }) {
   const [commonColumn, setCommonColumn] = useState<string | undefined>(
     undefined
   )
-  const [joinType, setJoinType] = useState<
-    "inner" | "left" | "right" | "full" | undefined
-  >(undefined)
+  const [joinType, setJoinType] = useState<string | undefined>(undefined)
 
   const { updateNodeData } = useReactFlow()
 
@@ -114,7 +112,7 @@ export default function Join({ id }: { id: string }) {
           setLoader(true)
           const outputTable = await tableLeft.join(tableRight, {
             commonColumn,
-            type: joinType,
+            type: joinType as "inner" | "left" | "right" | "full",
             outputTable: name,
           })
 

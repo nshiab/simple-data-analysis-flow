@@ -21,9 +21,7 @@ import Source from "../partials/Source"
 export default function FetchData({ id }: { id: string }) {
   const [url, setURL] = useState<string | undefined>(undefined)
   const [autoDetect, setAutoDetect] = useState(true)
-  const [fileType, setFileType] = useState<
-    "csv" | "dsv" | "json" | "parquet" | undefined
-  >(undefined)
+  const [fileType, setFileType] = useState<string | undefined>(undefined)
   const [header, setHeader] = useState(true)
   const [delim, setDelim] = useState<string | undefined>(undefined)
   const [skip, setSkip] = useState<number | undefined>(0)
@@ -46,7 +44,6 @@ export default function FetchData({ id }: { id: string }) {
         setURL(nodeData.data.url)
       }
       if (typeof nodeData.data.fileType === "string") {
-        // @ts-expect-error okay
         setFileType(nodeData.data.fileType)
       }
       if (typeof nodeData.data.autoDetect === "boolean") {
@@ -75,7 +72,7 @@ export default function FetchData({ id }: { id: string }) {
         try {
           setLoader(true)
           await table.fetchData(url, {
-            fileType,
+            fileType: fileType as "csv" | "dsv" | "json" | "parquet",
             autoDetect,
             header,
             delim,
@@ -159,9 +156,7 @@ await ${table.name}.loadData("${url}", {
                 { value: "json", label: "JSON" },
                 { value: "parquet", label: "Parquet" },
               ]}
-              onChange={(e: "csv" | "dsv" | "json" | "parquet") =>
-                setFileType(e)
-              }
+              onChange={(e) => setFileType(e)}
             />
             <OptionsCheckbox
               checked={header}
