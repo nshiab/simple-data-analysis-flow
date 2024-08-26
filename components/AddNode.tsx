@@ -97,6 +97,11 @@ export default function AddNode({
             >
               Load file
             </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "LoadGeoFile")}
+            >
+              Load geo file
+            </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
         <ContextMenuSub>
