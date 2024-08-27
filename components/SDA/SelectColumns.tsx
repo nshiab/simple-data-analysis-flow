@@ -16,8 +16,8 @@ import Source from "../partials/Source"
 import OptionsMultiplesCheckBoxes from "../partials/OptionsMultipleCheckBoxes"
 
 export default function SelectColumns({ id }: { id: string }) {
-  const [selectedColumns, setSelectedColumns] = useState<string[] | undefined>()
   const [columns, setColumns] = useState<{ value: string; label: string }[]>([])
+  const [selectedColumns, setSelectedColumns] = useState<string[] | undefined>()
 
   const { updateNodeData } = useReactFlow()
 
@@ -45,12 +45,13 @@ export default function SelectColumns({ id }: { id: string }) {
   const nodeData = useNodesData(id)
   useEffect(() => {
     if (nodeData?.data.imported) {
-      if (Array.isArray(nodeData.data.selectedColumns)) {
-        setSelectedColumns(nodeData.data.selectedColumns)
-      }
       if (Array.isArray(nodeData.data.columns)) {
         setColumns(nodeData.data.columns)
       }
+      if (Array.isArray(nodeData.data.selectedColumns)) {
+        setSelectedColumns(nodeData.data.selectedColumns)
+      }
+
       nodeData.data.imported = false
     }
   }, [nodeData])
