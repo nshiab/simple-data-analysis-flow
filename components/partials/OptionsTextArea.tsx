@@ -28,6 +28,7 @@ export default function OptionsTextArea({
           <Label>{label}</Label>
           <div className="flex flex-col gap-2 w-full">
             <Textarea
+              className="w-80 h-24"
               ref={ref}
               value={localValue}
               onChange={(e) => setLocalValue(e.target.value)}
