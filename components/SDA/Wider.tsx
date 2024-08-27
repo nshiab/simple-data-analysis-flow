@@ -89,7 +89,7 @@ export default function Wider({ id }: { id: string }) {
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name
-          const code = `const ${originalTableName} = await ${originalTableName}.wider("${columnsFrom}", "${valuesFrom}");`
+          const code = `await ${originalTableName}.wider("${columnsFrom}", "${valuesFrom}");`
           setCode(code)
           updateNodeData(id, {
             instance: clonedTable,
