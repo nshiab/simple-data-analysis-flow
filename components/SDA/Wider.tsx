@@ -75,6 +75,18 @@ export default function Wider({ id }: { id: string }) {
           })
           await clonedTable.wider(columnsFrom, valuesFrom)
 
+          // Wider creates HUGEINT types?
+          const types = await clonedTable.getTypes()
+          if (Object.values(types).includes("HUGEINT")) {
+            const toConvert: Record<string, "number"> = {}
+            for (let key of Object.keys(types)) {
+              if (types[key] === "HUGEINT") {
+                toConvert[key] = "number"
+              }
+            }
+            await clonedTable.convert(toConvert)
+          }
+
           const originalTableName =
             source?.data?.originalTableName ?? table.name
           const code = `const ${originalTableName} = await ${originalTableName}.wider("${columnsFrom}", "${valuesFrom}");`
