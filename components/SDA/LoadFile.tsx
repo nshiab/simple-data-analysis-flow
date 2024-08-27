@@ -81,6 +81,10 @@ export default function LoadFile({ id }: { id: string }) {
 
           const fileExtension = file.name.split(".").at(-1)
 
+          if (await table.sdb.hasTable(table.name)) {
+            await table.sdb.removeTables(table)
+          }
+
           if (
             fileType === "csv" ||
             fileExtension === "csv" ||
