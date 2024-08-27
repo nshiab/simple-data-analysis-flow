@@ -148,11 +148,6 @@ export default function AddNode({
               Rename columns
             </ContextMenuItem>
             <ContextMenuItem
-              onClick={(e) => addNode(e.clientX, e.clientY, "SelectColumns")}
-            >
-              Select columns
-            </ContextMenuItem>
-            <ContextMenuItem
               onClick={(e) => addNode(e.clientX, e.clientY, "Sort")}
             >
               Sort
@@ -178,6 +173,11 @@ export default function AddNode({
               onClick={(e) => addNode(e.clientX, e.clientY, "RemoveDuplicates")}
             >
               Remove duplicates
+            </ContextMenuItem>
+            <ContextMenuItem
+              onClick={(e) => addNode(e.clientX, e.clientY, "SelectColumns")}
+            >
+              Select columns
             </ContextMenuItem>
           </ContextMenuSubContent>
         </ContextMenuSub>
