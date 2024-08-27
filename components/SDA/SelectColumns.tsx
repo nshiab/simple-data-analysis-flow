@@ -73,7 +73,7 @@ export default function SelectColumns({ id }: { id: string }) {
 
           const originalTableName =
             source?.data?.originalTableName ?? table.name
-          const code = `const ${originalTableName} = await ${originalTableName}.selectColumns(${JSON.stringify(selectedColumns)});`
+          const code = `await ${originalTableName}.selectColumns(${JSON.stringify(selectedColumns)});`
           setCode(code)
           updateNodeData(id, {
             instance: clonedTable,
