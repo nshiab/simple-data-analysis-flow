@@ -14,6 +14,7 @@ import {
   useRef,
 } from "react"
 import { Input } from "../ui/input"
+import getNewState from "../helpers/getNewState"
 
 export function MenuBar({
   rfInstance,
@@ -74,9 +75,23 @@ export function MenuBar({
     }
   }, [rfInstance])
 
+  const onNew = useCallback(() => {
+    const newState = getNewState()
+    setNodes(newState.nodes)
+    setEdges(newState.edges)
+    localStorage.removeItem("sda-flow")
+    const bounds = getNodesBounds(newState.nodes)
+    rfInstance?.fitBounds(bounds, { padding: 0 })
+  }, [setNodes, setEdges, rfInstance])
+
   return (
     <div className="z-10">
       <Menubar className="absolute w-fit m-2">
+        <MenubarMenu>
+          <MenubarTrigger className="cursor-pointer" onClick={() => onNew()}>
+            New
+          </MenubarTrigger>
+        </MenubarMenu>
         <MenubarMenu>
           <MenubarTrigger
             onClick={() => ref.current?.click()}

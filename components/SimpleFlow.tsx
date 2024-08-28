@@ -22,6 +22,8 @@ import { initialNodes, initialEdges } from "./initialState"
 import nodeTypes from "./nodeTypes"
 import { MenuBar } from "./partials/MenuBar"
 
+let previousSave = Date.now()
+
 export default function SimpleFlow() {
   const [rfInstance, setRfInstance] = useState<ReactFlowInstance>()
 
@@ -64,6 +66,17 @@ export default function SimpleFlow() {
       }),
     [setEdges]
   )
+  useEffect(() => {
+    if (rfInstance) {
+      const now = Date.now()
+      if (now - previousSave > 500) {
+        const flow = rfInstance.toObject()
+        const string = JSON.stringify(flow)
+        localStorage.setItem("sda-flow", string)
+        previousSave = now
+      }
+    }
+  }, [nodes, rfInstance])
 
   return (
     height !== "0" && (
