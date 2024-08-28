@@ -4,7 +4,10 @@ import { Edge, Node } from "@xyflow/react"
 let initialNodes: Node[] = []
 let initialEdges: Edge[] = []
 
-let recoveredFlow = localStorage.getItem("sda-flow")
+let recoveredFlow = null
+if (typeof window !== "undefined") {
+  recoveredFlow = window.localStorage.getItem("sda-flow")
+}
 
 if (recoveredFlow) {
   const flow = JSON.parse(recoveredFlow)
