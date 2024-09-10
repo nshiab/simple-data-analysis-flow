@@ -1,7 +1,6 @@
 {
   "name": "simple-data-analysis-flow",
-  "version": "0.2.0",
-  "private": true,
+  "version": "0.3.0",
   "scripts": {
     "dev": "next dev",
     "build": "npm run format && rm -rf docs 2>/dev/null || true && next build && cp -R out docs && touch docs/.nojekyll",
