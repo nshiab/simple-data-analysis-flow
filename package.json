@@ -11,7 +11,7 @@
     "format": "prettier --ignore-path .prettierignore --write ."
   },
   "dependencies": {
-    "@duckdb/duckdb-wasm": "^1.28.1-dev99.0",
+    "@duckdb/duckdb-wasm": "^1.28.1-dev258.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-context-menu": "^2.2.1",
