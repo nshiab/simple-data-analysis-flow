@@ -16,8 +16,8 @@ export default function SDB({ id }: { id: string }) {
     async function start() {
       setLoader(true)
       const sdb = await new SimpleWebDB().start()
-      await sdb.customQuery(`ATTACH DATABASE '${id}' as mydb;
-use mydb;`)
+      //       await sdb.customQuery(`ATTACH DATABASE '${id}' as mydb;
+      // use mydb;`)
       const code = `// For front-end projects, switch to SimpleWebDB
 import { SimpleDB } from "simple-data-analysis";
 
